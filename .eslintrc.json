@@ -1,15 +1,12 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "prettier",
-    "import",
-    "@typescript-eslint"
-  ],
+  "plugins": ["prettier", "import", "@typescript-eslint", "jest"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -18,7 +15,8 @@
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "rules": {
     "no-debugger": "off",
@@ -26,10 +24,7 @@
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "error",
-    "max-lines-per-function": [
-      "error",
-      40
-    ],
+    "max-lines-per-function": ["error", 40],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-var-requires": 0
   }

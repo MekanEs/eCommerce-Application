@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
@@ -23,7 +22,8 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write .",
     "lint": "eslint src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "jest": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -44,16 +44,26 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-typescript": "^7.22.5",
+    "@jest/globals": "^29.6.2",
+    "@types/jest": "^29.5.3",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
+    "babel-jest": "^29.6.2",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-jest": "^27.2.3",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^4.0.1",
+    "husky": "^8.0.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.6.2",
     "prettier": "3.0.0",
-    "husky": "^8.0.0"
+    "ts-jest": "^29.1.1"
   }
 }
