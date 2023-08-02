@@ -50,6 +50,34 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+### `npm run lint`
+
+This script uses the ESLint tool to check the project's source code against certain rules and coding styles. ESLint is a static code analysis tool that helps you identify potential bugs, style inconsistencies, and other issues in your code.
+
+ESLint uses configuration files (eg .eslintrc.json) that define the rules your code should follow. When you call the "npm run lint" command, ESLint goes through the project's source code, includes its instructions, and prints error and output messages to the console.
+
+See the section [ESLint docs](https://eslint.org/docs/latest/) for more information.
+
+### `npm run prettier`
+
+This script uses the Prettier tool to automatically format your project's source code. Prettier is a tool to automatically style your code to make your code more readable and consistent.
+
+Prettier automatically analyzes your code and reformats it according to the established rules. This can display automatic indentation, quoting, ordering of imports, and more. Prettier has a set of customizable options that allow you to adapt to your coding style.
+
+See the section [Prettier docs](https://prettier.io/docs/en/) for more information.
+
+### `npm run prepare`
+
+This script creates and configures Husky, a popular tool for working with Git hooks in a future project. Husky provides the ability to automatically fire an action before commits or other Git operations.
+
+Husky allows you to set Git hooks that will be automatically executed on certain Git events. In particular, "husky install" installs Git hooks that allow you to perform pre-checks before commits or other operations such as checking code formatting or running tests.
+
+Running the "npm run prepare" command at the root of the project installs Husky and sets up the necessary Git hooks so that they are automatically executed on certain Git events.
+
+Using Husky allows you to automate the process of reviewing and preparing your code for commits, which helps you maintain high quality standards in your project and avoid potential problems during development.
+
+See the section [Husky docs](https://typicode.github.io/husky/) for more information.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
