@@ -13,6 +13,30 @@ It is an online-shop SPA
 
 ### Mentor of the group is [Nastassia Ananka](https://github.com/anast-ananko)
 
+------------------
+## Getting Started
+
+#### Prerequisites
+
+Before you begin, please make sure you have the following installed on your system:
+
+- Node.js: https://nodejs.org/
+- npm (Node Package Manager): It comes with Node.js.
+
+#### Installation
+
+1. Clone the repository from GitHub:
+
+> **`git clone https://github.com/MekanEs/eCommerce-Application.git`**
+
+2. Navigate to the project directory:
+
+> **`cd eCommerce-Application`**
+
+3. Install all the project dependencies using npm:
+
+> **`npm install`**
+
 ## Available Scripts
 
 In the project directory, you can run:
