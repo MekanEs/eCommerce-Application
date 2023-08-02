@@ -13,6 +13,30 @@ It is an online-shop SPA
 
 ### Mentor of the group is [Nastassia Ananka](https://github.com/anast-ananko)
 
+------------------
+## Getting Started
+
+#### Prerequisites
+
+Before you begin, please make sure you have the following installed on your system:
+
+- Node.js: https://nodejs.org/
+- npm (Node Package Manager): It comes with Node.js.
+
+#### Installation
+
+1. Clone the repository from GitHub:
+
+> **`git clone https://github.com/MekanEs/eCommerce-Application.git`**
+
+2. Navigate to the project directory:
+
+> **`cd eCommerce-Application`**
+
+3. Install all the project dependencies using npm:
+
+> **`npm install`**
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -49,6 +73,34 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+### `npm run lint`
+
+This script uses the ESLint tool to check the project's source code against certain rules and coding styles. ESLint is a static code analysis tool that helps you identify potential bugs, style inconsistencies, and other issues in your code.
+
+ESLint uses configuration files (eg .eslintrc.json) that define the rules your code should follow. When you call the "npm run lint" command, ESLint goes through the project's source code, includes its instructions, and prints error and output messages to the console.
+
+See the section [ESLint docs](https://eslint.org/docs/latest/) for more information.
+
+### `npm run prettier`
+
+This script uses the Prettier tool to automatically format your project's source code. Prettier is a tool to automatically style your code to make your code more readable and consistent.
+
+Prettier automatically analyzes your code and reformats it according to the established rules. This can display automatic indentation, quoting, ordering of imports, and more. Prettier has a set of customizable options that allow you to adapt to your coding style.
+
+See the section [Prettier docs](https://prettier.io/docs/en/) for more information.
+
+### `npm run prepare`
+
+This script creates and configures Husky, a popular tool for working with Git hooks in a future project. Husky provides the ability to automatically fire an action before commits or other Git operations.
+
+Husky allows you to set Git hooks that will be automatically executed on certain Git events. In particular, "husky install" installs Git hooks that allow you to perform pre-checks before commits or other operations such as checking code formatting or running tests.
+
+Running the "npm run prepare" command at the root of the project installs Husky and sets up the necessary Git hooks so that they are automatically executed on certain Git events.
+
+Using Husky allows you to automate the process of reviewing and preparing your code for commits, which helps you maintain high quality standards in your project and avoid potential problems during development.
+
+See the section [Husky docs](https://typicode.github.io/husky/) for more information.
 
 ## Learn More
 
