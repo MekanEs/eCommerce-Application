@@ -103,6 +103,12 @@ Prettier automatically analyzes your code and reformats it according to the esta
 
 See the section [Prettier docs](https://prettier.io/docs/en/) for more information.
 
+### `npm run jest`
+
+This script uses the Prettier tool as the testing framework for the project, enabling comprehensive testing of code functionality. Jest is a JavaScript testing framework designed to ensure correctness of any JavaScript codebase. It works with projects using: Babel, TypeScript, Node, React, Angular, Vue and more!
+
+See the section [Jest docs](https://jestjs.io/docs/getting-started/) for more information.
+
 ### `npm run prepare`
 
 This script creates and configures Husky, a popular tool for working with Git hooks in a future project. Husky provides the ability to automatically fire an action before commits or other Git operations.
