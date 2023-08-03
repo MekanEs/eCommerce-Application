@@ -7,9 +7,9 @@ It is an online-shop called VEROS, that provides a wide range of bicycles.
 
 This online shop is built using the following technologies:
 
-- React: A popular JavaScript library for building user interfaces.
-- TypeScript: A typed superset of JavaScript that enhances reliability and scalability.
-- Redux Toolkit: set of tools that helps simplify Redux development.Includes utilities for creating and managing stores.
+- [React](https://react.dev/): A popular JavaScript library for building user interfaces.
+- [TypeScript](https://www.typescriptlang.org/docs/): A typed superset of JavaScript that enhances reliability and scalability.
+- [Redux Toolkit](https://redux-toolkit.js.org/): Set of tools that helps simplify Redux development. Includes utilities for creating and managing stores.
 
 ### Maintainers are :
 
