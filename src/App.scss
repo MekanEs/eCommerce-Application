@@ -13,9 +13,9 @@
   }
 }
 
-.App-header {
+.App-header,
+.App-footer {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,18 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.nav {
+  display: flex;
+  list-style: none;
+  padding: 10px;
+  margin: 5px;
+  a {
+    text-decoration: none;
+  }
+}
+.active {
+  color: red;
+}
 .App-link {
   color: #61dafb;
 }
