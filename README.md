@@ -1,7 +1,15 @@
 # eCommerce-Application
 
 This project is Rolling Scopes School final task.
-It is an online-shop SPA
+It is an online-shop called VEROS, that provides a wide range of bicycles.
+
+## Tech Stack
+
+This online shop is built using the following technologies:
+
+- [React](https://react.dev/): A popular JavaScript library for building user interfaces.
+- [TypeScript](https://www.typescriptlang.org/docs/): A typed superset of JavaScript that enhances reliability and scalability.
+- [Redux Toolkit](https://redux-toolkit.js.org/): Set of tools that helps simplify Redux development. Includes utilities for creating and managing stores.
 
 ### Maintainers are :
 
