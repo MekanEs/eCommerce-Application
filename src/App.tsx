@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './App.module.scss';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { About, Login, Main, PageNotFound, Registartion } from './pages';
-import { Footer, Header } from './Components';
+import { Footer, Header } from './components';
 
 const App: React.FC = () => {
   return (
