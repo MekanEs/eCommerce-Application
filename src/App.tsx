@@ -1,27 +1,23 @@
 import React from 'react';
+import { Outlet, RouterProvider } from 'react-router-dom';
 import styles from './App.module.scss';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { About, Login, Main, PageNotFound, Registartion } from './pages';
 import { Footer, Header } from './components';
+import { router } from './components/routing/routes';
+
+export const Layout: React.FC = () => {
+  return (
+    <div className={styles.App}>
+      <Header />
+      <div className={styles.container}>
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
 const App: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <div className={styles.App}>
-        <Header />
-        <div className={styles.container}>
-          <Routes>
-            <Route index path="/" element={<Main />} />
-            <Route path="about" element={<About />} />
-            <Route path="registration" element={<Registartion />} />
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
