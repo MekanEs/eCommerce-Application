@@ -1,24 +1,20 @@
+import React from 'react';
 import {
   Route,
-  RouteObject,
-  Routes,
   createBrowserRouter,
+  createRoutesFromElements,
 } from 'react-router-dom';
 import { About, Login, Main, PageNotFound, Registartion } from '../../pages';
-import { Layout } from '../../App';
+import { Layout } from '../index';
 
-const Root: React.FC = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Main />} />
-        <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
-        <Route path="registration" element={<Registartion />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Route>
-    </Routes>
-  );
-};
-const routes: RouteObject[] = [{ path: '*', Component: Root }];
-export const router = createBrowserRouter(routes);
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Main />} />
+      <Route path="about" element={<About />} />
+      <Route path="login" element={<Login />} />
+      <Route path="registration" element={<Registartion />} />
+      <Route path="*" element={<PageNotFound />} />
+    </Route>,
+  ),
+);
