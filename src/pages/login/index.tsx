@@ -1,8 +1,9 @@
 import React from 'react';
 import womanImg from '../../assets/img/png/woman-login.png';
 import Input from '../../components/input';
-import styles from './login.module.scss';
 import Button from '../../components/button';
+import { Link } from 'react-router-dom';
+import styles from './login.module.scss';
 
 const Login: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Login: React.FC = () => {
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
       <div className={styles['registration-link']}>
         <p>Don't have an account? </p>
-        <a href="">Register</a>
+        <Link to="/registration">Register</Link>
       </div>
       <div className={styles['form-container']}>
         <div className={styles['image-container']}>
