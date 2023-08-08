@@ -1,5 +1,5 @@
-import Header from './header/Header';
-import Footer from './footer/Footer';
-import Layout from './layout/layout';
-import { router } from './routing/routes';
+import Header from './header';
+import Footer from './footer';
+import Layout from './layout';
+import { router } from './routing';
 export { Header, Footer, Layout, router };
