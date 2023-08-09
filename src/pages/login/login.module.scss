@@ -22,6 +22,15 @@
   margin-left: 10px;
   color: #2a76f7;
   font-weight: 500;
+  text-decoration: underline;
+}
+
+.registration-link a:hover {
+  color: #2F4DBC;
+}
+
+.registration-link a:active {
+  color: #1F337E;
 }
 
 .form-container {
@@ -55,4 +64,8 @@
 
 .image-container img {
   margin-top: 70px;
+}
+
+.login-form > :not(:last-child) {
+  margin-bottom: 25px;
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import womanImg from '../../assets/img/png/woman-login.png';
-import Input from '../../components/input';
+import DefaultInput from '../../components/inputs/defaultInput';
 import Button from '../../components/button';
 import { Link } from 'react-router-dom';
 import styles from './login.module.scss';
+import PasswordInput from '../../components/inputs/passwordInput';
 
 const Login: React.FC = () => {
   return (
@@ -18,20 +19,14 @@ const Login: React.FC = () => {
           <img className={styles.image} src={womanImg} alt="Woman" />
         </div>
         <form className={styles['login-form']}>
-          <Input
+          <DefaultInput
             label="Email"
             type="text"
             id="login"
             name="login"
             placeholder="user@example.com"
           />
-          <Input
-            label="Password"
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-          />
+          <PasswordInput />
           <Button
             label={'log in'}
             type="submit"
