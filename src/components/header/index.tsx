@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Header.module.scss';
+import styles from './header.module.scss';
 import { isActive } from '../../utils';
 import { NavLink } from 'react-router-dom';
 

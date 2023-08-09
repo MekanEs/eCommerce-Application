@@ -1,6 +1,6 @@
-import Main from './Main/Main';
-import About from './About/About';
-import Login from './Login/Login';
-import Registartion from './Registration/Reagistration';
-import PageNotFound from './404_NotFound/PageNotFound';
+import Main from './main';
+import About from './about';
+import Login from './login';
+import Registartion from './registration';
+import PageNotFound from './404_notFound';
 export { Main, About, Login, Registartion, PageNotFound };
