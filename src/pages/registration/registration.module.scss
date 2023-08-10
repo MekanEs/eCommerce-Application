@@ -1,8 +1,12 @@
+form {
+  padding: 5px 50px 30px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 1215px;
   margin: 0 auto;
 }
 
@@ -43,4 +47,31 @@
   width: 100%;
   overflow: hidden;
   z-index: 2;
+}
+
+.registration-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.form-title {
+  color: #7F7F7F;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  text-align: left;
+}
+
+.house-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.house-number,
+.apartment {
+  width: 149px;
 }

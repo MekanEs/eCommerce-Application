@@ -2,7 +2,7 @@ import React from 'react';
 import { InputProps } from '../../../utils/helpers/interface';
 import styles from './textInput.module.scss';
 
-const TextInput: React.FC<InputProps> = ({
+const DateInput: React.FC<InputProps> = ({
   label: label,
   type: type,
   id: id,
@@ -10,7 +10,6 @@ const TextInput: React.FC<InputProps> = ({
   hookData: hookData,
   errorMessage: errorMessage,
   isValid: isValid,
-  className: className,
 }): JSX.Element => {
   return (
     <div className={styles.field}>
@@ -22,7 +21,7 @@ const TextInput: React.FC<InputProps> = ({
         id={id}
         placeholder={placeholder}
         {...hookData}
-        className={getInputClasses(isValid) + ' ' + className}
+        className={getInputClasses(isValid)}
       />
       {errorMessage && <div className={styles.errors}>{errorMessage}</div>}
     </div>
@@ -49,4 +48,4 @@ function getInputClasses(isValid: boolean | undefined): string {
   }
 }
 
-export default TextInput;
+export default DateInput;

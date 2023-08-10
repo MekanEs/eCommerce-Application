@@ -1,13 +1,41 @@
 import React from 'react';
 import styles from './registration.module.scss';
 import { Link } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { FormFields } from '../../utils/helpers/interface';
+import {
+  FieldErrors,
+  SubmitHandler,
+  UseFormRegister,
+  useForm,
+} from 'react-hook-form';
+import { FormFields, DirtyFields } from '../../utils/helpers/interface';
+import {
+  createEmailInput,
+  createPasswordInput,
+  createFirstNameInput,
+  createLastNameInput,
+  createDateOfBirthInput,
+  createBillingCityInput,
+  createBillingCountryInput,
+  createBillingStreetInput,
+  createBillingHouseNumberInput,
+  createBillingApartmentInput,
+  createBillingPostcodeInput,
+  createShippingCountryInput,
+  createShippingCityInput,
+  createShippingStreetInput,
+  createShippingHouseNumberInput,
+  createShippingApartmentInput,
+  createShippingPostcodeInput,
+} from '../../utils/helpers/functions';
 
 const Registartion: React.FC = (): JSX.Element => {
-  const { handleSubmit, reset } = useForm<FormFields>({ mode: 'onChange' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields },
+    reset,
+  } = useForm<FormFields>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<FormFields> = () => reset();
-
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
@@ -17,12 +45,93 @@ const Registartion: React.FC = (): JSX.Element => {
       </div>
       <div className={styles['form-container']}>
         <form
-          className={styles['login-form']}
+          className={styles['registration-form']}
           onSubmit={handleSubmit(onSubmit)}
-        ></form>
+        >
+          {createGeneralInfoColumn(errors, dirtyFields, register)}
+          {createBillingAddressColumn(errors, dirtyFields, register)}
+          {createShippingAddressColumn(errors, dirtyFields, register)}
+        </form>
       </div>
     </div>
   );
 };
+
+function createGeneralInfoColumn(
+  errors: FieldErrors<FormFields>,
+  dirtyFields: Partial<Readonly<DirtyFields>>,
+  register: UseFormRegister<FormFields>,
+): JSX.Element {
+  return (
+    <div>
+      <h5 className={styles['form-title']}>General</h5>
+      {createEmailInput(errors, dirtyFields, register)}
+      {createPasswordInput(errors, dirtyFields, register)}
+      {createFirstNameInput(errors, dirtyFields, register)}
+      {createLastNameInput(errors, dirtyFields, register)}
+      {createDateOfBirthInput(errors, dirtyFields, register)}
+    </div>
+  );
+}
+
+function createBillingAddressColumn(
+  errors: FieldErrors<FormFields>,
+  dirtyFields: Partial<Readonly<DirtyFields>>,
+  register: UseFormRegister<FormFields>,
+): JSX.Element {
+  return (
+    <div>
+      <h5 className={styles['form-title']}>Billing address</h5>
+      {createBillingCountryInput(errors, dirtyFields, register)}
+      {createBillingCityInput(errors, dirtyFields, register)}
+      {createBillingStreetInput(errors, dirtyFields, register)}
+      <div className={styles['house-info']}>
+        {createBillingHouseNumberInput(
+          errors,
+          dirtyFields,
+          register,
+          styles['house-number'],
+        )}
+        {createBillingApartmentInput(
+          errors,
+          dirtyFields,
+          register,
+          styles['apartment'],
+        )}
+      </div>
+      {createBillingPostcodeInput(errors, dirtyFields, register)}
+    </div>
+  );
+}
+
+function createShippingAddressColumn(
+  errors: FieldErrors<FormFields>,
+  dirtyFields: Partial<Readonly<DirtyFields>>,
+  register: UseFormRegister<FormFields>,
+): JSX.Element {
+  return (
+    <div>
+      <h5 className={styles['form-title']}>Shipping address</h5>
+      {createShippingCountryInput(errors, dirtyFields, register)}
+      {createShippingCityInput(errors, dirtyFields, register)}
+      {createShippingStreetInput(errors, dirtyFields, register)}
+      <div className={styles['house-info']}>
+        {createShippingHouseNumberInput(
+          errors,
+          dirtyFields,
+          register,
+          styles['house-number'],
+        )}
+        {createShippingApartmentInput(
+          errors,
+          dirtyFields,
+          register,
+          styles['apartment'],
+        )}
+      </div>
+      {createShippingPostcodeInput(errors, dirtyFields, register)}
+    </div>
+  );
+}
 
 export default Registartion;

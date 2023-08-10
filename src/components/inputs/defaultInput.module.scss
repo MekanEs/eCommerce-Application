@@ -103,3 +103,17 @@ input:-webkit-autofill:active {
 .error-label {
   color: #fb3e3e;
 }
+
+input[type="date"] {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  
+  &::-webkit-calendar-picker-indicator {
+    background: url('../../assets/img/svg/calendar.svg') no-repeat;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+}
