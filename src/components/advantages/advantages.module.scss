@@ -1,0 +1,21 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.textContent {
+  h2 {
+    @include header(46px);
+    text-align: center;
+  }
+  p {
+    @include text_transparent(16px);
+    max-width: 732px;
+    text-align: center;
+  }
+}
+.carts_container {
+  display: flex;
+}

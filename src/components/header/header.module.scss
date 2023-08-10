@@ -1,23 +1,51 @@
-.header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@import '../../index.scss';
+
+.container {
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-a {
-  text-decoration: none;
-  color: #000000;
-}
-.nav {
-  display: flex;
-  list-style: none;
-  padding: 10px;
-  margin: 5px;
+  margin: 25px 0 0 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: $border;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.auth {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  color: #706c68;
+  button {
+    cursor: pointer;
+    padding: 9px 19px;
+    border: 1px solid #91979d;
+    border-radius: 3px;
+    background-color: inherit;
+    color: #706c68;
+  }
+  button:hover {
+    background-color: #2f4dbc;
+    color: #ffffff;
+  }
+}
 .activeLink {
-  color: red;
+  display: block;
+  button {
+    background-color: #3e66fb;
+    color: #ffffff;
+    border: none;
+  }
+
+  button:active {
+    background-color: #1f337e;
+  }
+}
+.link {
+  display: block;
 }

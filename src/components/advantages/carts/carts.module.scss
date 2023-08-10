@@ -1,0 +1,14 @@
+@import '../../../scss/allVariables.scss';
+
+.cart {
+  display: flex;
+}
+.textContent {
+  h5 {
+    @include text_def(20px);
+    font-weight: 700;
+  }
+  p {
+    @include text_def(16px);
+  }
+}

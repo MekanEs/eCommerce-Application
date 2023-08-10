@@ -1,0 +1,23 @@
+@import '../../index.scss';
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+
+  border: $border;
+  padding-top: 30px;
+  background: url('../../assets/banner_bg_circle.svg') no-repeat;
+  background-position: 100% 101%;
+  h2 {
+    @include header(88px);
+    color: #323032;
+    text-align: start;
+    letter-spacing: 3px;
+    margin-left: 32px;
+  }
+  img {
+    margin-top: -80px;
+  }
+}

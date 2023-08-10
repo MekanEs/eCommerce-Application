@@ -1,0 +1,12 @@
+.nav {
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  margin: 38px 0 10px 0;
+  column-gap: 46px;
+  width: fit-content;
+  color: #323232;
+  a:hover {
+    color: #000000;
+  }
+}

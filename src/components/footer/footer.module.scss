@@ -1,9 +1,30 @@
-.footer {
-  background-color: #282c34;
+@import '../../scss/allVariables.scss';
+
+footer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-top: 1px solid #cfcfcf;
+  background: #f4f4f4;
+  padding: 25px 30px;
+}
+
+.rss_logo {
+  width: 86px;
+}
+
+.year {
+  @include text;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+}
+
+.gh_container {
+  display: flex;
+  column-gap: 30px;
+}
+
+.gh_logo {
+  width: 40px;
 }
