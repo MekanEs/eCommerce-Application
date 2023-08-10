@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  margin: 50px 0px 0px;
+  font-size: 46px;
+  text-transform: uppercase;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.login-link a {
+  margin-left: 10px;
+  color: #2a76f7;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.login-link a:hover {
+  color: #2f4dbc;
+}
+
+.login-link a:active {
+  color: #1f337e;
+}
+
+.form-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  outline: 1px solid #cfcfcf;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2;
+}
