@@ -5,6 +5,7 @@ export interface InputProps {
   placeholder: string;
   hookData: object;
   errorMessage?: string;
+  warningMessage?: string | boolean;
   isValid?: boolean;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

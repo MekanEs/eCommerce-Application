@@ -92,6 +92,14 @@ input:-webkit-autofill:active {
   margin-top: 10px;
 }
 
+.warning {
+  width: 320px;
+  color: #f67f00;
+  font-size: 12px;
+  margin-bottom: -10px;
+  margin-top: 10px;
+}
+
 .error-input {
   outline: 1px solid #fb3e3e;
 }

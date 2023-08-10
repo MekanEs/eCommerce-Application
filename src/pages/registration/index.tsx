@@ -39,6 +39,8 @@ const Registartion: React.FC = (): JSX.Element => {
     reset,
   } = useForm<FormFields>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<FormFields> = () => reset();
+  const [warningMessage, setWarningMessage] = useState('');
+
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
@@ -51,7 +53,13 @@ const Registartion: React.FC = (): JSX.Element => {
           className={styles['registration-form']}
           onSubmit={handleSubmit(onSubmit)}
         >
-          {createGeneralInfoColumn(errors, dirtyFields, register)}
+          {createGeneralInfoColumn(
+            errors,
+            dirtyFields,
+            register,
+            warningMessage,
+            setWarningMessage,
+          )}
           {createBillingAddressColumn(errors, dirtyFields, register)}
           {createShippingAddressColumn(errors, dirtyFields, register)}
         </form>
@@ -64,12 +72,20 @@ function createGeneralInfoColumn(
   errors: FieldErrors<FormFields>,
   dirtyFields: Partial<Readonly<DirtyFields>>,
   register: UseFormRegister<FormFields>,
+  warningMessage: string,
+  setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
   return (
     <div>
       <h5 className={styles['form-title']}>General</h5>
       {createEmailInput(errors, dirtyFields, register)}
-      {createPasswordInput(errors, dirtyFields, register)}
+      {createPasswordInput(
+        errors,
+        dirtyFields,
+        register,
+        warningMessage,
+        setWarningMessage,
+      )}
       {createFirstNameInput(errors, dirtyFields, register)}
       {createLastNameInput(errors, dirtyFields, register)}
       {createDateOfBirthInput(errors, dirtyFields, register)}

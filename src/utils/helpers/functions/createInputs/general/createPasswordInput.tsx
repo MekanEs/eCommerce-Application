@@ -3,11 +3,17 @@ import { DirtyFields, FormFields } from '../../../interface';
 import { PasswordInput } from '../../../../../components/inputs';
 import validatePassword from '../../validate/validatePassword';
 
+const WARINING_REGEXP = /(?=.*[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~])/;
+
 export default function createPasswordInput(
   errors: FieldErrors<FormFields>,
   dirtyFields: Partial<Readonly<DirtyFields>>,
   register: UseFormRegister<FormFields>,
+  warningMessage: string,
+  setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
+  const errorMessage: string | undefined = errors && errors.password?.message;
+
   return (
     <PasswordInput
       label="Password"
@@ -16,10 +22,24 @@ export default function createPasswordInput(
       hookData={register('password', {
         required: 'The field is required',
         minLength: { value: 8, message: 'Min length 8 characters' },
-        validate: validatePassword,
+        validate: {
+          errors: validatePassword,
+          warning: (value) => {
+            if (value && !WARINING_REGEXP.test(value)) {
+              setWarningMessage(
+                'Weak password. Add special characters(e. g. $!*)',
+              );
+            } else {
+              setWarningMessage('');
+            }
+
+            return true;
+          },
+        },
       })}
-      errorMessage={errors && errors.password && errors.password?.message}
-      isValid={!errors.password && dirtyFields?.password}
+      errorMessage={errorMessage}
+      warningMessage={!errorMessage && warningMessage}
+      isValid={!errorMessage && dirtyFields?.password}
     />
   );
 }

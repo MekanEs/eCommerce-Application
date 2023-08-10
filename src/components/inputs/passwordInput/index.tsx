@@ -11,6 +11,7 @@ const PasswordInput: React.FC<InputProps> = ({
   hookData: hookData,
   errorMessage: errorMessage,
   isValid: isValid,
+  warningMessage: warningMessage,
 }): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,6 +29,7 @@ const PasswordInput: React.FC<InputProps> = ({
         className={getInputClasses(isValid)}
       />
       {errorMessage && <div className={styles.errors}>{errorMessage}</div>}
+      {warningMessage && <div className={styles.warning}>{warningMessage}</div>}
       <div
         className={styles['password-toggle-icon']}
         onClick={(): void => setShowPassword(!showPassword)}
