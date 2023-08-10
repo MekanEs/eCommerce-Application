@@ -1,10 +1,10 @@
 import React from 'react';
+
 import AdvantegeCart from './carts';
 import styles from './advantages.module.scss';
 import cartImage1 from '../../assets/advantages-1.svg';
 import cartImage2 from '../../assets/advantages-2.svg';
 import cartImage3 from '../../assets/advantages-3.svg';
-import { NavLink } from 'react-router-dom';
 
 const Advantages: React.FC = () => {
   return (
@@ -35,9 +35,6 @@ const Advantages: React.FC = () => {
           level, each operation is carried out very carefully and efficiently.
         </AdvantegeCart>
       </div>
-      <button>
-        <NavLink to="catalog">go to catalog</NavLink>
-      </button>
     </div>
   );
 };

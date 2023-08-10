@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from './404_notFound.module.scss';
 import image from '../../assets/404-image.png';
+import GoToCatalog from '../../components/goToCatalog';
 
 const PageNotFound: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const PageNotFound: React.FC = () => {
         <span>ooops!</span>
         <span>There are no bicicles here :(</span>
       </div>
-      <button>go to catalog</button>
+      <GoToCatalog />
     </div>
   );
 };

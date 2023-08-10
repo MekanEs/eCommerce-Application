@@ -2,10 +2,13 @@
 
 .container {
   justify-content: center;
-  margin: 25px 0 0 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1216px;
 }
 
 .header {
+  margin: 25px 0 0 0;
   display: flex;
   justify-content: space-between;
   border-bottom: $border;
@@ -35,11 +38,14 @@ a {
   }
 }
 .activeLink {
-  display: block;
   button {
     background-color: #3e66fb;
     color: #ffffff;
     border: none;
+  }
+  button:hover {
+    background-color: #2f4dbc;
+    color: #ffffff;
   }
 
   button:active {

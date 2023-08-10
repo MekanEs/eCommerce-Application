@@ -1,0 +1,12 @@
+@import '../../scss/allVariables.scss';
+
+.catalogBtn {
+  margin: 45px 0 120px 0;
+  @include text;
+  padding: 10px 110px;
+  color: #ffffff;
+  background: linear-gradient(#3b8ff5, #2e61e5);
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+}
