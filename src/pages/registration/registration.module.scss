@@ -1,5 +1,5 @@
 form {
-  padding: 5px 50px 30px;
+  padding: 0px 50px 0px;
 }
 
 .container {
@@ -74,4 +74,11 @@ form {
 .house-number,
 .apartment {
   width: 149px;
+}
+
+.billing-column {
+  padding: 0px 35px 25px;
+  height: 100%;
+  border-left: 1px solid #CFCFCF;
+  border-right: 1px solid #CFCFCF;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './registration.module.scss';
 import { Link } from 'react-router-dom';
 import {
@@ -26,6 +26,9 @@ import {
   createShippingHouseNumberInput,
   createShippingApartmentInput,
   createShippingPostcodeInput,
+  createDefaultBilling,
+  createDefaultShipping,
+  createSameAddress,
 } from '../../utils/helpers/functions';
 
 const Registartion: React.FC = (): JSX.Element => {
@@ -79,8 +82,17 @@ function createBillingAddressColumn(
   dirtyFields: Partial<Readonly<DirtyFields>>,
   register: UseFormRegister<FormFields>,
 ): JSX.Element {
+  const [checked, setChecked] = useState(false);
+  const onChange = (): void => {
+    setChecked(!checked);
+  };
+  const [checkedSame, setCheckedSame] = useState(false);
+  const onChangeSame = (): void => {
+    setCheckedSame(!checkedSame);
+  };
+
   return (
-    <div>
+    <div className={styles['billing-column']}>
       <h5 className={styles['form-title']}>Billing address</h5>
       {createBillingCountryInput(errors, dirtyFields, register)}
       {createBillingCityInput(errors, dirtyFields, register)}
@@ -100,6 +112,8 @@ function createBillingAddressColumn(
         )}
       </div>
       {createBillingPostcodeInput(errors, dirtyFields, register)}
+      {createDefaultBilling(checked, onChange)}
+      {createSameAddress(checkedSame, onChangeSame)}
     </div>
   );
 }
@@ -109,6 +123,11 @@ function createShippingAddressColumn(
   dirtyFields: Partial<Readonly<DirtyFields>>,
   register: UseFormRegister<FormFields>,
 ): JSX.Element {
+  const [checked, setChecked] = useState(false);
+  const onChange = (): void => {
+    setChecked(!checked);
+  };
+
   return (
     <div>
       <h5 className={styles['form-title']}>Shipping address</h5>
@@ -130,6 +149,7 @@ function createShippingAddressColumn(
         )}
       </div>
       {createShippingPostcodeInput(errors, dirtyFields, register)}
+      {createDefaultShipping(checked, onChange)}
     </div>
   );
 }

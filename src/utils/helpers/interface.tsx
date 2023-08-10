@@ -56,3 +56,12 @@ export interface DirtyFields {
   shippingPostcode?: boolean | undefined;
   billingPostcode?: boolean | undefined;
 }
+
+export interface CheckboxProps {
+  id: string;
+  label: string;
+  value?: boolean;
+  onChange:
+    | ((event: React.ChangeEvent<HTMLInputElement>) => void)
+    | (() => void);
+}
