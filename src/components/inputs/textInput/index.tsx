@@ -1,43 +1,29 @@
-import React, { useState } from 'react';
-import eyeHide from '../../../assets/img/svg/eye-hide.svg';
-import eyeShow from '../../../assets/img/svg/eye-show.svg';
-import styles from './passwordInput.module.scss';
+import React from 'react';
 import { InputProps } from '../../../utils/helpers/interface';
+import styles from './textInput.module.scss';
 
-const PasswordInput: React.FC<InputProps> = ({
+const TextInput: React.FC<InputProps> = ({
   label: label,
+  type: type,
   id: id,
   placeholder: placeholder,
   hookData: hookData,
   errorMessage: errorMessage,
   isValid: isValid,
 }): JSX.Element => {
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
-    <div className={styles['password-input']}>
+    <div className={styles.field}>
       <label className={getLabelClasses(isValid)} htmlFor={id}>
         {label}
       </label>
       <input
-        type={showPassword ? 'text' : 'password'}
+        type={type}
         id={id}
-        name={id}
         placeholder={placeholder}
         {...hookData}
         className={getInputClasses(isValid)}
       />
       {errorMessage && <div className={styles.errors}>{errorMessage}</div>}
-      <div
-        className={styles['password-toggle-icon']}
-        onClick={(): void => setShowPassword(!showPassword)}
-      >
-        {showPassword ? (
-          <img src={eyeHide} alt="Hide Password" />
-        ) : (
-          <img src={eyeShow} alt="Show Password" />
-        )}
-      </div>
     </div>
   );
 };
@@ -62,4 +48,4 @@ function getInputClasses(isValid: boolean | undefined): string {
   }
 }
 
-export default PasswordInput;
+export default TextInput;

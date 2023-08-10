@@ -1,0 +1,105 @@
+.default-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #706c68;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.error-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #fb3e3e;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.valid-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #06c13a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.valid-label::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 100%;
+  width: 20px;
+  height: 20px;
+  background: url('../../assets/img/svg/check.svg') no-repeat;
+}
+
+.default-input {
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  outline: 1px solid #cfcfcf;
+  padding: 14px 50px 14px 16px;
+  width: 320px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.error-input {
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  outline: 1px solid #fb3e3e;
+  padding: 14px 50px 14px 16px;
+  width: 320px;
+  background: white;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #cdcccc;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
+}
+
+.errors {
+  width: 320px;
+  color: #fb3e3e;
+  font-size: 12px;
+  margin-bottom: -10px;
+  margin-top: 10px;
+}
+
+.error-input {
+  outline: 1px solid #fb3e3e;
+}
+
+.valid-label {
+  color: #06c13a;
+}
+
+.error-label {
+  color: #fb3e3e;
+}
