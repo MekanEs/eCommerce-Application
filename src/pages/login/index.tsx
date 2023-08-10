@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Button from '../../components/button';
 import { FormFields } from '../../utils/helpers/interface';
 import womanImg from '../../assets/img/png/woman-login.png';
 import styles from './login.module.scss';
@@ -9,6 +8,7 @@ import {
   createEmailInput,
   createPasswordInput,
 } from '../../utils/helpers/functions';
+import createButton from '../../utils/helpers/functions/createButton';
 
 const Login: React.FC = (): JSX.Element => {
   const {
@@ -50,17 +50,5 @@ const Login: React.FC = (): JSX.Element => {
     </div>
   );
 };
-
-function createButton(label: string): JSX.Element {
-  return (
-    <Button
-      label={label}
-      type="submit"
-      onClick={function (): void {
-        throw new Error('Function not implemented.');
-      }}
-    />
-  );
-}
 
 export default Login;

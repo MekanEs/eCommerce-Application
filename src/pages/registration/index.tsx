@@ -30,6 +30,7 @@ import {
   createDefaultShipping,
   createSameAddress,
 } from '../../utils/helpers/functions';
+import createButton from '../../utils/helpers/functions/createButton';
 
 const Registartion: React.FC = (): JSX.Element => {
   const {
@@ -53,15 +54,18 @@ const Registartion: React.FC = (): JSX.Element => {
           className={styles['registration-form']}
           onSubmit={handleSubmit(onSubmit)}
         >
-          {createGeneralInfoColumn(
-            errors,
-            dirtyFields,
-            register,
-            warningMessage,
-            setWarningMessage,
-          )}
-          {createBillingAddressColumn(errors, dirtyFields, register)}
-          {createShippingAddressColumn(errors, dirtyFields, register)}
+          <div className={styles['columns-container']}>
+            {createGeneralInfoColumn(
+              errors,
+              dirtyFields,
+              register,
+              warningMessage,
+              setWarningMessage,
+            )}
+            {createBillingAddressColumn(errors, dirtyFields, register)}
+            {createShippingAddressColumn(errors, dirtyFields, register)}
+          </div>
+          {createButton('registration')}
         </form>
       </div>
     </div>

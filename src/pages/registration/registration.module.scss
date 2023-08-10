@@ -37,23 +37,28 @@ form {
   color: #1f337e;
 }
 
-.form-container {
+.columns-container {
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: start;
   border-radius: 5px;
   outline: 1px solid #cfcfcf;
   width: 100%;
   overflow: hidden;
-  z-index: 2;
+}
+.form-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .registration-form {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-title {
@@ -77,7 +82,7 @@ form {
 }
 
 .billing-column {
-  padding: 0px 35px 25px;
+  padding: 0px 25px 25px;
   height: 100%;
   border-left: 1px solid #CFCFCF;
   border-right: 1px solid #CFCFCF;
