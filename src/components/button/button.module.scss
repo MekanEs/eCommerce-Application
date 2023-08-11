@@ -8,19 +8,19 @@
   color: white;
   background: #3e66fb;
   margin: 25px 0px;
-}
 
-.button:hover {
-  cursor: pointer;
-  background: #2f4dbc;
-}
+  &:hover {
+    cursor: pointer;
+    background: #2f4dbc;
+  }
 
-.button:active {
-  background: #1f337e;
-}
+  &:active {
+    background: #1f337e;
+  }
 
-.button:disabled {
-  cursor: default;
-  background: #cccccc;
-  color: #9e9e9f;
+  &:disabled {
+    cursor: default;
+    background: #cccccc;
+    color: #9e9e9f;
+  }
 }

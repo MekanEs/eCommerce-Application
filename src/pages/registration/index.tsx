@@ -80,7 +80,7 @@ function createGeneralInfoColumn(
   setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
   return (
-    <div>
+    <div className={styles['general-column']}>
       <h5 className={styles['form-title']}>General</h5>
       {createEmailInput(errors, dirtyFields, register)}
       {createPasswordInput(
@@ -149,7 +149,7 @@ function createShippingAddressColumn(
   };
 
   return (
-    <div>
+    <div className={styles['shipping-column']}>
       <h5 className={styles['form-title']}>Shipping address</h5>
       {createShippingCountryInput(errors, dirtyFields, register)}
       {createShippingCityInput(errors, dirtyFields, register)}

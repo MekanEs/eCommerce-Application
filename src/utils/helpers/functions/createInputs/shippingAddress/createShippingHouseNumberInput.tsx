@@ -11,7 +11,7 @@ export default function createShippingHouseNumberInput(
   return (
     <TextInput
       className={className}
-      label="House number"
+      label="House"
       type="text"
       id="shipping-house-number"
       placeholder="№"

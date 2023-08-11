@@ -53,7 +53,7 @@
   border-radius: 5px;
   outline: 1px solid #cfcfcf;
   padding: 14px 50px 14px 16px;
-  width: 320px;
+  width: 100%;
   background: white;
   box-sizing: border-box;
 }
@@ -64,7 +64,7 @@
   border-radius: 5px;
   outline: 1px solid #fb3e3e;
   padding: 14px 50px 14px 16px;
-  width: 320px;
+  width: 100%;
   background: white;
   box-sizing: border-box;
 }
@@ -85,7 +85,7 @@ input:-webkit-autofill:active {
 }
 
 .errors {
-  width: 320px;
+  width: 90%;
   color: #fb3e3e;
   font-size: 12px;
   margin-bottom: -10px;
@@ -93,7 +93,7 @@ input:-webkit-autofill:active {
 }
 
 .warning {
-  width: 320px;
+  width: 90%;
   color: #f67f00;
   font-size: 12px;
   margin-bottom: -10px;

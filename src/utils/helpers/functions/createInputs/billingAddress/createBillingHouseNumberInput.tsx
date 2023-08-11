@@ -11,7 +11,7 @@ export default function createBillingHouseNumberInput(
   return (
     <TextInput
       className={className}
-      label="House number"
+      label="House"
       type="text"
       id="billing-house-number"
       placeholder="№"
