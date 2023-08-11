@@ -12,7 +12,7 @@ export default function createShippingCountryInput(
       label="Country"
       type="text"
       id="shipping-country"
-      placeholder=""
+      placeholder="Country"
       hookData={register('shippingCountry', {})}
       errorMessage={
         errors && errors.shippingCountry && errors.shippingCountry?.message

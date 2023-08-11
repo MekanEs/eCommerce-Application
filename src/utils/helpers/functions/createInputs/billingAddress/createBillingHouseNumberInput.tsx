@@ -14,7 +14,7 @@ export default function createBillingHouseNumberInput(
       label="House number"
       type="text"
       id="billing-house-number"
-      placeholder=""
+      placeholder="№"
       hookData={register('billingHouseNumber', {})}
       errorMessage={
         errors &&

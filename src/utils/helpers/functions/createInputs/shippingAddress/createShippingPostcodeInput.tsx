@@ -12,7 +12,7 @@ export default function createShippingPostcodeInput(
       label="Postcode"
       type="text"
       id="shipping-postcode"
-      placeholder=""
+      placeholder="Postcode"
       hookData={register('shippingPostcode', {})}
       errorMessage={
         errors && errors.shippingPostcode && errors.shippingPostcode?.message

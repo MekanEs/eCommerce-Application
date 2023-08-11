@@ -18,7 +18,7 @@ export default function createPasswordInput(
     <PasswordInput
       label="Password"
       id="password"
-      placeholder="Enter your password"
+      placeholder="Password"
       hookData={register('password', {
         required: 'The field is required',
         minLength: { value: 8, message: 'Min length 8 characters' },

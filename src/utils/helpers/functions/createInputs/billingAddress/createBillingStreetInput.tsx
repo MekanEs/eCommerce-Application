@@ -13,7 +13,7 @@ export default function createBillingStreetInput(
       label="Street"
       type="text"
       id="billing-street"
-      placeholder=""
+      placeholder="Street"
       hookData={register('billingStreet', {
         required: 'The field is required',
         validate: validateStreet,

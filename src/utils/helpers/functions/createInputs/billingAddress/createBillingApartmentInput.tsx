@@ -14,7 +14,7 @@ export default function createBillingApartmentInput(
       label="Apartment"
       type="text"
       id="billing-apartment"
-      placeholder=""
+      placeholder="№"
       hookData={register('billingApartment', {})}
       errorMessage={
         errors && errors.billingApartment && errors.billingApartment?.message

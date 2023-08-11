@@ -12,7 +12,7 @@ export default function createBillingPostcodeInput(
       label="Postcode"
       type="text"
       id="billing-postcode"
-      placeholder=""
+      placeholder="Postcode"
       hookData={register('billingPostcode', {})}
       errorMessage={
         errors && errors.billingPostcode && errors.billingPostcode?.message

@@ -13,7 +13,7 @@ export default function createBillingCityInput(
       label="City"
       type="text"
       id="billing-city"
-      placeholder=""
+      placeholder="City"
       hookData={register('billingCity', {
         required: 'The field is required',
         validate: validateDefault,

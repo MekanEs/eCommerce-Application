@@ -12,7 +12,7 @@ export default function createBillingCountryInput(
       label="Country"
       type="text"
       id="billing-country"
-      placeholder=""
+      placeholder="Country"
       hookData={register('billingCountry', {})}
       errorMessage={
         errors && errors.billingCountry && errors.billingCountry?.message

@@ -13,7 +13,7 @@ export default function createShippingCityInput(
       label="City"
       type="text"
       id="shipping-city"
-      placeholder=""
+      placeholder="City"
       hookData={register('shippingCity', {
         required: 'The field is required',
         validate: validateDefault,

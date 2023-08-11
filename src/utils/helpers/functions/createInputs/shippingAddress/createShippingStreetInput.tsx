@@ -13,7 +13,7 @@ export default function createShippingStreetInput(
       label="Street"
       type="text"
       id="shipping-street"
-      placeholder=""
+      placeholder="Street"
       hookData={register('shippingStreet', {
         required: 'The field is required',
         validate: validateStreet,

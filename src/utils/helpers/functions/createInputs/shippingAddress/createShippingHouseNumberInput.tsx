@@ -14,7 +14,7 @@ export default function createShippingHouseNumberInput(
       label="House number"
       type="text"
       id="shipping-house-number"
-      placeholder=""
+      placeholder="№"
       hookData={register('shippingHouseNumber', {})}
       errorMessage={
         errors &&

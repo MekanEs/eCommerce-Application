@@ -13,7 +13,7 @@ export default function createFirstNameInput(
       label="First Name"
       type="text"
       id="first-name"
-      placeholder=""
+      placeholder="First Name"
       hookData={register('firstName', {
         required: 'The field is required',
         validate: validateName,
