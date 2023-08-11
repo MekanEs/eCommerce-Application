@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormFields, DirtyFields } from '../../../interface';
 import { TextInput } from '../../../../../components/inputs';
+import validateDefault from '../../validate/validateDefault';
 
 export default function createBillingCityInput(
   errors: FieldErrors<FormFields>,
@@ -13,7 +14,10 @@ export default function createBillingCityInput(
       type="text"
       id="billing-city"
       placeholder=""
-      hookData={register('billingCity', {})}
+      hookData={register('billingCity', {
+        required: 'The field is required',
+        validate: validateDefault,
+      })}
       errorMessage={errors && errors.billingCity && errors.billingCity?.message}
       isValid={!errors.billingCity && dirtyFields?.billingCity}
     />

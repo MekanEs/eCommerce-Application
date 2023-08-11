@@ -15,9 +15,9 @@ import createShippingStreetInput from './createInputs/shippingAddress/createShip
 import createShippingHouseNumberInput from './createInputs/shippingAddress/createShippingHouseNumberInput';
 import createShippingApartmentInput from './createInputs/shippingAddress/createShippingApartmentInput';
 import createShippingPostcodeInput from './createInputs/shippingAddress/createShippingPostcodeInput';
-import createDefaultBilling from './createInputs/checkboxes/createDefaultBilling';
-import createDefaultShipping from './createInputs/checkboxes/createDefaultShipping';
-import createSameAddress from './createInputs/checkboxes/createSameAddress';
+import createDefaultBilling from './createInputs/billingAddress/checkboxes/createDefaultBilling';
+import createDefaultShipping from './createInputs/billingAddress/checkboxes/createDefaultShipping';
+import createSameAddress from './createInputs/billingAddress/checkboxes/createSameAddress';
 
 export {
   createEmailInput,

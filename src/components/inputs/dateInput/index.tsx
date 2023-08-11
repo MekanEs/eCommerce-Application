@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputProps } from '../../../utils/helpers/interface';
-import styles from './textInput.module.scss';
+import styles from './dateInput.module.scss';
 
 const DateInput: React.FC<InputProps> = ({
   label: label,
