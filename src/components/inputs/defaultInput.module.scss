@@ -125,3 +125,24 @@ input[type="date"] {
     cursor: pointer;
   }
 }
+
+
+@media (max-width: 700px) {
+  .default-input,
+  .error-input {
+    width: 100%;
+  }
+
+  .default-label,
+  .error-label,
+  .valid-label {
+    left: 3%;
+  }
+
+  .errors,
+  .warning {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0px;
+  }
+}

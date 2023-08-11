@@ -1,8 +1,12 @@
+.login-form {
+  padding: 0px 50px 0px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
@@ -10,6 +14,7 @@
   margin: 50px 0px 0px;
   font-size: 46px;
   text-transform: uppercase;
+  padding: 0px 30px;
 }
 
 .registration-link {
@@ -18,19 +23,21 @@
   margin-bottom: 40px;
 }
 
-.registration-link a {
-  margin-left: 10px;
-  color: #2a76f7;
-  font-weight: 500;
-  text-decoration: underline;
-}
+.registration-link {
+  a {
+    margin-left: 10px;
+    color: #2a76f7;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 
-.registration-link a:hover {
-  color: #2f4dbc;
-}
+  &:hover {
+    color: #2f4dbc;
+  }
 
-.registration-link a:active {
-  color: #1f337e;
+  &:active {
+    color: #1f337e;
+  }
 }
 
 .form-container {
@@ -40,28 +47,61 @@
   align-items: center;
   border-radius: 5px;
   outline: 1px solid #cfcfcf;
-  width: 100%;
+  width: 94%;
   height: 340px;
   overflow: hidden;
-  z-index: 2;
 }
 
 .image-container {
   margin-right: 50px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 592px;
+    height: 592px;
+    background: #3e66fb;
+    top: -110px;
+    right: 56%;
+    z-index: -1;
+  }
+
+  img {
+    margin-top: 70px;
+  }
 }
 
-.image-container::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  width: 592px;
-  height: 592px;
-  background: #3e66fb;
-  top: -110px;
-  right: 56%;
-  z-index: -1;
-}
+@media (max-width: 700px) {
+  .page-title {
+    margin: 35px 0px 0px;
+    font-size: calc(10px + 4vmin);
+  }
 
-.image-container img {
-  margin-top: 70px;
+  .registration-link {
+    font-size: calc(10px + 1.5vmin);
+    margin-bottom: 20px;
+  }
+  
+  .image-container {
+    display: none;
+  }
+
+  .form-container {
+    width: 90%;
+    padding: 40px 0px;
+    height: 100%;
+  }
+
+  .login-form {
+    padding: 0px 40px 0px;
+    width: 100%;
+  }
+
+  .login-form { 
+    button {
+      width: 100%;
+      margin: 0;
+    }
+  }
 }
