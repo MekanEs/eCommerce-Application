@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import styles from './registration.module.scss';
 import { Link } from 'react-router-dom';
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormRegister,
-  useForm,
-} from 'react-hook-form';
-import { FormFields, DirtyFields } from '../../utils/helpers/interface';
+import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
+import { FormFields } from '../../utils/helpers/interface';
 import {
   createEmailInput,
   createPasswordInput,
@@ -33,14 +28,20 @@ import {
 import createButton from '../../utils/helpers/functions/createButton';
 
 const Registartion: React.FC = (): JSX.Element => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, dirtyFields },
-    reset,
-  } = useForm<FormFields>({ mode: 'onChange' });
-  const onSubmit: SubmitHandler<FormFields> = () => reset();
+  const form = useForm<FormFields>({
+    mode: 'onChange',
+    defaultValues: {
+      sameAddress: false,
+      defaultShipping: false,
+      defaultBilling: false,
+    },
+  });
+  const onSubmit: SubmitHandler<FormFields> = () => form.reset();
   const [warningMessage, setWarningMessage] = useState('');
+
+  if (form.watch('sameAddress')) {
+    setShippingValues(form);
+  }
 
   return (
     <div className={styles.container}>
@@ -52,18 +53,12 @@ const Registartion: React.FC = (): JSX.Element => {
       <div className={styles['form-container']}>
         <form
           className={styles['registration-form']}
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className={styles['columns-container']}>
-            {createGeneralInfoColumn(
-              errors,
-              dirtyFields,
-              register,
-              warningMessage,
-              setWarningMessage,
-            )}
-            {createBillingAddressColumn(errors, dirtyFields, register)}
-            {createShippingAddressColumn(errors, dirtyFields, register)}
+            {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
+            {createBillingAddressColumn(form)}
+            {createShippingAddressColumn(form, form.watch('sameAddress'))}
           </div>
           {createButton('registration')}
         </form>
@@ -73,105 +68,77 @@ const Registartion: React.FC = (): JSX.Element => {
 };
 
 function createGeneralInfoColumn(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
   warningMessage: string,
   setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
   return (
     <div className={styles['general-column']}>
       <h5 className={styles['form-title']}>General</h5>
-      {createEmailInput(errors, dirtyFields, register)}
-      {createPasswordInput(
-        errors,
-        dirtyFields,
-        register,
-        warningMessage,
-        setWarningMessage,
-      )}
-      {createFirstNameInput(errors, dirtyFields, register)}
-      {createLastNameInput(errors, dirtyFields, register)}
-      {createDateOfBirthInput(errors, dirtyFields, register)}
+      {createEmailInput(form)}
+      {createPasswordInput(form, warningMessage, setWarningMessage)}
+      {createFirstNameInput(form)}
+      {createLastNameInput(form)}
+      {createDateOfBirthInput(form)}
     </div>
   );
 }
 
 function createBillingAddressColumn(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
 ): JSX.Element {
-  const [checked, setChecked] = useState(false);
-  const onChange = (): void => {
-    setChecked(!checked);
-  };
-  const [checkedSame, setCheckedSame] = useState(false);
-  const onChangeSame = (): void => {
-    setCheckedSame(!checkedSame);
-  };
-
   return (
     <div className={styles['billing-column']}>
       <h5 className={styles['form-title']}>Billing address</h5>
-      {createBillingCountryInput(errors, dirtyFields, register)}
-      {createBillingCityInput(errors, dirtyFields, register)}
-      {createBillingStreetInput(errors, dirtyFields, register)}
+      {createBillingCountryInput(form)}
+      {createBillingCityInput(form)}
+      {createBillingStreetInput(form)}
       <div className={styles['house-info']}>
-        {createBillingHouseNumberInput(
-          errors,
-          dirtyFields,
-          register,
-          styles['house-number'],
-        )}
-        {createBillingApartmentInput(
-          errors,
-          dirtyFields,
-          register,
-          styles['apartment'],
-        )}
+        {createBillingHouseNumberInput(form, styles['house-number'])}
+        {createBillingApartmentInput(form, styles['apartment'])}
       </div>
-      {createBillingPostcodeInput(errors, dirtyFields, register)}
-      {createDefaultBilling(checked, onChange)}
-      {createSameAddress(checkedSame, onChangeSame)}
+      {createBillingPostcodeInput(form)}
+      {createDefaultBilling(form.register)}
+      {createSameAddress(form.register)}
     </div>
   );
 }
 
 function createShippingAddressColumn(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
+  needDisable: boolean,
 ): JSX.Element {
-  const [checked, setChecked] = useState(false);
-  const onChange = (): void => {
-    setChecked(!checked);
-  };
-
   return (
-    <div className={styles['shipping-column']}>
+    <div
+      className={
+        styles['shipping-column'] +
+        ' ' +
+        (needDisable ? styles['disabled-shipping'] : '')
+      }
+    >
       <h5 className={styles['form-title']}>Shipping address</h5>
-      {createShippingCountryInput(errors, dirtyFields, register)}
-      {createShippingCityInput(errors, dirtyFields, register)}
-      {createShippingStreetInput(errors, dirtyFields, register)}
+      {createShippingCountryInput(form)}
+      {createShippingCityInput(form)}
+      {createShippingStreetInput(form)}
       <div className={styles['house-info']}>
-        {createShippingHouseNumberInput(
-          errors,
-          dirtyFields,
-          register,
-          styles['house-number'],
-        )}
-        {createShippingApartmentInput(
-          errors,
-          dirtyFields,
-          register,
-          styles['apartment'],
-        )}
+        {createShippingHouseNumberInput(form, styles['house-number'])}
+        {createShippingApartmentInput(form, styles['apartment'])}
       </div>
-      {createShippingPostcodeInput(errors, dirtyFields, register)}
-      {createDefaultShipping(checked, onChange)}
+      {createShippingPostcodeInput(form)}
+      {createDefaultShipping(form.register)}
     </div>
   );
+}
+
+function setShippingValues(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+): void {
+  form.setValue('shippingCountry', form.watch('billingCountry'));
+  form.setValue('shippingCity', form.watch('billingCity'));
+  form.setValue('shippingStreet', form.watch('billingStreet'));
+  form.setValue('shippingHouseNumber', form.watch('billingHouseNumber'));
+  form.setValue('shippingApartment', form.watch('billingApartment'));
+  form.setValue('shippingPostcode', form.watch('billingPostcode'));
 }
 
 export default Registartion;

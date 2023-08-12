@@ -1,13 +1,16 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { FormFields, DirtyFields } from '../../../interface';
+import { UseFormReturn } from 'react-hook-form';
+import { FormFields } from '../../../interface';
 import DateInput from '../../../../../components/inputs/dateInput';
 import validateDate from '../../validate/validateDate';
 
 export default function createDateOfBirthInput(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
 ): JSX.Element {
+  const {
+    register,
+    formState: { errors, dirtyFields },
+  } = form;
+
   return (
     <DateInput
       label="Date of Birth"

@@ -1,13 +1,16 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { TextInput } from '../../../../../components/inputs';
-import { DirtyFields, FormFields } from '../../../interface';
+import { FormFields } from '../../../interface';
 import validateEmail from '../../validate/validateEmail';
 
 export default function createEmailInput(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
 ): JSX.Element {
+  const {
+    register,
+    formState: { errors, dirtyFields },
+  } = form;
+
   return (
     <TextInput
       label="Email"

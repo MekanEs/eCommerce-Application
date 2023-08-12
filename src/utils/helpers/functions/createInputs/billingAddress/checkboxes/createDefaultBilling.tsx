@@ -1,15 +1,15 @@
+import { UseFormRegister } from 'react-hook-form';
 import Checkbox from '../../../../../../components/checkbox';
+import { FormFields } from '../../../../interface';
 
 export default function createDefaultBilling(
-  value: boolean,
-  onChange: () => void,
+  register: UseFormRegister<FormFields>,
 ): JSX.Element {
   return (
     <Checkbox
       id={'set-default-billing'}
       label={'Set as default billing address'}
-      value={value}
-      onChange={onChange}
+      hookData={register('defaultBilling', {})}
     />
   );
 }

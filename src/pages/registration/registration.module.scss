@@ -96,6 +96,13 @@
   padding: 0px 20px 20px;
 }
 
+.disabled-shipping {
+  opacity: 0.5;
+  z-index: -10;
+  position: relative;
+  user-select: none;
+}
+
 @media (max-width: 820px) {
   .columns-container {
     flex-wrap: wrap;

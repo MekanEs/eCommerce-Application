@@ -1,15 +1,15 @@
+import { UseFormRegister } from 'react-hook-form';
 import Checkbox from '../../../../../../components/checkbox';
+import { FormFields } from '../../../../interface';
 
 export default function createDefaultShipping(
-  value: boolean,
-  onChange: () => void,
+  register: UseFormRegister<FormFields>,
 ): JSX.Element {
   return (
     <Checkbox
       id={'set-default-shipping'}
       label={'Set as default shipping address'}
-      value={value}
-      onChange={onChange}
+      hookData={register('defaultShipping', {})}
     />
   );
 }

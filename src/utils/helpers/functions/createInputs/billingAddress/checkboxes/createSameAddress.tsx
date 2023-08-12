@@ -1,15 +1,15 @@
+import { UseFormRegister } from 'react-hook-form';
 import Checkbox from '../../../../../../components/checkbox';
+import { FormFields } from '../../../../interface';
 
 export default function createSameAddress(
-  value: boolean,
-  onChange: () => void,
+  register: UseFormRegister<FormFields>,
 ): JSX.Element {
   return (
     <Checkbox
       id={'set-same-address'}
       label={'Use the same address for both billing and shipping'}
-      value={value}
-      onChange={onChange}
+      hookData={register('sameAddress', {})}
     />
   );
 }

@@ -11,17 +11,13 @@ import {
 import createButton from '../../utils/helpers/functions/createButton';
 
 const Login: React.FC = (): JSX.Element => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, dirtyFields },
-    reset,
-  } = useForm<FormFields>({ mode: 'onChange' });
+  const form = useForm<FormFields>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<FormFields> = () => {
     setWarningMessage('');
-    reset();
+    form.reset();
   };
   const [warningMessage, setWarningMessage] = useState('');
+
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
@@ -34,16 +30,10 @@ const Login: React.FC = (): JSX.Element => {
         </div>
         <form
           className={styles['login-form']}
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
         >
-          {createEmailInput(errors, dirtyFields, register)}
-          {createPasswordInput(
-            errors,
-            dirtyFields,
-            register,
-            warningMessage,
-            setWarningMessage,
-          )}
+          {createEmailInput(form)}
+          {createPasswordInput(form, warningMessage, setWarningMessage)}
           {createButton('log in')}
         </form>
       </div>

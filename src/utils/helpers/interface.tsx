@@ -35,7 +35,9 @@ export interface FormFields {
   billingApartment: string;
   shippingPostcode: string;
   billingPostcode: string;
-  checkbox: boolean;
+  sameAddress: boolean;
+  defaultBilling: boolean;
+  defaultShipping: boolean;
 }
 
 export interface DirtyFields {
@@ -56,13 +58,13 @@ export interface DirtyFields {
   billingApartment?: boolean | undefined;
   shippingPostcode?: boolean | undefined;
   billingPostcode?: boolean | undefined;
+  sameAddress?: boolean | undefined;
+  defaultBilling?: boolean | undefined;
+  defaultShipping?: boolean | undefined;
 }
 
 export interface CheckboxProps {
   id: string;
   label: string;
-  value?: boolean;
-  onChange:
-    | ((event: React.ChangeEvent<HTMLInputElement>) => void)
-    | (() => void);
+  hookData: object;
 }

@@ -1,17 +1,19 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { DirtyFields, FormFields } from '../../../interface';
+import { UseFormReturn } from 'react-hook-form';
+import { FormFields } from '../../../interface';
 import { PasswordInput } from '../../../../../components/inputs';
 import validatePassword from '../../validate/validatePassword';
 
 const WARINING_REGEXP = /(?=.*[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~])/;
 
 export default function createPasswordInput(
-  errors: FieldErrors<FormFields>,
-  dirtyFields: Partial<Readonly<DirtyFields>>,
-  register: UseFormRegister<FormFields>,
+  form: UseFormReturn<FormFields, unknown, undefined>,
   warningMessage: string,
   setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
+  const {
+    register,
+    formState: { errors, dirtyFields },
+  } = form;
   const errorMessage: string | undefined = errors && errors.password?.message;
 
   return (
