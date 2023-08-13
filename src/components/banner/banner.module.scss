@@ -10,6 +10,7 @@
   padding-top: 30px;
   background: url('../../assets/banner_bg_circle.svg') no-repeat;
   background-position: 100% 101%;
+
   h2 {
     @include header(88px);
     color: #323032;
@@ -19,5 +20,18 @@
   }
   img {
     margin-top: -80px;
+  }
+}
+@media (max-width: 1220px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    background-position: center 101%;
+    h2 {
+      max-width: 600px;
+    }
+    img {
+      margin-top: 30px;
+    }
   }
 }

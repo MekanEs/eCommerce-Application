@@ -4,9 +4,15 @@
   font-size: 14px;
   margin: 38px 0 10px 0;
   column-gap: 46px;
-  width: fit-content;
+  justify-content: baseline;
   color: #323232;
   a:hover {
     color: #000000;
+  }
+}
+
+@media (max-width: 1220px) {
+  .nav {
+    justify-content: center;
   }
 }

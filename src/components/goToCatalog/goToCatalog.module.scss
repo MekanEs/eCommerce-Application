@@ -1,7 +1,12 @@
 @import '../../scss/allVariables.scss';
 
-.catalogBtn {
+.container {
+  display: flex;
+  justify-content: center;
   margin: 45px 0 120px 0;
+}
+
+.catalogBtn {
   @include text;
   padding: 10px 110px;
   color: #ffffff;
@@ -9,4 +14,8 @@
   font-size: 17px;
   border: none;
   border-radius: 5px;
+}
+
+.catalogBtn:hover {
+  background: #2f4dbc;
 }

@@ -5,9 +5,11 @@ import { NavLink } from 'react-router-dom';
 
 const GoToCatalog: React.FC = () => {
   return (
-    <button className={styles.catalogBtn}>
-      <NavLink to="catalog">go to catalog</NavLink>
-    </button>
+    <div className={styles.container}>
+      <button className={styles.catalogBtn}>
+        <NavLink to="catalog">go to catalog</NavLink>
+      </button>
+    </div>
   );
 };
 

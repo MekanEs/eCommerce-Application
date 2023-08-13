@@ -12,3 +12,8 @@
     @include text_def(16px);
   }
 }
+@media (max-width: 1220px) {
+  .textContent {
+    text-align: initial;
+  }
+}

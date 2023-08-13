@@ -21,3 +21,8 @@
   margin-top: 58px;
   display: flex;
 }
+@media (max-width: 1220px) {
+  .carts_container {
+    flex-direction: column;
+  }
+}
