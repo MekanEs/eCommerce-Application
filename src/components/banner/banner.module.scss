@@ -26,12 +26,26 @@
   .container {
     flex-direction: column;
     align-items: center;
-    background-position: center 101%;
+    background-position: 50% 101%;
+    background-size: 90%;
     h2 {
       max-width: 600px;
     }
     img {
       margin-top: 30px;
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .container {
+    h2 {
+      font-size: 26px;
+      max-width: 250px;
+    }
+    img {
+      margin-top: 10px;
     }
   }
 }

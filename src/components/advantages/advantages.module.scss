@@ -17,12 +17,23 @@
     text-align: center;
   }
 }
+
 .carts_container {
   margin-top: 58px;
   display: flex;
 }
+
 @media (max-width: 1220px) {
   .carts_container {
     flex-direction: column;
+    row-gap: 25px;
+  }
+}
+
+@media (max-width: 850px) {
+  .textContent {
+    h2 {
+      font-size: 26px;
+    }
   }
 }
