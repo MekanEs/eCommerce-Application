@@ -9,6 +9,7 @@ export default function createShippingStreetInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -24,7 +25,11 @@ export default function createShippingStreetInput(
       errorMessage={
         errors && errors.shippingStreet && errors.shippingStreet?.message
       }
-      isValid={!errors.shippingStreet && dirtyFields?.shippingStreet}
+      isValid={
+        getValues('sameAddress') || getValues('shippingStreet') === ''
+          ? undefined
+          : !errors.shippingStreet && dirtyFields?.shippingStreet
+      }
     />
   );
 }

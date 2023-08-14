@@ -1,6 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 import { FormFields } from '../../../interface';
-import { TextInput } from '../../../../../components/inputs';
+import SelectInput from '../../../../../components/inputs/selectInput';
+import countries from '../../../../../utils/countries.json';
 
 export default function createShippingCountryInput(
   form: UseFormReturn<FormFields, unknown, undefined>,
@@ -8,19 +9,21 @@ export default function createShippingCountryInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
-    <TextInput
+    <SelectInput
       label="Country"
-      type="text"
       id="shipping-country"
       placeholder="Country"
       hookData={register('shippingCountry', {})}
-      errorMessage={
-        errors && errors.shippingCountry && errors.shippingCountry?.message
+      isValid={
+        getValues('sameAddress') || getValues('shippingCountry') === ''
+          ? undefined
+          : !errors.shippingCountry && dirtyFields?.shippingCountry
       }
-      isValid={!errors.shippingCountry && dirtyFields?.shippingCountry}
+      options={countries}
     />
   );
 }

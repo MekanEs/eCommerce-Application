@@ -9,6 +9,7 @@ export default function createShippingApartmentInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -22,7 +23,11 @@ export default function createShippingApartmentInput(
       errorMessage={
         errors && errors.shippingApartment && errors.shippingApartment?.message
       }
-      isValid={!errors.shippingApartment && dirtyFields?.shippingApartment}
+      isValid={
+        getValues('sameAddress') || getValues('shippingApartment') === ''
+          ? undefined
+          : !errors.shippingApartment && dirtyFields?.shippingApartment
+      }
     />
   );
 }

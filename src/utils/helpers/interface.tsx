@@ -8,7 +8,13 @@ export interface InputProps {
   warningMessage?: string | boolean;
   isValid?: boolean;
   className?: string;
+  options?: SelectOptions[];
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface SelectOptions {
+  label: string;
+  value: string;
 }
 
 export interface ButtonProps {
@@ -16,6 +22,28 @@ export interface ButtonProps {
   type: string;
   onClick: () => void;
 }
+
+export type Fields =
+  | 'email'
+  | 'password'
+  | 'firstName'
+  | 'lastName'
+  | 'dateOfBirth'
+  | 'shippingCountry'
+  | 'billingCountry'
+  | 'shippingCity'
+  | 'billingCity'
+  | 'shippingStreet'
+  | 'billingStreet'
+  | 'shippingHouseNumber'
+  | 'billingHouseNumber'
+  | 'shippingApartment'
+  | 'billingApartment'
+  | 'shippingPostcode'
+  | 'billingPostcode'
+  | 'sameAddress'
+  | 'defaultBilling'
+  | 'defaultShipping';
 
 export interface FormFields {
   email: string;

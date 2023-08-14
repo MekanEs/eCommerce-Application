@@ -9,6 +9,7 @@ export default function createShippingCityInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -24,7 +25,11 @@ export default function createShippingCityInput(
       errorMessage={
         errors && errors.shippingCity && errors.shippingCity?.message
       }
-      isValid={!errors.shippingCity && dirtyFields?.shippingCity}
+      isValid={
+        getValues('sameAddress') || getValues('shippingCity') === ''
+          ? undefined
+          : !errors.shippingCity && dirtyFields?.shippingCity
+      }
     />
   );
 }

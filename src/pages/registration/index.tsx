@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './registration.module.scss';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
-import { FormFields } from '../../utils/helpers/interface';
+import { Fields, FormFields } from '../../utils/helpers/interface';
 import {
   createEmailInput,
   createPasswordInput,
@@ -36,12 +36,12 @@ const Registartion: React.FC = (): JSX.Element => {
       defaultBilling: false,
     },
   });
-  const onSubmit: SubmitHandler<FormFields> = () => form.reset();
-  const [warningMessage, setWarningMessage] = useState('');
 
-  if (form.watch('sameAddress')) {
+  if (form.getValues('sameAddress')) {
     setShippingValues(form);
   }
+
+  cloneBillingerrorToShipping(form);
 
   return (
     <div className={styles.container}>
@@ -50,22 +50,31 @@ const Registartion: React.FC = (): JSX.Element => {
         <p>Have an account? </p>
         <Link to="/login">Log in</Link>
       </div>
-      <div className={styles['form-container']}>
-        <form
-          className={styles['registration-form']}
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <div className={styles['columns-container']}>
-            {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
-            {createBillingAddressColumn(form)}
-            {createShippingAddressColumn(form, form.watch('sameAddress'))}
-          </div>
-          {createButton('registration')}
-        </form>
-      </div>
+      <div className={styles['form-container']}>{createForm(form)}</div>
     </div>
   );
 };
+
+function createForm(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+): JSX.Element {
+  const onSubmit: SubmitHandler<FormFields> = () => form.reset();
+  const [warningMessage, setWarningMessage] = useState('');
+
+  return (
+    <form
+      className={styles['registration-form']}
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
+      <div className={styles['columns-container']}>
+        {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
+        {createBillingAddressColumn(form)}
+        {createShippingAddressColumn(form, form.watch('sameAddress'))}
+      </div>
+      {createButton('registration')}
+    </form>
+  );
+}
 
 function createGeneralInfoColumn(
   form: UseFormReturn<FormFields, unknown, undefined>,
@@ -133,12 +142,53 @@ function createShippingAddressColumn(
 function setShippingValues(
   form: UseFormReturn<FormFields, unknown, undefined>,
 ): void {
-  form.setValue('shippingCountry', form.watch('billingCountry'));
-  form.setValue('shippingCity', form.watch('billingCity'));
-  form.setValue('shippingStreet', form.watch('billingStreet'));
-  form.setValue('shippingHouseNumber', form.watch('billingHouseNumber'));
-  form.setValue('shippingApartment', form.watch('billingApartment'));
-  form.setValue('shippingPostcode', form.watch('billingPostcode'));
+  const fields: Fields[][] = [
+    ['shippingCountry', 'billingCountry'],
+    ['shippingCity', 'billingCity'],
+    ['shippingStreet', 'billingStreet'],
+    ['shippingHouseNumber', 'billingHouseNumber'],
+    ['shippingApartment', 'billingApartment'],
+    ['shippingPostcode', 'billingPostcode'],
+  ];
+
+  fields.forEach(([to, from]) => {
+    form.setValue(to, form.watch(from), {
+      shouldDirty: form.getValues(to) !== '',
+    });
+  });
+}
+
+function cloneBillingerrorToShipping(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+): void {
+  const fields: Fields[][] = [
+    ['shippingCountry', 'billingCountry'],
+    ['shippingCity', 'billingCity'],
+    ['shippingStreet', 'billingStreet'],
+    ['shippingHouseNumber', 'billingHouseNumber'],
+    ['shippingApartment', 'billingApartment'],
+    ['shippingPostcode', 'billingPostcode'],
+  ];
+
+  fields.forEach(([to, from]) => {
+    if (
+      form.getValues(to) === form.getValues(from) &&
+      form.formState.dirtyFields[to] &&
+      form.formState.errors[from]?.message
+    ) {
+      form.formState.errors[to] = {
+        type: 'validate',
+        message: form.formState.errors[from]?.message,
+      };
+    }
+
+    if (
+      form.getValues(to) === form.getValues(from) &&
+      !form.formState.errors[from]?.message
+    ) {
+      form.formState.errors[to] = undefined;
+    }
+  });
 }
 
 export default Registartion;

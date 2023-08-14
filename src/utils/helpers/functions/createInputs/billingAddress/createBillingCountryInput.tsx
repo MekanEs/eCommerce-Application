@@ -1,6 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 import { FormFields } from '../../../interface';
-import { TextInput } from '../../../../../components/inputs';
+import SelectInput from '../../../../../components/inputs/selectInput';
+import countries from '../../../../../utils/countries.json';
 
 export default function createBillingCountryInput(
   form: UseFormReturn<FormFields, unknown, undefined>,
@@ -11,16 +12,13 @@ export default function createBillingCountryInput(
   } = form;
 
   return (
-    <TextInput
+    <SelectInput
       label="Country"
-      type="text"
       id="billing-country"
       placeholder="Country"
       hookData={register('billingCountry', {})}
-      errorMessage={
-        errors && errors.billingCountry && errors.billingCountry?.message
-      }
       isValid={!errors.billingCountry && dirtyFields?.billingCountry}
+      options={countries}
     />
   );
 }

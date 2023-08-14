@@ -8,6 +8,7 @@ export default function createShippingPostcodeInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -20,7 +21,11 @@ export default function createShippingPostcodeInput(
       errorMessage={
         errors && errors.shippingPostcode && errors.shippingPostcode?.message
       }
-      isValid={!errors.shippingPostcode && dirtyFields?.shippingPostcode}
+      isValid={
+        getValues('sameAddress') || getValues('shippingPostcode') === ''
+          ? undefined
+          : !errors.shippingPostcode && dirtyFields?.shippingPostcode
+      }
     />
   );
 }
