@@ -4,6 +4,7 @@ import {
   ApiRoot,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
+import { options } from '.';
 
 export const CTP_PROJECT_KEY: string = 'ecommerce-app';
 const CTP_CLIENT_SECRET: string = 'PIh5ln89z2SFeJR1wSAMVnJ3jc9OOCir';
@@ -32,6 +33,7 @@ const httpMiddlewareOptions = {
 };
 
 const client = new ClientBuilder()
+  .withPasswordFlow(options)
   .withProjectKey(CTP_PROJECT_KEY)
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)

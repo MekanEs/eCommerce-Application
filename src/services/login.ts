@@ -3,7 +3,7 @@ import {
   CustomerSignInResult,
 } from '@commercetools/platform-sdk';
 import { useAppDispatch } from '../hooks/redux-hooks';
-import { setUser } from '../store/user/user.slice';
+import { setUser } from '../store/user/auth.slice';
 import { logUser } from '../types/types';
 import { CTP_PROJECT_KEY, getApiRoot } from './ClientBuilder';
 
