@@ -1,0 +1,39 @@
+import { UseFormReturn } from 'react-hook-form';
+import { FormFields } from '../../../interface';
+import { TextInput } from '../../../../../components/inputs';
+import validateStreet from '../../validate/validateStreet';
+
+export default function createShippingStreetInput(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+): JSX.Element {
+  const {
+    register,
+    formState: { errors, dirtyFields },
+    getValues,
+  } = form;
+
+  const errorMessage =
+    errors && errors.shippingStreet && errors.shippingStreet?.message;
+  const isValid =
+    getValues('sameAddress') ||
+    (!errorMessage && getValues('shippingStreet') === '');
+
+  return (
+    <TextInput
+      label="Street"
+      type="text"
+      id="shipping-street"
+      placeholder="Street"
+      hookData={register('shippingStreet', {
+        required: 'The field is required',
+        validate: validateStreet,
+      })}
+      errorMessage={errorMessage}
+      isValid={
+        isValid
+          ? undefined
+          : !errors.shippingStreet && dirtyFields?.shippingStreet
+      }
+    />
+  );
+}

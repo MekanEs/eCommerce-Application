@@ -1,0 +1,26 @@
+.button {
+  font-size: 17px;
+  text-transform: lowercase;
+  width: 320px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: #3e66fb;
+  margin: 25px 0px;
+
+  &:hover {
+    cursor: pointer;
+    background: #2f4dbc;
+  }
+
+  &:active {
+    background: #1f337e;
+  }
+
+  &:disabled {
+    cursor: default;
+    background: #cccccc;
+    color: #9e9e9f;
+  }
+}

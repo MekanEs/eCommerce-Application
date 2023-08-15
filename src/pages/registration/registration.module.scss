@@ -1,0 +1,162 @@
+.registration-form {
+  padding: 0px 50px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1215px;
+  margin: 0 auto;
+}
+
+.page-title {
+  margin: 50px 0px 0px;
+  font-size: 46px;
+  text-transform: uppercase;
+  padding: 0px 30px;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.login-link {
+  a {
+    margin-left: 10px;
+    color: #2a76f7;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &:hover {
+      color: #2f4dbc;
+    }
+
+    &:active {
+      color: #1f337e;
+    }
+  }
+}
+
+.columns-container {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  border-radius: 5px;
+  outline: 1px solid #cfcfcf;
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form-title {
+  color: #7F7F7F;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  text-align: left;
+}
+
+.house-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.house-number,
+.apartment {
+  width: 95%;
+}
+
+.billing-column {
+  padding: 0px 25px 25px;
+  height: 100%;
+  border-left: 1px solid #CFCFCF;
+  border-right: 1px solid #CFCFCF;
+}
+
+.general-column,
+.billing-column,
+.shipping-column {
+  width: 29%;
+  padding: 0px 20px 20px;
+}
+
+.disabled-shipping {
+  opacity: 0.5;
+  z-index: -10;
+  position: relative;
+  user-select: none;
+}
+
+@media (max-width: 820px) {
+  .columns-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .registration-form {
+    padding: 0px 20px 0px;
+
+    input {
+      width: 100%;
+    }
+
+    input[type=checkbox] {
+      width: 18px;
+    }
+
+    .house-info {
+      display: flex;
+      justify-content: flex-start;
+
+      .house-number {
+        margin-right: 25px;
+        width: 90%;
+      }
+    }
+  }
+
+  .general-column,
+  .billing-column,
+  .shipping-column {
+    width: 100%;
+  }
+
+  .general-column,
+  .billing-column {
+    border-bottom: 1px solid #CFCFCF;
+  }
+
+  .billing-column {
+    height: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-title {
+    margin: 35px 0px 0px;
+    font-size: calc(10px + 4vmin);
+  }
+
+  .login-link {
+    font-size: calc(10px + 1.5vmin);
+    margin-bottom: 20px;
+  }
+}
