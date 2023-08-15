@@ -10,6 +10,7 @@ export default function createShippingHouseNumberInput(
     register,
     formState: { errors, dirtyFields },
     getValues,
+    watch,
   } = form;
 
   return (
@@ -26,7 +27,7 @@ export default function createShippingHouseNumberInput(
         errors.shippingHouseNumber?.message
       }
       isValid={
-        getValues('sameAddress') || getValues('shippingHouseNumber') === ''
+        getValues('sameAddress') || watch('shippingHouseNumber') === ''
           ? undefined
           : !errors.shippingHouseNumber && dirtyFields?.shippingHouseNumber
       }

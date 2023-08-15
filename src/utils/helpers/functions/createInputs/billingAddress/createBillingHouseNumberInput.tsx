@@ -9,6 +9,7 @@ export default function createBillingHouseNumberInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -24,7 +25,11 @@ export default function createBillingHouseNumberInput(
         errors.billingHouseNumber &&
         errors.billingHouseNumber?.message
       }
-      isValid={!errors.billingHouseNumber && dirtyFields?.billingHouseNumber}
+      isValid={
+        getValues('billingHouseNumber') === ''
+          ? undefined
+          : !errors.billingHouseNumber && dirtyFields?.billingHouseNumber
+      }
     />
   );
 }

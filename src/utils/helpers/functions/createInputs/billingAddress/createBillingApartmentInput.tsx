@@ -9,6 +9,7 @@ export default function createBillingApartmentInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    getValues,
   } = form;
 
   return (
@@ -22,7 +23,11 @@ export default function createBillingApartmentInput(
       errorMessage={
         errors && errors.billingApartment && errors.billingApartment?.message
       }
-      isValid={!errors.billingApartment && dirtyFields?.billingApartment}
+      isValid={
+        getValues('billingApartment') === ''
+          ? undefined
+          : !errors.billingApartment && dirtyFields?.billingApartment
+      }
     />
   );
 }

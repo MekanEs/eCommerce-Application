@@ -10,6 +10,7 @@ export default function createShippingApartmentInput(
     register,
     formState: { errors, dirtyFields },
     getValues,
+    watch,
   } = form;
 
   return (
@@ -24,7 +25,7 @@ export default function createShippingApartmentInput(
         errors && errors.shippingApartment && errors.shippingApartment?.message
       }
       isValid={
-        getValues('sameAddress') || getValues('shippingApartment') === ''
+        getValues('sameAddress') || watch('shippingApartment') === ''
           ? undefined
           : !errors.shippingApartment && dirtyFields?.shippingApartment
       }
