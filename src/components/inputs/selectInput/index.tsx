@@ -48,10 +48,14 @@ function getLabelClasses(isValid: boolean | undefined): string {
 }
 
 function getInputClasses(isValid: boolean | undefined): string {
-  if (isValid === undefined || isValid) {
+  if (isValid === undefined) {
     return styles['default-input'];
   } else {
-    return styles['error-input'];
+    if (isValid) {
+      return styles['valid-input'];
+    } else {
+      return styles['error-input'];
+    }
   }
 }
 
