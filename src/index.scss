@@ -5,9 +5,10 @@ body,
 #root {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family:
+    font-family:
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
@@ -18,8 +19,17 @@ body {
   box-sizing: border-box;
   font-size: 12px;
 }
+
 * {
   margin: 0;
   padding: 0;
 }
 $border: 1px solid #cfcfcf;
+
+input,
+select {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 15px;
+
+}
+

@@ -1,0 +1,160 @@
+.default-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #706c68;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.error-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #fb3e3e;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.valid-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  color: #06c13a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0px 5px;
+  z-index: 1;
+}
+
+.valid-label::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 100%;
+  width: 20px;
+  height: 20px;
+  background: url('../../assets/img/svg/check.svg') no-repeat;
+}
+
+.default-input {
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  outline: 1px solid #cfcfcf;
+  padding: 14px 50px 14px 16px;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.error-input {
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  outline: 1px solid #fb3e3e;
+  padding: 14px 50px 14px 16px;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #cdcccc;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+select {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
+}
+
+.errors {
+  width: 90%;
+  color: #fb3e3e;
+  font-size: 12px;
+  margin-bottom: -10px;
+  margin-top: 10px;
+}
+
+.warning {
+  width: 90%;
+  color: #f67f00;
+  font-size: 12px;
+  margin-bottom: -10px;
+  margin-top: 10px;
+}
+
+.error-input {
+  outline: 1px solid #fb3e3e;
+}
+
+.valid-label {
+  color: #06c13a;
+}
+
+.error-label {
+  color: #fb3e3e;
+}
+
+input[type="date"] {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  
+  &::-webkit-calendar-picker-indicator {
+    background: url('../../assets/img/svg/calendar.svg') no-repeat;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .default-input,
+  .error-input {
+    width: 100%;
+  }
+
+  .default-label,
+  .error-label,
+  .valid-label {
+    left: 3%;
+  }
+
+  .errors,
+  .warning {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0px;
+  }
+}
