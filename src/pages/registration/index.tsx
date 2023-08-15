@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './registration.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { Fields, FormFields } from '../../utils/helpers/interface';
 import {
@@ -49,7 +49,12 @@ const Registartion: React.FC = (): JSX.Element => {
 function createForm(
   form: UseFormReturn<FormFields, unknown, undefined>,
 ): JSX.Element {
-  const onSubmit: SubmitHandler<FormFields> = () => form.reset();
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<FormFields> = () => {
+    form.reset();
+    // if async func status 200
+    navigate('/');
+  };
   const [warningMessage, setWarningMessage] = useState('');
 
   return (

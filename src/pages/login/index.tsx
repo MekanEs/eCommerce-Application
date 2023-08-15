@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFields } from '../../utils/helpers/interface';
 import womanImg from '../../assets/img/png/woman-login.png';
@@ -11,10 +11,15 @@ import {
 import createButton from '../../utils/helpers/functions/createButton';
 
 const Login: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
   const form = useForm<FormFields>({ mode: 'onChange' });
-  const onSubmit: SubmitHandler<FormFields> = () => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    console.log(data);
+
     setWarningMessage('');
     form.reset();
+    // if async func status 200
+    navigate('/');
   };
   const [warningMessage, setWarningMessage] = useState('');
 
