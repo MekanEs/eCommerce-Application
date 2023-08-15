@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
       </li>
 
       <li>
-        <NavLink className={isActive} to="/catalog">
+        <NavLink className={isActive} to="catalog">
           Catalog
         </NavLink>
       </li>
