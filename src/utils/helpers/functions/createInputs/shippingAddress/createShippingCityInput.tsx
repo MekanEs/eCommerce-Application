@@ -11,6 +11,11 @@ export default function createShippingCityInput(
     formState: { errors, dirtyFields },
     getValues,
   } = form;
+  const errorMessage =
+    errors && errors.shippingCity && errors.shippingCity?.message;
+  const isValid =
+    getValues('sameAddress') ||
+    (!errorMessage && getValues('shippingCity') === '');
 
   return (
     <TextInput
@@ -22,13 +27,9 @@ export default function createShippingCityInput(
         required: 'The field is required',
         validate: validateDefault,
       })}
-      errorMessage={
-        errors && errors.shippingCity && errors.shippingCity?.message
-      }
+      errorMessage={errorMessage}
       isValid={
-        getValues('sameAddress') || getValues('shippingCity') === ''
-          ? undefined
-          : !errors.shippingCity && dirtyFields?.shippingCity
+        isValid ? undefined : !errors.shippingCity && dirtyFields?.shippingCity
       }
     />
   );

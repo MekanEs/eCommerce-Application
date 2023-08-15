@@ -1,6 +1,7 @@
 import { UseFormReturn } from 'react-hook-form';
 import { FormFields } from '../../../interface';
 import { TextInput } from '../../../../../components/inputs';
+import validatePostcode from '../../validate/validatePostcode';
 
 export default function createShippingPostcodeInput(
   form: UseFormReturn<FormFields, unknown, undefined>,
@@ -11,18 +12,26 @@ export default function createShippingPostcodeInput(
     getValues,
   } = form;
 
+  const errorMessage =
+    errors && errors.shippingPostcode && errors.shippingPostcode?.message;
+  const isValid =
+    getValues('sameAddress') ||
+    (!errorMessage && getValues('shippingPostcode') === '');
+
   return (
     <TextInput
       label="Postcode"
       type="text"
       id="shipping-postcode"
       placeholder="Postcode"
-      hookData={register('shippingPostcode', {})}
-      errorMessage={
-        errors && errors.shippingPostcode && errors.shippingPostcode?.message
-      }
+      hookData={register('shippingPostcode', {
+        required: 'The field is required',
+        validate: (value) =>
+          validatePostcode(value, getValues('shippingCountry')),
+      })}
+      errorMessage={errorMessage}
       isValid={
-        getValues('sameAddress') || getValues('shippingPostcode') === ''
+        isValid
           ? undefined
           : !errors.shippingPostcode && dirtyFields?.shippingPostcode
       }

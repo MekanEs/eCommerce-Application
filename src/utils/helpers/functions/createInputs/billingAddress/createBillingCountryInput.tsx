@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormFields } from '../../../interface';
 import SelectInput from '../../../../../components/inputs/selectInput';
@@ -9,15 +10,29 @@ export default function createBillingCountryInput(
   const {
     register,
     formState: { errors, dirtyFields },
+    watch,
   } = form;
+
+  const billingCountry = watch('billingCountry');
+
+  useEffect(() => {
+    if (billingCountry && dirtyFields?.billingPostcode) {
+      form.trigger('billingPostcode');
+    }
+  }, [billingCountry]);
 
   return (
     <SelectInput
       label="Country"
       id="billing-country"
       placeholder="Country"
-      hookData={register('billingCountry', {})}
+      hookData={register('billingCountry', {
+        required: 'The field is required',
+      })}
       isValid={!errors.billingCountry && dirtyFields?.billingCountry}
+      errorMessage={
+        errors && errors.billingCountry && errors.billingCountry?.message
+      }
       options={countries}
     />
   );

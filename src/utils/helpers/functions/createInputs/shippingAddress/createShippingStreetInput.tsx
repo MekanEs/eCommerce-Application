@@ -12,6 +12,12 @@ export default function createShippingStreetInput(
     getValues,
   } = form;
 
+  const errorMessage =
+    errors && errors.shippingStreet && errors.shippingStreet?.message;
+  const isValid =
+    getValues('sameAddress') ||
+    (!errorMessage && getValues('shippingStreet') === '');
+
   return (
     <TextInput
       label="Street"
@@ -22,11 +28,9 @@ export default function createShippingStreetInput(
         required: 'The field is required',
         validate: validateStreet,
       })}
-      errorMessage={
-        errors && errors.shippingStreet && errors.shippingStreet?.message
-      }
+      errorMessage={errorMessage}
       isValid={
-        getValues('sameAddress') || getValues('shippingStreet') === ''
+        isValid
           ? undefined
           : !errors.shippingStreet && dirtyFields?.shippingStreet
       }

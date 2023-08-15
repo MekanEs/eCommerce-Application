@@ -6,6 +6,7 @@ const SelectInput: React.FC<InputProps> = ({
   id: id,
   placeholder: placeholder,
   hookData: hookData,
+  errorMessage: errorMessage,
   isValid: isValid,
   options: options,
 }): JSX.Element => {
@@ -15,18 +16,21 @@ const SelectInput: React.FC<InputProps> = ({
         {label}
       </label>
       <select
+        defaultValue=""
         id={id}
-        className={styles['default-input']}
+        className={getInputClasses(isValid)}
         {...hookData}
-        required
       >
-        <option value="">{placeholder}</option>
+        <option value="" disabled>
+          {placeholder}
+        </option>
         {options?.map(({ value: value, label: label }) => (
           <option value={value} key={value}>
             {label}
           </option>
         ))}
       </select>
+      {errorMessage && <div className={styles.errors}>{errorMessage}</div>}
     </div>
   );
 };
@@ -40,6 +44,14 @@ function getLabelClasses(isValid: boolean | undefined): string {
     } else {
       return styles['error-label'];
     }
+  }
+}
+
+function getInputClasses(isValid: boolean | undefined): string {
+  if (isValid === undefined || isValid) {
+    return styles['default-input'];
+  } else {
+    return styles['error-input'];
   }
 }
 

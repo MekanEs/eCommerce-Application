@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './registration.module.scss';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
@@ -30,18 +30,9 @@ import createButton from '../../utils/helpers/functions/createButton';
 const Registartion: React.FC = (): JSX.Element => {
   const form = useForm<FormFields>({
     mode: 'onChange',
-    defaultValues: {
-      sameAddress: false,
-      defaultShipping: false,
-      defaultBilling: false,
-    },
   });
 
-  if (form.getValues('sameAddress')) {
-    setShippingValues(form);
-  }
-
-  cloneBillingerrorToShipping(form);
+  createEffect(form);
 
   return (
     <div className={styles.container}>
@@ -139,6 +130,39 @@ function createShippingAddressColumn(
   );
 }
 
+function createEffect(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+): void {
+  const sameAddress = form.watch('sameAddress');
+  const billingCountry = form.watch('billingCountry');
+  const billingCity = form.watch('billingCity');
+  const billingStreet = form.watch('billingStreet');
+  const billingHouseNumber = form.watch('billingHouseNumber');
+  const billingApartment = form.watch('billingApartment');
+  const billingPostcode = form.watch('billingPostcode');
+
+  useEffect(() => {
+    if (sameAddress) {
+      setShippingValues(form);
+    } else if (form.formState.dirtyFields.sameAddress) {
+      form.trigger('shippingCountry');
+      form.trigger('shippingCity');
+      form.trigger('shippingStreet');
+      form.trigger('shippingHouseNumber');
+      form.trigger('shippingApartment');
+      form.trigger('shippingPostcode');
+    }
+  }, [
+    sameAddress,
+    billingCountry,
+    billingCity,
+    billingStreet,
+    billingHouseNumber,
+    billingApartment,
+    billingPostcode,
+  ]);
+}
+
 function setShippingValues(
   form: UseFormReturn<FormFields, unknown, undefined>,
 ): void {
@@ -152,42 +176,10 @@ function setShippingValues(
   ];
 
   fields.forEach(([to, from]) => {
+    form.formState.errors[to] = undefined;
     form.setValue(to, form.watch(from), {
-      shouldDirty: form.getValues(to) !== '',
+      shouldDirty: true,
     });
-  });
-}
-
-function cloneBillingerrorToShipping(
-  form: UseFormReturn<FormFields, unknown, undefined>,
-): void {
-  const fields: Fields[][] = [
-    ['shippingCountry', 'billingCountry'],
-    ['shippingCity', 'billingCity'],
-    ['shippingStreet', 'billingStreet'],
-    ['shippingHouseNumber', 'billingHouseNumber'],
-    ['shippingApartment', 'billingApartment'],
-    ['shippingPostcode', 'billingPostcode'],
-  ];
-
-  fields.forEach(([to, from]) => {
-    if (
-      form.getValues(to) === form.getValues(from) &&
-      form.formState.dirtyFields[to] &&
-      form.formState.errors[from]?.message
-    ) {
-      form.formState.errors[to] = {
-        type: 'validate',
-        message: form.formState.errors[from]?.message,
-      };
-    }
-
-    if (
-      form.getValues(to) === form.getValues(from) &&
-      !form.formState.errors[from]?.message
-    ) {
-      form.formState.errors[to] = undefined;
-    }
   });
 }
 
