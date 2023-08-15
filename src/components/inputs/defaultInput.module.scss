@@ -124,12 +124,12 @@ input:-webkit-autofill:active {
   color: #fb3e3e;
 }
 
-input[type="date"] {
+input[type='date'] {
   display: flex;
   justify-content: space-between;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   padding: 8px 16px;
-  
+
   &::-webkit-calendar-picker-indicator {
     background: url('../../assets/img/svg/calendar.svg') no-repeat;
     width: 25px;
@@ -137,7 +137,6 @@ input[type="date"] {
     cursor: pointer;
   }
 }
-
 
 @media (max-width: 700px) {
   .default-input,

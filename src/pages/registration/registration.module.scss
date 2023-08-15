@@ -63,7 +63,7 @@
 }
 
 .form-title {
-  color: #7F7F7F;
+  color: #7f7f7f;
   font-size: 18px;
   font-family: 'Ubuntu', sans-serif;
   font-style: normal;
@@ -85,8 +85,8 @@
 .billing-column {
   padding: 0px 25px 25px;
   height: 100%;
-  border-left: 1px solid #CFCFCF;
-  border-right: 1px solid #CFCFCF;
+  border-left: 1px solid #cfcfcf;
+  border-right: 1px solid #cfcfcf;
 }
 
 .general-column,
@@ -116,7 +116,7 @@
       width: 100%;
     }
 
-    input[type=checkbox] {
+    input[type='checkbox'] {
       width: 18px;
     }
 
@@ -139,7 +139,7 @@
 
   .general-column,
   .billing-column {
-    border-bottom: 1px solid #CFCFCF;
+    border-bottom: 1px solid #cfcfcf;
   }
 
   .billing-column {
