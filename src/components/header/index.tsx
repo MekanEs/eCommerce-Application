@@ -12,18 +12,25 @@ const Header: React.FC = () => {
         <NavLink to="/">
           <img src={logo} alt="" />
         </NavLink>
+        {path === '/registration' || path === '/login' ? (
+          ''
+        ) : (
+          <div className={styles.auth}>
+            <button>
+              <NavLink className={isActive} to="registration">
+                registration
+              </NavLink>
+            </button>
 
-        <div className={styles.auth}>
-          <NavLink className={isActive} to="registration">
-            <button>registration</button>
-          </NavLink>
-
-          <NavLink className={isActive} to="login">
-            <button>login</button>
-          </NavLink>
-        </div>
+            <button>
+              <NavLink className={isActive} to="login">
+                log in
+              </NavLink>
+            </button>
+          </div>
+        )}
       </header>
-      {path === '/' ? <Navigation /> : ''}
+      <Navigation />
     </div>
   );
 };

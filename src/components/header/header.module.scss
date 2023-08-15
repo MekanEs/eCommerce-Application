@@ -25,32 +25,11 @@ a {
   align-items: center;
   color: #706c68;
   button {
-    cursor: pointer;
-    padding: 9px 19px;
-    border: 1px solid #91979d;
-    border-radius: 3px;
-    background-color: inherit;
-    color: #706c68;
-  }
-  button:hover {
-    background-color: #2f4dbc;
-    color: #ffffff;
+    @include button_white;
   }
 }
 .activeLink {
-  button {
-    background-color: #3e66fb;
-    color: #ffffff;
-    border: none;
-  }
-  button:hover {
-    background-color: #2f4dbc;
-    color: #ffffff;
-  }
-
-  button:active {
-    background-color: #1f337e;
-  }
+  color: $light_blue;
 }
 .link {
   display: block;

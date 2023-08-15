@@ -7,15 +7,7 @@
 }
 
 .catalogBtn {
+  @include button_blue;
   @include text;
-  padding: 10px 110px;
-  color: #ffffff;
-  background: linear-gradient(#3b8ff5, #2e61e5);
-  font-size: 17px;
-  border: none;
-  border-radius: 5px;
-}
-
-.catalogBtn:hover {
-  background: #2f4dbc;
+  padding: 9px 80px;
 }

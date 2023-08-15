@@ -7,15 +7,7 @@
   margin-top: 60px;
 }
 .textContent {
-  h2 {
-    @include header(46px);
-    text-align: center;
-  }
-  p {
-    @include text_transparent(16px);
-    max-width: 732px;
-    text-align: center;
-  }
+  @include section_header;
 }
 
 .carts_container {
