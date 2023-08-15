@@ -1,42 +1,37 @@
 import React from 'react';
 import styles from './header.module.scss';
+import Navigation from './nav';
+import logo from '../../assets/veros_logo.svg';
+import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
-import { NavLink } from 'react-router-dom';
-
 const Header: React.FC = () => {
+  const path = useLocation().pathname;
   return (
-    <header className={styles.header}>
-      <ul className={styles.nav}>
-        <li>
-          <button>
-            <NavLink className={isActive} to="/">
-              Main
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink className={isActive} to="about">
-              About
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink className={isActive} to="registration">
-              Registartion
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink className={isActive} to="login">
-              Login
-            </NavLink>
-          </button>
-        </li>
-      </ul>
-    </header>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <NavLink to="/">
+          <img src={logo} alt="" />
+        </NavLink>
+        {path === '/registration' || path === '/login' ? (
+          ''
+        ) : (
+          <div className={styles.auth}>
+            <button>
+              <NavLink className={isActive} to="registration">
+                registration
+              </NavLink>
+            </button>
+
+            <button>
+              <NavLink className={isActive} to="login">
+                log in
+              </NavLink>
+            </button>
+          </div>
+        )}
+      </header>
+      <Navigation />
+    </div>
   );
 };
 export default Header;

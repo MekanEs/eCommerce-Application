@@ -1,0 +1,45 @@
+@import '../../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  border-radius: 5px;
+  padding: 30px;
+  column-gap: 10px;
+  border: 1.5px solid #fff;
+  align-items: flex-start;
+  cursor: pointer;
+  border-radius: 0px 0px 5px 0px;
+  border-right: 1.5px solid #e5e5e5;
+  border-bottom: 1.5px solid #e5e5e5;
+  h5 {
+    @include text;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  p {
+    margin-top: 14px;
+    @include text;
+    font-size: 16px;
+    max-width: 500px;
+  }
+
+  &:hover {
+    border-radius: 5px;
+    border: 1.5px solid #3e66fb;
+    background: #ebebeb;
+  }
+
+  img {
+    width: 20px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .container {
+    width: 70%;
+    p {
+      max-width: 100%;
+    }
+  }
+}

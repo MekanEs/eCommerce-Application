@@ -1,0 +1,51 @@
+@import '../../index.scss';
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+
+  border: $border;
+  padding-top: 30px;
+  background: url('../../assets/banner_bg_circle.svg') no-repeat;
+  background-position: 100% 101%;
+
+  h2 {
+    @include header(88px);
+    color: #323032;
+    text-align: start;
+    letter-spacing: 3px;
+    margin-left: 32px;
+  }
+  img {
+    margin-top: -80px;
+  }
+}
+@media (max-width: 1220px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    background-position: 50% 101%;
+    background-size: 90%;
+    h2 {
+      max-width: 600px;
+    }
+    img {
+      margin-top: 30px;
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .container {
+    h2 {
+      font-size: 26px;
+      max-width: 250px;
+    }
+    img {
+      margin-top: 10px;
+    }
+  }
+}

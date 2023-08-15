@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  margin: 38px 0 10px 0;
+  column-gap: 46px;
+  justify-content: baseline;
+  color: #323232;
+}
+
+@media (max-width: 1220px) {
+  .nav {
+    justify-content: center;
+  }
+}

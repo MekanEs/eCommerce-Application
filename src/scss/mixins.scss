@@ -1,0 +1,89 @@
+// typography
+
+@mixin header($size) {
+  font-size: $size;
+  font-weight: 700;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #323032;
+}
+
+@mixin text {
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%;
+}
+
+@mixin text_transparent($size) {
+  @include text;
+  color: #000;
+  opacity: 0.5;
+  font-size: $size;
+}
+
+@mixin text_def($size) {
+  @include text;
+  color: #323032;
+  font-size: $size;
+}
+
+// buttons
+
+@mixin button_white {
+  padding: 9px 19px;
+  border-radius: 3px;
+  border: 1px solid #706c68;
+  color: #706c68;
+  background-color: inherit;
+  &:hover {
+    border: 1px solid $light_blue;
+    color: $light_blue;
+  }
+  &:active {
+    border: 1px solid $dark_blue;
+    color: $dark_blue;
+  }
+  &:disabled {
+    border: 1px solid $light_gray;
+    background-color: $light_gray;
+    color: $light_gray;
+  }
+}
+
+@mixin button_blue {
+  padding: 9px 19px;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  background-color: $light_blue;
+  &:hover {
+    background-color: $blue;
+  }
+  &:active {
+    background-color: $dark_blue;
+  }
+  &:disabled {
+    background-color: $light_gray;
+    color: $light_gray;
+  }
+}
+
+@mixin button_active {
+  border: 1px solid $dark_blue;
+  color: $dark_blue;
+}
+
+// textcontent
+
+@mixin section_header {
+  h2 {
+    @include header(46px);
+    text-align: center;
+  }
+  p {
+    margin-top: 20px;
+    @include text_transparent(16px);
+    max-width: 732px;
+    text-align: center;
+  }
+}

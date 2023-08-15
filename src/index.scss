@@ -1,6 +1,4 @@
-* {
-  transition: all 0.3s ease;
-}
+@import './scss/allVariables.scss';
 
 html,
 body,
@@ -10,15 +8,23 @@ body,
 
 body {
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+    font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Ubuntu,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  font-size: 12px;
 }
 
-main {
-  margin-bottom: 50px;
+* {
+  margin: 0;
+  padding: 0;
 }
+$border: 1px solid #cfcfcf;
 
 input,
 select {
@@ -26,3 +32,4 @@ select {
   font-size: 15px;
 
 }
+

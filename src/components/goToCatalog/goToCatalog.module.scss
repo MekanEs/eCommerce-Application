@@ -1,0 +1,13 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 45px 0 120px 0;
+}
+
+.catalogBtn {
+  @include button_blue;
+  @include text;
+  padding: 9px 80px;
+}
