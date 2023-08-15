@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
-import logo from '../../assets/veros_logo.svg';
+import logo from '../../assets/img/svg/veros_logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 const Header: React.FC = () => {

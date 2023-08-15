@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './question.module.scss';
-import question_icon from '../../../assets/question_icon.svg';
+import question_icon from '../../../assets/img/svg/question_icon.svg';
 
 type questionPropstype = { header: string; children: string };
 
