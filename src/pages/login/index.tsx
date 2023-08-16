@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFields } from '../../utils/helpers/interface';
@@ -9,10 +9,20 @@ import {
   createPasswordInput,
 } from '../../utils/helpers/functions';
 import createButton from '../../utils/helpers/functions/createButton';
+import { loginUser } from '../../store/auth/auth.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
 const Login: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { status, message } = useAppSelector((state) => state.user);
   const form = useForm<FormFields>({ mode: 'onChange' });
-  const onSubmit: SubmitHandler<FormFields> = () => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    useEffect(() => {
+      dispatch(loginUser(data)).then(() => {
+        console.log(status, message);
+      }),
+        [];
+    });
     setWarningMessage('');
     form.reset();
   };
