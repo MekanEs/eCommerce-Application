@@ -8,7 +8,7 @@ import { About, Login, Main, PageNotFound, Registartion } from '../pages';
 import { Layout } from '../components/index';
 import Catalog from '../pages/catalog';
 
-const isAuth = true;
+const isAuth = false;
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
