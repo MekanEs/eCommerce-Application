@@ -52,6 +52,7 @@ export const registrationUser = createAsyncThunk(
               password: options.password,
               firstName: options.firstName,
               lastName: options.lastName,
+              dateOfBirth: options.dateOfBirth,
             },
           })
           .execute();
@@ -66,6 +67,9 @@ export const userSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    getUser(state) {
+      return state;
+    },
     removeUser(state) {
       state.status = null;
       state.message = null;
@@ -85,7 +89,6 @@ export const userSlice = createSlice({
         if (action.payload) {
           state.id = action.payload.body.customer.id;
         }
-        console.log(localStorage);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'error';
@@ -107,5 +110,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { removeUser } = userSlice.actions;
+export const { getUser, removeUser } = userSlice.actions;
 export default userSlice.reducer;

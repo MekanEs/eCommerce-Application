@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFields } from '../../utils/helpers/interface';
 import womanImg from '../../assets/img/png/woman-login.png';
@@ -10,21 +10,24 @@ import {
 } from '../../utils/helpers/functions';
 import createButton from '../../utils/helpers/functions/createButton';
 import { loginUser } from '../../store/auth/auth.slice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { store } from '../../store/store';
 
 const Login: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { status, message } = useAppSelector((state) => state.user);
+  const navigator = useNavigate();
   const form = useForm<FormFields>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    useEffect(() => {
-      dispatch(loginUser(data)).then(() => {
-        console.log(status, message);
-      }),
-        [];
+    dispatch(loginUser(data)).then(() => {
+      const state = store.getState().user;
+      if (state.status === 'ok') {
+        form.reset();
+        navigator('/');
+      } else {
+        console.log(state.message);
+      }
     });
     setWarningMessage('');
-    form.reset();
   };
   const [warningMessage, setWarningMessage] = useState('');
 
