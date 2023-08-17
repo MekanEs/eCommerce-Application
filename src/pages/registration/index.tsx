@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import styles from './registration.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { Fields, FormFields } from '../../utils/helpers/interface';
 import {
@@ -29,6 +29,8 @@ import createButton from '../../utils/helpers/functions/createButton';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { ISliceUser } from '../../interfaces/sliceUser';
 
 const Registartion: React.FC = (): JSX.Element => {
   const form = useForm<FormFields>({
@@ -55,31 +57,38 @@ function createForm(
   const dispatch = useAppDispatch();
   const navigator = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    dispatch(registrationUser(data)).then(() => {
-      const state = store.getState().user;
-      if (state.status === 'ok') {
-        dispatch(loginUser(data));
-        form.reset();
-        navigator('/');
-      } else {
-        console.log(state.message);
-      }
-    });
+    registration(data, form, setErrorMessage, dispatch, navigator);
   };
   const [warningMessage, setWarningMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  createUseEffect(form, errorMessage, setErrorMessage);
 
   return (
-    <form
-      className={styles['registration-form']}
-      onSubmit={form.handleSubmit(onSubmit)}
-    >
-      <div className={styles['columns-container']}>
-        {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
-        {createBillingAddressColumn(form)}
-        {createShippingAddressColumn(form, form.watch('sameAddress'))}
-      </div>
-      {createButton('registration')}
-    </form>
+    <>
+      <form
+        className={styles['registration-form']}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className={styles['columns-container']}>
+          {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
+          {createBillingAddressColumn(form)}
+          {createShippingAddressColumn(form, form.watch('sameAddress'))}
+        </div>
+        {createButton('registration')}
+      </form>
+      {errorMessage && (
+        <div className={styles['error-container']}>
+          <p className={styles['form-error']}>{errorMessage}</p>
+          <div className={styles['additional-error-text']}>
+            <p>
+              Use a different email address or sign in to an existing account –
+            </p>
+            <Link to="/login">Log in</Link>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -197,6 +206,41 @@ function setShippingValues(
       shouldDirty: true,
     });
   });
+}
+
+function registration(
+  data: FormFields,
+  form: UseFormReturn<FormFields, unknown, undefined>,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+  dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+    Dispatch<AnyAction>,
+  navigator: NavigateFunction,
+): void {
+  dispatch(registrationUser(data)).then(() => {
+    const state = store.getState().user;
+    if (state.status === 'ok') {
+      dispatch(loginUser(data));
+      form.reset();
+      navigator('/');
+    } else {
+      form.setError('email', {});
+
+      setErrorMessage(typeof state.message === 'string' ? state.message : '');
+    }
+  });
+}
+
+function createUseEffect(
+  form: UseFormReturn<FormFields, unknown, undefined>,
+  errorMessage: string,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+): void {
+  useEffect(() => {
+    if (errorMessage != '') {
+      form.trigger('email');
+    }
+    setErrorMessage('');
+  }, [form.watch('email'), form.watch('password')]);
 }
 
 export default Registartion;
