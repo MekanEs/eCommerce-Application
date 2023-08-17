@@ -41,7 +41,7 @@ export default function createPasswordInput(
       })}
       errorMessage={errorMessage}
       warningMessage={!errorMessage && warningMessage}
-      isValid={!errorMessage && dirtyFields?.password}
+      isValid={!errors.password && !errorMessage && dirtyFields?.password}
     />
   );
 }
