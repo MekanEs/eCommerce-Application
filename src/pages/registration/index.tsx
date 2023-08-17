@@ -26,6 +26,9 @@ import {
   createSameAddress,
 } from '../../utils/helpers/functions';
 import createButton from '../../utils/helpers/functions/createButton';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { loginUser, registrationUser } from '../../store/auth/auth.slice';
+import { store } from '../../store/store';
 
 const Registartion: React.FC = (): JSX.Element => {
   const form = useForm<FormFields>({
@@ -49,11 +52,19 @@ const Registartion: React.FC = (): JSX.Element => {
 function createForm(
   form: UseFormReturn<FormFields, unknown, undefined>,
 ): JSX.Element {
-  const navigate = useNavigate();
-  const onSubmit: SubmitHandler<FormFields> = () => {
-    form.reset();
-    // if async func status 200
-    navigate('/');
+  const dispatch = useAppDispatch();
+  const navigator = useNavigate();
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    dispatch(registrationUser(data)).then(() => {
+      const state = store.getState().user;
+      if (state.status === 'ok') {
+        dispatch(loginUser(data));
+        form.reset();
+        navigator('/');
+      } else {
+        console.log(state.message);
+      }
+    });
   };
   const [warningMessage, setWarningMessage] = useState('');
 

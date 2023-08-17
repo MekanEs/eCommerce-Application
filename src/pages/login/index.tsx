@@ -9,20 +9,27 @@ import {
   createPasswordInput,
 } from '../../utils/helpers/functions';
 import createButton from '../../utils/helpers/functions/createButton';
+import { loginUser } from '../../store/auth/auth.slice';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { store } from '../../store/store';
 
 const Login: React.FC = (): JSX.Element => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigator = useNavigate();
   const form = useForm<FormFields>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
-
+    dispatch(loginUser(data)).then(() => {
+      const state = store.getState().user;
+      if (state.status === 'ok') {
+        form.reset();
+        navigator('/');
+      } else {
+        console.log(state.message);
+      }
+    });
     setWarningMessage('');
-    form.reset();
-    // if async func status 200
-    navigate('/');
   };
   const [warningMessage, setWarningMessage] = useState('');
-
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
