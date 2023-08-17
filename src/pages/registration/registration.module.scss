@@ -12,6 +12,7 @@
   align-items: center;
   max-width: 1215px;
   margin: 0 auto;
+  margin-bottom: 100px;
 }
 
 .page-title {
@@ -24,10 +25,9 @@
 .login-link {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
-}
+  margin: 20px 0px 40px;
+  font-size: 17px;
 
-.login-link {
   a {
     margin-left: 10px;
     color: #2a76f7;
@@ -70,6 +70,7 @@
   font-weight: 500;
   line-height: 140%;
   text-align: left;
+  margin: 20px 0px 25px;
 }
 
 .house-info {

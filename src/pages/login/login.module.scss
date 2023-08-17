@@ -12,6 +12,7 @@
   align-items: center;
   max-width: 820px;
   margin: 0 auto;
+  margin-bottom: 100px;
 }
 
 .page-title {
@@ -24,23 +25,22 @@
 .registration-link {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
-}
+  margin: 20px 0px 40px;
+  font-size: 17px;
 
-.registration-link {
   a {
     margin-left: 10px;
     color: #2a76f7;
     font-weight: 500;
     text-decoration: underline;
-  }
 
-  &:hover {
-    color: #2f4dbc;
-  }
-
-  &:active {
-    color: #1f337e;
+    &:hover {
+      color: #2f4dbc;
+    }
+      
+    &:active {
+      color: #1f337e;
+    }
   }
 }
 
