@@ -6,6 +6,7 @@ const Logout: React.FC = () => {
   const dispatch = useAppDispatch();
   const handleClick: () => void = () => {
     dispatch(removeUser());
+    localStorage.setItem('token', '');
   };
   return <button onClick={handleClick}>Logout</button>;
 };

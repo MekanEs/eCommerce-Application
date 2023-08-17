@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
 import logo from '../../assets/img/svg/veros_logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
+import Logout from '../logout/logout';
+
 const Header: React.FC = () => {
   const path = useLocation().pathname;
-  const [isAuth] = useState<boolean>(userAuth());
+  const isAuth = userAuth();
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -17,7 +19,7 @@ const Header: React.FC = () => {
         {path === '/registration' || path === '/login' ? (
           ''
         ) : isAuth ? (
-          <button>Logout</button>
+          <Logout />
         ) : (
           <div className={styles.auth}>
             <button>
