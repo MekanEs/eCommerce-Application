@@ -22,17 +22,13 @@ const Header: React.FC = () => {
           <Logout />
         ) : (
           <div className={styles.auth}>
-            <button>
-              <NavLink className={isActive} to="registration">
-                registration
-              </NavLink>
-            </button>
+            <NavLink className={isActive} to="registration">
+              registration
+            </NavLink>
 
-            <button>
-              <NavLink className={isActive} to="login">
-                log in
-              </NavLink>
-            </button>
+            <NavLink className={isActive} to="login">
+              log in
+            </NavLink>
           </div>
         )}
       </header>

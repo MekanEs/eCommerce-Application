@@ -24,13 +24,10 @@ a {
   column-gap: 12px;
   align-items: center;
   color: #706c68;
-  button {
+  a {
     @include button_white;
   }
 }
 .activeLink {
   color: $light_blue;
-}
-.link {
-  display: block;
 }
