@@ -11,6 +11,7 @@ export type regUser = {
   password: string;
   firstName: string;
   lastName: string;
+  dateOfBirth: string;
   addresses?: BaseAddress[];
 };
 
