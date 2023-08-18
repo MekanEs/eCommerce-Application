@@ -36,17 +36,17 @@
   color: #706c68;
   background-color: inherit;
   &:hover {
-    border: 1px solid $light_blue;
-    color: $light_blue;
+    border: 1px solid $link;
+    color: $link;
   }
   &:active {
-    border: 1px solid $dark_blue;
-    color: $dark_blue;
+    border: 1px solid $active;
+    color: $active;
   }
   &:disabled {
-    border: 1px solid $light_gray;
-    background-color: $light_gray;
-    color: $light_gray;
+    border: 1px solid $disabled;
+    background-color: $disabled;
+    color: $disabled;
   }
 }
 
@@ -55,22 +55,22 @@
   border-radius: 3px;
   border: none;
   color: #fff;
-  background-color: $light_blue;
+  background-color: $link;
   &:hover {
-    background-color: $blue;
+    background-color: $hover;
   }
   &:active {
-    background-color: $dark_blue;
+    background-color: $active;
   }
   &:disabled {
-    background-color: $light_gray;
-    color: $light_gray;
+    background-color: $disabled;
+    color: $disabled;
   }
 }
 
 @mixin button_active {
-  border: 1px solid $dark_blue;
-  color: $dark_blue;
+  border: 1px solid $active;
+  color: $active;
 }
 
 // textcontent

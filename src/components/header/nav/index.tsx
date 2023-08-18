@@ -1,11 +1,13 @@
 import React from 'react';
 import { isActive } from '../../../utils';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './navigation.module.scss';
 
 const Navigation: React.FC = () => {
+  const path = useLocation().pathname;
+  const NavStyle = path !== '/' ? styles.center : styles.nav;
   return (
-    <ul className={styles.nav}>
+    <ul className={NavStyle}>
       <li>
         <NavLink className={isActive} to="/">
           Main
@@ -13,7 +15,7 @@ const Navigation: React.FC = () => {
       </li>
 
       <li>
-        <NavLink className={isActive} to="/catalog">
+        <NavLink className={isActive} to="catalog">
           Catalog
         </NavLink>
       </li>

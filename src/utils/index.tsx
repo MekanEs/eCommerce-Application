@@ -1,3 +1,3 @@
 import isActive from './helpers/navStyle.helper';
-
-export { isActive };
+import isNotFound from './helpers/isNotFound';
+export { isActive, isNotFound };

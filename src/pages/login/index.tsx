@@ -30,7 +30,6 @@ const Login: React.FC = (): JSX.Element => {
     setWarningMessage('');
   };
   const [warningMessage, setWarningMessage] = useState('');
-
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>

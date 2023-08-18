@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './footer.module.scss';
-import rss_logo from '../../assets/rss_logo.svg';
-import gh_logo from '../../assets/github_logo.svg';
+import rss_logo from '../../assets/img/svg/rss_logo.svg';
+import gh_logo from '../../assets/img/svg/github_logo.svg';
 
 const Footer: React.FC = () => {
   return (

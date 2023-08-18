@@ -2,12 +2,19 @@
   display: flex;
   list-style: none;
   font-size: 14px;
-  margin: 38px 0 10px 0;
+  margin: 28px 0 20px 0;
   column-gap: 46px;
-  justify-content: baseline;
   color: #323232;
 }
-
+.center {
+  justify-content: center;
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  margin: 28px 0 20px 0;
+  column-gap: 46px;
+  color: #323232;
+}
 @media (max-width: 1220px) {
   .nav {
     justify-content: center;

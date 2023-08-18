@@ -1,32 +1,36 @@
 import React from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
-import logo from '../../assets/veros_logo.svg';
+import logo from '../../assets/img/svg/veros_logo.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
+import { userAuth } from '../../hooks/user-auth';
+import Logout from '../logout/logout';
+
 const Header: React.FC = () => {
   const path = useLocation().pathname;
+  const isAuth = userAuth();
+  console.log(isAuth);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <NavLink to="/">
           <img src={logo} alt="" />
         </NavLink>
+
         {path === '/registration' || path === '/login' ? (
           ''
+        ) : isAuth ? (
+          <Logout />
         ) : (
           <div className={styles.auth}>
-            <button>
-              <NavLink className={isActive} to="registration">
-                registration
-              </NavLink>
-            </button>
-
-            <button>
-              <NavLink className={isActive} to="login">
-                log in
-              </NavLink>
-            </button>
+            <NavLink className={isActive} to="registration">
+              registration
+            </NavLink>
+            <NavLink className={isActive} to="login">
+              log in
+            </NavLink>{' '}
           </div>
         )}
       </header>

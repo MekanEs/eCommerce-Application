@@ -2,9 +2,9 @@ import React from 'react';
 
 import AdvantegeCart from './carts';
 import styles from './advantages.module.scss';
-import cartImage1 from '../../assets/advantages-1.svg';
-import cartImage2 from '../../assets/advantages-2.svg';
-import cartImage3 from '../../assets/advantages-3.svg';
+import cartImage1 from '../../assets/img/svg/advantages-1.svg';
+import cartImage2 from '../../assets/img/svg/advantages-2.svg';
+import cartImage3 from '../../assets/img/svg/advantages-3.svg';
 
 const Advantages: React.FC = () => {
   return (

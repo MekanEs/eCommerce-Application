@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from './../../assets/banner_image.png';
+import banner from './../../assets/img/png/banner_image.png';
 import styles from './banner.module.scss';
 
 const Banner: React.FC = () => {

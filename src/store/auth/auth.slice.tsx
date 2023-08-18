@@ -12,6 +12,7 @@ const initialState: ISliceUser = {
   status: null,
   message: null,
   id: null,
+  isAuth: !!localStorage.getItem('token') || null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -74,6 +75,7 @@ export const userSlice = createSlice({
       state.status = null;
       state.message = null;
       state.id = null;
+      state.isAuth = null;
     },
   },
   extraReducers: (build) => {
@@ -82,12 +84,14 @@ export const userSlice = createSlice({
         state.status = null;
         state.message = null;
         state.id = null;
+        state.isAuth = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'ok';
         state.message = 'successfully';
         if (action.payload) {
           state.id = action.payload.body.customer.id;
+          state.isAuth = true;
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
