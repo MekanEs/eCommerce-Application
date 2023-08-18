@@ -4,20 +4,24 @@
   display: flex;
   column-gap: 18px;
 }
+
 .textContent {
   h5 {
     @include text_def(20px);
     font-weight: 700;
   }
+
   p {
     @include text_def(16px);
   }
 }
+
 @media (max-width: 1220px) {
   .textContent {
     text-align: initial;
   }
 }
+
 @media (max-width: 850px) {
   .cart {
     img {

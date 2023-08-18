@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
 import Checkbox from '../../../../../../components/checkbox';
-import { FormFields } from '../../../../interface';
+import { FormFields } from '../../../../../../interfaces/formInputs';
 
 export default function createDefaultBilling(
   register: UseFormRegister<FormFields>,

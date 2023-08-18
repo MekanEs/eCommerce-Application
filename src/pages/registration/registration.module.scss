@@ -1,5 +1,7 @@
+@import '../../scss/allVariables.scss';
+
 .registration-form {
-  padding: 0px 50px 0px;
+  padding: 0 50px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,42 +9,16 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include form_container;
   max-width: 1215px;
-  margin: 0 auto;
-  margin-bottom: 100px;
 }
 
 .page-title {
-  margin: 50px 0px 0px;
-  font-size: 46px;
-  text-transform: uppercase;
-  padding: 0px 30px;
-  text-align: center;
+  @include forms_page_title;
 }
 
 .login-link {
-  display: flex;
-  align-items: center;
-  margin: 20px 0px 40px;
-  font-size: 17px;
-
-  a {
-    margin-left: 10px;
-    color: #2a76f7;
-    font-weight: 500;
-    text-decoration: underline;
-
-    &:hover {
-      color: #2f4dbc;
-    }
-
-    &:active {
-      color: #1f337e;
-    }
-  }
+  @include form_link;
 }
 
 .columns-container {
@@ -71,7 +47,7 @@
   font-weight: 500;
   line-height: 140%;
   text-align: left;
-  margin: 20px 0px 25px;
+  margin: 20px 0 25px;
 }
 
 .house-info {
@@ -85,7 +61,7 @@
 }
 
 .billing-column {
-  padding: 0px 25px 25px;
+  padding: 0 25px 25px;
   height: 100%;
   border-left: 1px solid #cfcfcf;
   border-right: 1px solid #cfcfcf;
@@ -95,7 +71,7 @@
 .billing-column,
 .shipping-column {
   width: 29%;
-  padding: 0px 20px 20px;
+  padding: 0 20px 20px;
 }
 
 .disabled-shipping {
@@ -155,7 +131,7 @@
   }
 
   .registration-form {
-    padding: 0px 20px 0px;
+    padding: 0 20px 0;
 
     input {
       width: 100%;
@@ -196,7 +172,7 @@
 
 @media (max-width: 750px) {
   .page-title {
-    margin: 35px 0px 0px;
+    margin: 35px 0 0;
     font-size: calc(10px + 4vmin);
   }
 

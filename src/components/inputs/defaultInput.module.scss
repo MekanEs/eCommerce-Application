@@ -1,39 +1,25 @@
+@import '../../scss/allVariables.scss';
+
 .default-label {
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  color: #706c68;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 140%;
-  background: white;
-  padding: 0px 5px;
-  z-index: 1;
+  @include label;
+  color: $defaultLabel;
 }
 
 .error-label {
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  color: #fb3e3e;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 140%;
-  background: white;
-  padding: 0px 5px;
-  z-index: 1;
+  @include label;
+  color: $error;
 }
 
 .valid-label {
   position: absolute;
   top: -10px;
   left: 10px;
-  color: #06c13a;
+  color: $success;
   font-size: 14px;
   font-weight: 400;
   line-height: 140%;
   background: white;
-  padding: 0px 5px;
+  padding: 0 5px;
   z-index: 1;
 }
 
@@ -51,7 +37,7 @@
   position: relative;
   border: 0;
   border-radius: 5px;
-  outline: 1px solid #cfcfcf;
+  outline: 1px solid $defaultOutline;
   padding: 14px 50px 14px 16px;
   width: 100%;
   background: white;
@@ -63,7 +49,7 @@
   position: relative;
   border: 0;
   border-radius: 5px;
-  outline: 1px solid #fb3e3e;
+  outline: 1px solid $error;
   padding: 14px 50px 14px 16px;
   width: 100%;
   background: white;
@@ -71,7 +57,7 @@
 }
 
 input::placeholder {
-  color: #cdcccc;
+  color: $defaultInput;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -97,31 +83,33 @@ input:-webkit-autofill:active {
 }
 
 .errors {
-  width: 90%;
-  color: #fb3e3e;
+  max-width: 320px;
+  color: $error;
   font-size: 12px;
   margin-bottom: -10px;
   margin-top: 10px;
+  text-align: center;
 }
 
 .warning {
-  width: 90%;
-  color: #f67f00;
+  max-width: 320px;
+  color: $warning;
   font-size: 12px;
   margin-bottom: -10px;
   margin-top: 10px;
+  text-align: center;
 }
 
 .error-input {
-  outline: 1px solid #fb3e3e;
+  outline: 1px solid $error;
 }
 
 .valid-label {
-  color: #06c13a;
+  color: $success;
 }
 
 .error-label {
-  color: #fb3e3e;
+  color: $error;
 }
 
 input[type='date'] {
@@ -138,12 +126,21 @@ input[type='date'] {
   }
 }
 
-@media (max-width: 750px) {
-  .default-input,
-  .error-input {
-    width: 100%;
+@media (max-width: 820px) {
+  .errors {
+    max-width: 90%;
   }
 
+  .warning {
+    max-width: 90%;
+  }
+
+  .field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 750px) {
   .default-label,
   .error-label,
   .valid-label {
@@ -154,6 +151,6 @@ input[type='date'] {
   .warning {
     width: 80%;
     margin: 0 auto;
-    padding: 10px 0px;
+    padding: 10px 0;
   }
 }

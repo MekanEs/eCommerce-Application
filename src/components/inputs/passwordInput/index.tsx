@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import eyeHide from '../../../assets/img/svg/eye-hide.svg';
 import eyeShow from '../../../assets/img/svg/eye-show.svg';
 import styles from './passwordInput.module.scss';
-import { InputProps } from '../../../utils/helpers/interface';
+import { InputProps } from '../../../interfaces/formInputs';
+import getLabelClasses from '../../../utils/helpers/functions/getLabelClasses';
+import getInputClasses from '../../../utils/helpers/functions/getInputClasses';
 
 const PasswordInput: React.FC<InputProps> = ({
-  label: label,
-  id: id,
-  placeholder: placeholder,
-  hookData: hookData,
-  errorMessage: errorMessage,
-  isValid: isValid,
-  warningMessage: warningMessage,
+  label,
+  id,
+  placeholder,
+  hookData,
+  errorMessage,
+  isValid,
+  warningMessage,
 }): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className={styles['password-input']}>
-      <label className={getLabelClasses(isValid)} htmlFor={id}>
+      <label className={getLabelClasses(isValid, styles)} htmlFor={id}>
         {label}
       </label>
       <input
@@ -26,7 +28,7 @@ const PasswordInput: React.FC<InputProps> = ({
         name={id}
         placeholder={placeholder}
         {...hookData}
-        className={getInputClasses(isValid)}
+        className={getInputClasses(isValid, styles)}
       />
       {errorMessage && <div className={styles.errors}>{errorMessage}</div>}
       {warningMessage && <div className={styles.warning}>{warningMessage}</div>}
@@ -43,25 +45,5 @@ const PasswordInput: React.FC<InputProps> = ({
     </div>
   );
 };
-
-function getLabelClasses(isValid: boolean | undefined): string {
-  if (isValid === undefined) {
-    return styles['default-label'];
-  } else {
-    if (isValid) {
-      return styles['valid-label'];
-    } else {
-      return styles['error-label'];
-    }
-  }
-}
-
-function getInputClasses(isValid: boolean | undefined): string {
-  if (isValid === undefined || isValid) {
-    return styles['default-input'];
-  } else {
-    return styles['error-input'];
-  }
-}
 
 export default PasswordInput;

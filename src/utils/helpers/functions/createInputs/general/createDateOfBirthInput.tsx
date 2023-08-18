@@ -1,10 +1,10 @@
 import { UseFormReturn } from 'react-hook-form';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import DateInput from '../../../../../components/inputs/dateInput';
 import validateDate from '../../validate/validateDate';
 
 export default function createDateOfBirthInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
 ): JSX.Element {
   const {
     register,

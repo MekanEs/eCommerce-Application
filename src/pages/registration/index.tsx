@@ -2,7 +2,7 @@ import React, { Dispatch, useEffect, useState } from 'react';
 import styles from './registration.module.scss';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
-import { Fields, FormFields } from '../../utils/helpers/interface';
+import { FormFields } from '../../interfaces/formInputs';
 import {
   createEmailInput,
   createPasswordInput,
@@ -31,9 +31,10 @@ import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { ISliceUser } from '../../interfaces/sliceUser';
+import { Fields } from '../../types/formInputs';
 
-const Registartion: React.FC = (): JSX.Element => {
-  const form = useForm<FormFields>({
+const Registration: React.FC = (): React.JSX.Element => {
+  const form: UseFormReturn<FormFields> = useForm<FormFields>({
     mode: 'onChange',
   });
 
@@ -51,12 +52,11 @@ const Registartion: React.FC = (): JSX.Element => {
   );
 };
 
-function createForm(
-  form: UseFormReturn<FormFields, unknown, undefined>,
-): JSX.Element {
-  const dispatch = useAppDispatch();
-  const navigator = useNavigate();
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
+  const dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+    Dispatch<AnyAction> = useAppDispatch();
+  const navigator: NavigateFunction = useNavigate();
+  const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
     registration(data, form, setErrorMessage, dispatch, navigator);
   };
   const [warningMessage, setWarningMessage] = useState('');
@@ -78,7 +78,7 @@ function createForm(
         {createButton('registration')}
       </form>
       {errorMessage && (
-        <div className={styles['error-container']}>
+        <div>
           <p className={styles['form-error']}>{errorMessage}</p>
           <div className={styles['additional-error-text']}>
             <p>
@@ -93,10 +93,10 @@ function createForm(
 }
 
 function createGeneralInfoColumn(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   warningMessage: string,
   setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
-): JSX.Element {
+): React.JSX.Element {
   return (
     <div className={styles['general-column']}>
       <h5 className={styles['form-title']}>General</h5>
@@ -110,8 +110,8 @@ function createGeneralInfoColumn(
 }
 
 function createBillingAddressColumn(
-  form: UseFormReturn<FormFields, unknown, undefined>,
-): JSX.Element {
+  form: UseFormReturn<FormFields>,
+): React.JSX.Element {
   return (
     <div className={styles['billing-column']}>
       <h5 className={styles['form-title']}>Billing address</h5>
@@ -130,9 +130,9 @@ function createBillingAddressColumn(
 }
 
 function createShippingAddressColumn(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   needDisable: boolean,
-): JSX.Element {
+): React.JSX.Element {
   return (
     <div
       className={
@@ -155,18 +155,16 @@ function createShippingAddressColumn(
   );
 }
 
-function createEffect(
-  form: UseFormReturn<FormFields, unknown, undefined>,
-): void {
-  const sameAddress = form.watch('sameAddress');
-  const billingCountry = form.watch('billingCountry');
-  const billingCity = form.watch('billingCity');
-  const billingStreet = form.watch('billingStreet');
-  const billingHouseNumber = form.watch('billingHouseNumber');
-  const billingApartment = form.watch('billingApartment');
-  const billingPostcode = form.watch('billingPostcode');
+function createEffect(form: UseFormReturn<FormFields>): void {
+  const sameAddress: boolean = form.watch('sameAddress');
+  const billingCountry: string = form.watch('billingCountry');
+  const billingCity: string = form.watch('billingCity');
+  const billingStreet: string = form.watch('billingStreet');
+  const billingHouseNumber: string = form.watch('billingHouseNumber');
+  const billingApartment: string = form.watch('billingApartment');
+  const billingPostcode: string = form.watch('billingPostcode');
 
-  useEffect(() => {
+  useEffect((): void => {
     if (sameAddress) {
       setShippingValues(form);
     } else if (form.formState.dirtyFields.sameAddress) {
@@ -188,9 +186,7 @@ function createEffect(
   ]);
 }
 
-function setShippingValues(
-  form: UseFormReturn<FormFields, unknown, undefined>,
-): void {
+function setShippingValues(form: UseFormReturn<FormFields>): void {
   const fields: Fields[][] = [
     ['shippingCountry', 'billingCountry'],
     ['shippingCity', 'billingCity'],
@@ -210,7 +206,7 @@ function setShippingValues(
 
 function registration(
   data: FormFields,
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
     Dispatch<AnyAction>,
@@ -231,11 +227,11 @@ function registration(
 }
 
 function createUseEffect(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   errorMessage: string,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
 ): void {
-  useEffect(() => {
+  useEffect((): void => {
     if (errorMessage != '') {
       form.trigger('email');
     }
@@ -243,4 +239,4 @@ function createUseEffect(
   }, [form.watch('email'), form.watch('password')]);
 }
 
-export default Registartion;
+export default Registration;

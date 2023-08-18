@@ -1,7 +1,7 @@
 import React, { Dispatch, useEffect, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
-import { FormFields } from '../../utils/helpers/interface';
+import { FormFields } from '../../interfaces/formInputs';
 import womanImg from '../../assets/img/png/woman-login.png';
 import styles from './login.module.scss';
 import {
@@ -17,10 +17,13 @@ import { ISliceUser } from '../../interfaces/sliceUser';
 import { AnyAction } from '@reduxjs/toolkit';
 
 const Login: React.FC = (): JSX.Element => {
-  const form = useForm<FormFields>({ mode: 'onChange' });
-  const dispatch = useAppDispatch();
-  const navigator = useNavigate();
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const form: UseFormReturn<FormFields> = useForm<FormFields>({
+    mode: 'onChange',
+  });
+  const dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+    Dispatch<AnyAction> = useAppDispatch();
+  const navigator: NavigateFunction = useNavigate();
+  const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
     login(data, form, setErrorMessage, dispatch, navigator);
     setWarningMessage('');
   };
@@ -55,14 +58,14 @@ const Login: React.FC = (): JSX.Element => {
 
 function login(
   data: FormFields,
-  form: UseFormReturn<FormFields, undefined, undefined>,
+  form: UseFormReturn<FormFields>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
     Dispatch<AnyAction>,
   navigator: NavigateFunction,
 ): void {
-  dispatch(loginUser(data)).then(() => {
-    const state = store.getState().user;
+  dispatch(loginUser(data)).then((): void => {
+    const state: ISliceUser = store.getState().user;
     if (state.status === 'ok') {
       form.reset();
       navigator('/');
@@ -76,11 +79,11 @@ function login(
 }
 
 function createUseEffect(
-  form: UseFormReturn<FormFields, undefined, undefined>,
+  form: UseFormReturn<FormFields>,
   errorMessage: string,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
 ): void {
-  useEffect(() => {
+  useEffect((): void => {
     if (errorMessage != '') {
       form.trigger('email');
       form.trigger('password');
@@ -90,7 +93,3 @@ function createUseEffect(
 }
 
 export default Login;
-function setErrorMessage(value: SetStateAction<string>): void {
-  throw new Error('Function not implemented.');
-}
-

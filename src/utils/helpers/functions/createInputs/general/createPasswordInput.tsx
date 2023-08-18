@@ -1,12 +1,13 @@
 import { UseFormReturn } from 'react-hook-form';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import { PasswordInput } from '../../../../../components/inputs';
 import validatePassword from '../../validate/validatePassword';
+import React from 'react';
 
 const WARINING_REGEXP = /(?=.*[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~])/;
 
 export default function createPasswordInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   warningMessage: string,
   setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
 ): JSX.Element {
