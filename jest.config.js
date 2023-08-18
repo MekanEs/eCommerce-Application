@@ -3,6 +3,12 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   collectCoverage: true,
+  collectCoverageFrom: ['./src/**'],
+  coverageThreshold: {
+    global: {
+      lines: 25,
+    },
+  },
   coverageDirectory: 'coverage',
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
