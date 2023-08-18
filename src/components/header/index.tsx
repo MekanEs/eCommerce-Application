@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <NavLink to="/">
-          <img src={logo} alt="" />
+          <img src={logo} alt="logo" />
         </NavLink>
 
         {path === '/registration' || path === '/login' ? (
