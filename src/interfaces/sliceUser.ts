@@ -7,6 +7,7 @@ export interface ISliceUser {
   status: string | null;
   message: string | null | unknown;
   id: string | null;
+  isAuth: null | boolean;
 }
 
 export interface CharacterSuccessResponse {

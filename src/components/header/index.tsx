@@ -10,12 +10,15 @@ import Logout from '../logout/logout';
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const isAuth = userAuth();
+  console.log(isAuth);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <NavLink to="/">
           <img src={logo} alt="" />
         </NavLink>
+
         {path === '/registration' || path === '/login' ? (
           ''
         ) : isAuth ? (
@@ -25,10 +28,9 @@ const Header: React.FC = () => {
             <NavLink className={isActive} to="registration">
               registration
             </NavLink>
-
             <NavLink className={isActive} to="login">
               log in
-            </NavLink>
+            </NavLink>{' '}
           </div>
         )}
       </header>
