@@ -3,9 +3,10 @@ import React from 'react';
 import styles from './question.module.scss';
 import question_icon from '../../../assets/img/svg/question_icon.svg';
 
-type questionPropstype = { header: string; children: string };
-
-const Question: React.FC<questionPropstype> = ({ header, children }) => {
+const Question: React.FC<{ header: string; children: string }> = ({
+  header,
+  children,
+}) => {
   return (
     <div className={styles.container}>
       <img src={question_icon} alt="questin icon" />
