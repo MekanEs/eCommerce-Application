@@ -1,5 +1,7 @@
+@import '../../scss/allVariables.scss';
+
 .login-form {
-  padding: 0px 50px 0px;
+  padding: 0 30px 0;
 
   button {
     margin-top: 0;
@@ -7,41 +9,16 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include form_container;
   max-width: 820px;
-  margin: 0 auto;
 }
 
 .page-title {
-  margin: 50px 0px 0px;
-  font-size: 46px;
-  text-transform: uppercase;
-  padding: 0px 30px;
+  @include forms_page_title;
 }
 
 .registration-link {
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.registration-link {
-  a {
-    margin-left: 10px;
-    color: #2a76f7;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-
-  &:hover {
-    color: #2f4dbc;
-  }
-
-  &:active {
-    color: #1f337e;
-  }
+  @include form_link;
 }
 
 .form-container {
@@ -50,10 +27,21 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  outline: 1px solid #cfcfcf;
+  outline: 1px solid $defaultOutline;
   width: 94%;
   height: 340px;
   overflow: hidden;
+}
+
+.form-error {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  padding: 5px;
+  background: $error;
+  border-radius: 3px;
 }
 
 .image-container {
@@ -65,7 +53,7 @@
     border-radius: 50%;
     width: 592px;
     height: 592px;
-    background: #3e66fb;
+    background: $link;
     top: -110px;
     right: 56%;
     z-index: -1;
@@ -76,9 +64,9 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   .page-title {
-    margin: 35px 0px 0px;
+    margin: 35px 0 0;
     font-size: calc(10px + 4vmin);
   }
 
@@ -93,12 +81,14 @@
 
   .form-container {
     width: 90%;
-    padding: 40px 0px;
+    padding: 40px 0;
     height: 100%;
+    overflow: visible;
+    margin-top: 20px;
   }
 
   .login-form {
-    padding: 0px 40px 0px;
+    padding: 0 40px 0;
     width: 100%;
   }
 
@@ -107,5 +97,11 @@
       width: 100%;
       margin: 0;
     }
+  }
+
+  .form-error {
+    font-size: 11px;
+    bottom: -60px;
+    margin: 0 0;
   }
 }

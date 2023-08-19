@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { About, Login, Main, PageNotFound, Registartion } from '../pages';
+import { About, Login, Main, PageNotFound, Registration } from '../pages';
 import { Layout } from '../components/index';
 import Catalog from '../pages/catalog';
 import RequireAuth from './requireAuth/requiereAuth';
@@ -16,11 +16,10 @@ export const router = createBrowserRouter(
       <Route path="catalog" element={<Catalog />} />
       <Route element={<RequireAuth />}>
         <Route path="login" element={<Login />} />
-        <Route path="registration" element={<Registartion />} />
+        <Route path="registration" element={<Registration />} />
       </Route>
       <Route path="login" element={<Login />} />
-      <Route path="registration" element={<Registartion />} />
-
+      <Route path="registration" element={<Registration />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>,
   ),

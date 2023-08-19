@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  align-items: center;
 }
 
 .checkbox-label {
@@ -12,8 +11,6 @@
 }
 
 input[type='checkbox'] {
-  width: 18px;
-  height: 18px;
   border: 2px;
   cursor: pointer;
 }

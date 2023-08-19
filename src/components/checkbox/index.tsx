@@ -1,5 +1,6 @@
-import { CheckboxProps } from '../../utils/helpers/interface';
+import { CheckboxProps } from '../../interfaces/formInputs';
 import styles from './checkbox.module.scss';
+import React from 'react';
 
 const Checkbox: React.FC<CheckboxProps> = ({ id, label, hookData }) => {
   return (
