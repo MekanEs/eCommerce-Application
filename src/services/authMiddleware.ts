@@ -5,8 +5,9 @@ import {
   CTP_PROJECT_KEY,
   CTP_SCOPES,
 } from '.';
+import { AuthMiddlewareOptions } from '../types/auth';
 
-export const authMiddlewareOptions = {
+export const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: CTP_AUTH_URL,
   projectKey: CTP_PROJECT_KEY,
   credentials: {

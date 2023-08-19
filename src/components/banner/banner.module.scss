@@ -8,7 +8,8 @@
   border-radius: 10px;
   border: $border;
   padding-top: 30px;
-  background: url('../../assets/img/svg/banner_bg_circle.svg') no-repeat 100% 101%;
+  background: url('../../assets/img/svg/banner_bg_circle.svg') no-repeat 100%
+    101%;
 
   h2 {
     @include header(88px);
