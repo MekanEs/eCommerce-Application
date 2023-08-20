@@ -1,4 +1,5 @@
 import { TokenCache } from '@commercetools/sdk-client-v2';
+import fetch from 'node-fetch';
 
 export type logUser = {
   email: string;
@@ -42,10 +43,7 @@ export type PasswordAuthMiddlewareOptions = {
   scopes?: Array<string>;
   tokenCache?: TokenCache;
   oauthUri?: string;
-  fetch?: (
-    input: RequestInfo | URL,
-    init?: RequestInit | undefined,
-  ) => Promise<Response>;
+  fetch?: typeof fetch;
 };
 
 export type AuthMiddlewareOptions = {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { isActive } from '../../../utils';
 import { NavLink, useLocation } from 'react-router-dom';
 import styles from './navigation.module.scss';
+import styles2 from '../header.module.scss';
 
 const Navigation: React.FC = () => {
   const path = useLocation().pathname;
@@ -9,19 +9,34 @@ const Navigation: React.FC = () => {
   return (
     <ul className={NavStyle}>
       <li>
-        <NavLink className={isActive} to="/">
+        <NavLink
+          className={(el): string =>
+            el.isActive ? styles2.activeLink : styles2.link
+          }
+          to="/"
+        >
           Main
         </NavLink>
       </li>
 
       <li>
-        <NavLink className={isActive} to="catalog">
+        <NavLink
+          className={(el): string =>
+            el.isActive ? styles2.activeLink : styles2.link
+          }
+          to="catalog"
+        >
           Catalog
         </NavLink>
       </li>
 
       <li>
-        <NavLink className={isActive} to="about">
+        <NavLink
+          className={(el): string =>
+            el.isActive ? styles2.activeLink : styles2.link
+          }
+          to="about"
+        >
           About
         </NavLink>
       </li>

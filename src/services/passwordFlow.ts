@@ -7,6 +7,7 @@ import {
 } from '.';
 import { PasswordAuthMiddlewareOptions } from '../types/auth';
 import tokenCache from './tokenCache';
+import fetch from 'node-fetch';
 
 export const getOptions = (
   email: string,
