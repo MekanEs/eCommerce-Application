@@ -1,10 +1,10 @@
 import { UseFormReturn } from 'react-hook-form';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import { TextInput } from '../../../../../components/inputs';
 import validateDefault from '../../validate/validateDefault';
 
 export default function createShippingCityInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
 ): JSX.Element {
   const {
     register,

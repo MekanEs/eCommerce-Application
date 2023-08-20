@@ -7,6 +7,7 @@ import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootLogin, getApiRootRegis } from '../../services/ClientBuilder';
 import { logUser, regUser } from '../../types/auth';
+import { getAddress } from '../../utils/helpers/functions/getAddress';
 
 const initialState: ISliceUser = {
   status: null,
@@ -54,6 +55,11 @@ export const registrationUser = createAsyncThunk(
               firstName: options.firstName,
               lastName: options.lastName,
               dateOfBirth: options.dateOfBirth,
+              addresses: getAddress(options),
+              billingAddresses: [0],
+              shippingAddresses: [1],
+              defaultBillingAddress: options.defaultBilling ? 0 : undefined,
+              defaultShippingAddress: options.defaultShipping ? 1 : undefined,
             },
           })
           .execute();

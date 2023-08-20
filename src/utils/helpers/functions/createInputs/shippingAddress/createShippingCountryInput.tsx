@@ -1,11 +1,11 @@
 import { UseFormReturn } from 'react-hook-form';
 import { useEffect } from 'react';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import SelectInput from '../../../../../components/inputs/selectInput';
 import countries from '../../../../../utils/countries.json';
 
 export default function createShippingCountryInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
 ): JSX.Element {
   const {
     register,

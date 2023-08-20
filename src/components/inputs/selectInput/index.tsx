@@ -1,24 +1,26 @@
-import { InputProps } from '../../../utils/helpers/interface';
+import { InputProps } from '../../../interfaces/formInputs';
 import styles from './selectInput.module.scss';
+import getLabelClasses from '../../../utils/helpers/functions/getLabelClasses';
+import React from 'react';
 
 const SelectInput: React.FC<InputProps> = ({
-  label: label,
-  id: id,
-  placeholder: placeholder,
-  hookData: hookData,
-  errorMessage: errorMessage,
-  isValid: isValid,
-  options: options,
+  label,
+  id,
+  placeholder,
+  hookData,
+  errorMessage,
+  isValid,
+  options,
 }): JSX.Element => {
   return (
     <div className={styles.field}>
-      <label className={getLabelClasses(isValid)} htmlFor={id}>
+      <label className={getLabelClasses(isValid, styles)} htmlFor={id}>
         {label}
       </label>
       <select
         defaultValue=""
         id={id}
-        className={getInputClasses(isValid)}
+        className={getInputClasses(isValid, styles)}
         {...hookData}
       >
         <option value="" disabled>
@@ -35,19 +37,10 @@ const SelectInput: React.FC<InputProps> = ({
   );
 };
 
-function getLabelClasses(isValid: boolean | undefined): string {
-  if (isValid === undefined) {
-    return styles['default-label'];
-  } else {
-    if (isValid) {
-      return styles['valid-label'];
-    } else {
-      return styles['error-label'];
-    }
-  }
-}
-
-function getInputClasses(isValid: boolean | undefined): string {
+function getInputClasses(
+  isValid: boolean | undefined,
+  styles: { readonly [x: string]: string },
+): string {
   if (isValid === undefined) {
     return styles['default-input'];
   } else {

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { FormFields } from '../../utils/helpers/interface';
+import React, { Dispatch, useEffect, useState } from 'react';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
+import { FormFields } from '../../interfaces/formInputs';
 import womanImg from '../../assets/img/png/woman-login.png';
 import styles from './login.module.scss';
 import {
@@ -12,24 +12,26 @@ import createButton from '../../utils/helpers/functions/createButton';
 import { loginUser } from '../../store/auth/auth.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { store } from '../../store/store';
+import { ThunkDispatch } from 'redux-thunk/es/types';
+import { ISliceUser } from '../../interfaces/sliceUser';
+import { AnyAction } from '@reduxjs/toolkit';
 
 const Login: React.FC = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const navigator = useNavigate();
-  const form = useForm<FormFields>({ mode: 'onChange' });
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    dispatch(loginUser(data)).then(() => {
-      const state = store.getState().user;
-      if (state.status === 'ok') {
-        form.reset();
-        navigator('/');
-      } else {
-        console.log(state.message);
-      }
-    });
+  const form: UseFormReturn<FormFields> = useForm<FormFields>({
+    mode: 'onChange',
+  });
+  const dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+    Dispatch<AnyAction> = useAppDispatch();
+  const navigator: NavigateFunction = useNavigate();
+  const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
+    login(data, form, setErrorMessage, dispatch, navigator);
     setWarningMessage('');
   };
   const [warningMessage, setWarningMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  createUseEffect(form, errorMessage, setErrorMessage);
+
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>Welcome to «Veros» Store</h2>
@@ -48,9 +50,46 @@ const Login: React.FC = (): JSX.Element => {
           {createPasswordInput(form, warningMessage, setWarningMessage)}
           {createButton('log in')}
         </form>
+        {errorMessage && <p className={styles['form-error']}>{errorMessage}</p>}
       </div>
     </div>
   );
 };
+
+function login(
+  data: FormFields,
+  form: UseFormReturn<FormFields>,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+  dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+    Dispatch<AnyAction>,
+  navigator: NavigateFunction,
+): void {
+  dispatch(loginUser(data)).then((): void => {
+    const state: ISliceUser = store.getState().user;
+    if (state.status === 'ok') {
+      form.reset();
+      navigator('/');
+    } else {
+      form.setError('email', {});
+      form.setError('password', {});
+
+      setErrorMessage(typeof state.message === 'string' ? state.message : '');
+    }
+  });
+}
+
+function createUseEffect(
+  form: UseFormReturn<FormFields>,
+  errorMessage: string,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+): void {
+  useEffect((): void => {
+    if (errorMessage != '') {
+      form.trigger('email');
+      form.trigger('password');
+    }
+    setErrorMessage('');
+  }, [form.watch('email'), form.watch('password')]);
+}
 
 export default Login;

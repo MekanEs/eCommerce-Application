@@ -1,9 +1,9 @@
 import { UseFormReturn } from 'react-hook-form';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import { TextInput } from '../../../../../components/inputs';
 
 export default function createBillingApartmentInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
   className: string,
 ): JSX.Element {
   const {
