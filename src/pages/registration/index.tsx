@@ -57,13 +57,20 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
     Dispatch<AnyAction> = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
-    registration(data, form, setErrorMessage, dispatch, navigator);
+    registration(
+      data,
+      form,
+      setErrorMessage,
+      setSuccesMessage,
+      dispatch,
+      navigator,
+    );
   };
   const [warningMessage, setWarningMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [succesMessage, setSuccesMessage] = useState('');
   createUseEffect(form, errorMessage, setErrorMessage);
-
+  createUseEffect(form, succesMessage, setSuccesMessage);
   return (
     <>
       <form
@@ -77,21 +84,36 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
         </div>
         {createButton('registration')}
       </form>
-      {errorMessage && (
-        <div>
-          <p className={styles['form-error']}>{errorMessage}</p>
-          <div className={styles['additional-error-text']}>
-            <p>
-              Use a different email address or sign in to an existing account –
-            </p>
-            <Link to="/login">Log in</Link>
-          </div>
-        </div>
-      )}
+      {errorMessage && createErrorMessage(errorMessage)}
+      {succesMessage && createSuccessMessage(succesMessage)}
     </>
   );
 }
-
+function createErrorMessage(errorMessage: string): JSX.Element {
+  return (
+    <div>
+      <p className={`${styles['form-message']} ${styles['error']}`}>
+        {errorMessage}
+      </p>
+      <div className={styles['additional-text']}>
+        <p>Use a different email address or sign in to an existing account –</p>
+        <Link to="/login">Log in</Link>
+      </div>
+    </div>
+  );
+}
+function createSuccessMessage(succesMessage: string): JSX.Element {
+  return (
+    <div>
+      <p className={`${styles['form-message']} ${styles['success']}`}>
+        {succesMessage}
+      </p>
+      <div className={styles['additional-text']}>
+        <p>Succesfully registered new user</p>
+      </div>
+    </div>
+  );
+}
 function createGeneralInfoColumn(
   form: UseFormReturn<FormFields>,
   warningMessage: string,
@@ -208,6 +230,7 @@ function registration(
   data: FormFields,
   form: UseFormReturn<FormFields>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+  setSuccesMessage: React.Dispatch<React.SetStateAction<string>>,
   dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
     Dispatch<AnyAction>,
   navigator: NavigateFunction,
@@ -215,12 +238,14 @@ function registration(
   dispatch(registrationUser(data)).then(() => {
     const state = store.getState().user;
     if (state.status === 'ok') {
-      dispatch(loginUser(data));
-      form.reset();
-      navigator('/');
+      setSuccesMessage(typeof state.message === 'string' ? state.message : '');
+      setTimeout(() => {
+        dispatch(loginUser(data));
+        form.reset();
+        navigator('/');
+      }, 500);
     } else {
       form.setError('email', {});
-
       setErrorMessage(typeof state.message === 'string' ? state.message : '');
     }
   });
@@ -228,14 +253,14 @@ function registration(
 
 function createUseEffect(
   form: UseFormReturn<FormFields>,
-  errorMessage: string,
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+  message: string,
+  setter: React.Dispatch<React.SetStateAction<string>>,
 ): void {
   useEffect((): void => {
-    if (errorMessage != '') {
+    if (message != '') {
       form.trigger('email');
     }
-    setErrorMessage('');
+    setter('');
   }, [form.watch('email'), form.watch('password')]);
 }
 
