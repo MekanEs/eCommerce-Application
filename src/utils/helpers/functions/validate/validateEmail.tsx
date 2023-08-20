@@ -11,7 +11,7 @@ export default function validateEmail(value: string): boolean | string {
     return 'Password must not contain leading or trailing spaces';
   }
 
-  if (!value.match(/@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,}$/)) {
+  if (!value.match(/@([-A-Za-z]+\.){1,2}[-A-Za-z]{2,}$/)) {
     return 'Enter a valid domain for the email address, e.g. user@example.com';
   }
 

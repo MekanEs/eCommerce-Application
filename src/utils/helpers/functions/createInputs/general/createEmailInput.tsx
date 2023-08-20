@@ -1,10 +1,10 @@
 import { UseFormReturn } from 'react-hook-form';
 import { TextInput } from '../../../../../components/inputs';
-import { FormFields } from '../../../interface';
+import { FormFields } from '../../../../../interfaces/formInputs';
 import validateEmail from '../../validate/validateEmail';
 
 export default function createEmailInput(
-  form: UseFormReturn<FormFields, unknown, undefined>,
+  form: UseFormReturn<FormFields>,
 ): JSX.Element {
   const {
     register,

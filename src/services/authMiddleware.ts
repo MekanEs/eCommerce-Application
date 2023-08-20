@@ -5,8 +5,9 @@ import {
   CTP_PROJECT_KEY,
   CTP_SCOPES,
 } from '.';
-import fetch from 'node-fetch';
-export const authMiddlewareOptions = {
+import { AuthMiddlewareOptions } from '../types/auth';
+
+export const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: CTP_AUTH_URL,
   projectKey: CTP_PROJECT_KEY,
   credentials: {

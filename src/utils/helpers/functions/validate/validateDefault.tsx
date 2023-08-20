@@ -3,7 +3,7 @@ export default function validateName(value: string): boolean | string {
     return 'Value must contain at least one character';
   }
 
-  if (/[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~]/.test(value)) {
+  if (/[!\\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(value)) {
     return 'Value must not contain special characters';
   }
 

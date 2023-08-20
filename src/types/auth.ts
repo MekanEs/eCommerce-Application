@@ -1,4 +1,3 @@
-import { BaseAddress } from '@commercetools/platform-sdk';
 import { TokenCache } from '@commercetools/sdk-client-v2';
 import fetch from 'node-fetch';
 
@@ -13,7 +12,21 @@ export type regUser = {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  addresses?: BaseAddress[];
+  shippingCountry: string;
+  billingCountry: string;
+  shippingCity: string;
+  billingCity: string;
+  shippingStreet: string;
+  billingStreet: string;
+  shippingHouseNumber: string;
+  billingHouseNumber: string;
+  shippingApartment: string;
+  billingApartment: string;
+  shippingPostcode: string;
+  billingPostcode: string;
+  sameAddress: boolean;
+  defaultBilling: boolean;
+  defaultShipping: boolean;
 };
 
 export type PasswordAuthMiddlewareOptions = {
@@ -31,4 +44,18 @@ export type PasswordAuthMiddlewareOptions = {
   tokenCache?: TokenCache;
   oauthUri?: string;
   fetch?: typeof fetch;
+};
+
+export type AuthMiddlewareOptions = {
+  host: string;
+  projectKey: string;
+  credentials: {
+    clientId: string;
+    clientSecret: string;
+  };
+  scopes?: Array<string>;
+  fetch?: (
+    input: RequestInfo | URL,
+    init?: RequestInit | undefined,
+  ) => Promise<Response>;
 };
