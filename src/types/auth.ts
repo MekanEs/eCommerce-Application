@@ -54,8 +54,5 @@ export type AuthMiddlewareOptions = {
     clientSecret: string;
   };
   scopes?: Array<string>;
-  fetch?: (
-    input: RequestInfo | URL,
-    init?: RequestInit | undefined,
-  ) => Promise<Response>;
+  fetch?: typeof fetch;
 };
