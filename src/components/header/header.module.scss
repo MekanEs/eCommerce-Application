@@ -1,0 +1,34 @@
+@import '../../index.scss';
+
+.container {
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1216px;
+}
+
+.header {
+  margin: 25px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: $border;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.auth {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  color: #706c68;
+
+  a {
+    @include button_white;
+  }
+}
+.activeLink {
+  color: $link;
+}
