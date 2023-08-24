@@ -1,19 +1,9 @@
-import {
-  ClientResponse,
-  CustomerSignInResult,
-} from '@commercetools/platform-sdk';
+import { BaseAddress } from '@commercetools/platform-sdk';
 
 export interface ISliceUser {
-  status: string | null;
-  message: string | null | unknown;
-  id: string | null;
-  isAuth: null | boolean;
-}
-
-export interface CharacterSuccessResponse {
-  results: ClientResponse<CustomerSignInResult>;
-}
-
-export interface CharacterFailedResponse {
-  error: string;
+  firstName: null | string;
+  lastName: null | string;
+  dateBirth: null | string;
+  email: null | string;
+  address: null | BaseAddress[];
 }
