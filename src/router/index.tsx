@@ -8,7 +8,7 @@ import {
   Login,
   Main,
   PageNotFound,
-  Profile,
+  Account,
   Registration,
 } from '../pages';
 import { Layout } from '../components/index';
@@ -27,9 +27,9 @@ export const router = createBrowserRouter(
         <Route path="registration" element={<Registration />} />
       </Route>
       <Route element={<CheckAccountAuth />}>
-        <Route path="account" element={<Profile />} />
+        <Route path="account" element={<Account />} />
       </Route>
-      <Route path="account" element={<Profile />} />
+      <Route path="account" element={<Account />} />
       <Route path="login" element={<Login />} />
       <Route path="registration" element={<Registration />} />
       <Route path="*" element={<PageNotFound />} />
