@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    width: 40%;
+    img {
+      width: 100%;
+    }
+  }
+}
