@@ -9,6 +9,7 @@ import {
 } from '../../store/product/product.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import Slider from './slider';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -36,6 +37,7 @@ const Product: React.FC = (): JSX.Element => {
   ) {
     return <></>;
   }
+
   const productName = productData.masterData.current.name['en-US'];
   const productCategory =
     productData.masterData.current.categories[0].obj?.name['en-US'];
@@ -45,7 +47,6 @@ const Product: React.FC = (): JSX.Element => {
     productData.masterData.current.masterVariant.attributes[1].value;
   const stock =
     productData.masterData.current.masterVariant.attributes[2].value;
-
   const productDescription =
     productData.masterData.current.description['en-US'];
   const productImages = productData.masterData.current.masterVariant.images.map(
@@ -90,7 +91,7 @@ const Product: React.FC = (): JSX.Element => {
           </div>
         </div>
         <div className={styles.slider}>
-          <img src={productImages[0]} alt="" />
+          <Slider images={productImages} />
         </div>
       </div>
       <div className={styles.description}>
