@@ -54,10 +54,15 @@ const Product: React.FC = (): JSX.Element => {
   );
   const productPrice =
     productData.masterData.current.masterVariant.prices[0].value.centAmount;
-  const formattedPrice = (productPrice / 100).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  const productDiscountPrice =
+    productData.masterData.current.masterVariant.prices[0].discounted?.value
+      .centAmount;
+  const formattedPrice = formatPrice(productPrice);
+
+  let formattedDiscountPrice;
+  if (productDiscountPrice) {
+    formattedDiscountPrice = formatPrice(productDiscountPrice);
+  }
 
   return (
     <div className={styles.container}>
@@ -66,7 +71,7 @@ const Product: React.FC = (): JSX.Element => {
           <h2>{productName}</h2>
           <div className={styles.price}>
             <p className={styles['subtitle']}>Price</p>
-            <p>$ {formattedPrice}</p>
+            {createTagPrice(formattedPrice, formattedDiscountPrice)}
           </div>
           <div className={styles.info}>
             <p className={styles['subtitle']}>Info</p>
@@ -102,5 +107,28 @@ const Product: React.FC = (): JSX.Element => {
     </div>
   );
 };
+
+function formatPrice(price: number): string {
+  return (price / 100).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function createTagPrice(
+  price: string,
+  discountPrice: string | undefined,
+): JSX.Element {
+  if (discountPrice) {
+    return (
+      <>
+        <p className={styles.discount}>$ {price}</p>
+        <p>{'$ ' + discountPrice}</p>
+      </>
+    );
+  } else {
+    return <p>$ {price}</p>;
+  }
+}
 
 export default Product;
