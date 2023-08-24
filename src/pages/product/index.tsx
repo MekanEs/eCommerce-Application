@@ -1,24 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './product.module.scss';
 import createButton from '../../utils/helpers/functions/createButton';
-import product from './product.json';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {
+  fetchProductData,
+  selectProductData,
+} from '../../store/product/product.slice';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
-  const productName = product.masterData.current.name['en-US'];
-  const productCategory =
-    product.masterData.current.categories[0].obj.name['en-US'];
-  const frameMaterial =
-    product.masterData.staged.masterVariant.attributes[0].value;
-  const wheelSize = product.masterData.staged.masterVariant.attributes[1].value;
-  const stock = product.masterData.staged.masterVariant.attributes[2].value;
+  const { id } = useParams();
+  const productData = useSelector(selectProductData);
+  const dispatch = useAppDispatch();
+  const navigate: NavigateFunction = useNavigate();
 
-  const productDescription = product.masterData.current.description['en-US'];
-  const productImages = product.masterData.current.masterVariant.images.map(
-    (image) => image.url,
+  useEffect(() => {
+    if (!productData && id) {
+      dispatch(fetchProductData(id)).then((action) => {
+        if (fetchProductData.rejected.match(action)) {
+          navigate('/404');
+        }
+      });
+    }
+  });
+
+  if (
+    !productData ||
+    !productData.masterData.current.masterVariant.attributes ||
+    !productData.masterData.current.description ||
+    !productData.masterData.current.masterVariant.prices ||
+    !productData.masterData.current.masterVariant.images
+  ) {
+    return <></>;
+  }
+  const productName = productData.masterData.current.name['en-US'];
+  const productCategory =
+    productData.masterData.current.categories[0].obj?.name['en-US'];
+  const frameMaterial =
+    productData.masterData.current.masterVariant.attributes[0].value;
+  const wheelSize =
+    productData.masterData.current.masterVariant.attributes[1].value;
+  const stock =
+    productData.masterData.current.masterVariant.attributes[2].value;
+
+  const productDescription =
+    productData.masterData.current.description['en-US'];
+  const productImages = productData.masterData.current.masterVariant.images.map(
+    (image: { url: string }) => image.url,
   );
   const productPrice =
-    product.masterData.current.masterVariant.prices[0].value.centAmount;
+    productData.masterData.current.masterVariant.prices[0].value.centAmount;
   const formattedPrice = (productPrice / 100).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
