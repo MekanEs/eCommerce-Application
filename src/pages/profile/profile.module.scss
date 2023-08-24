@@ -1,0 +1,18 @@
+@import '../../scss/allVariables.scss';
+
+.registration-form {
+  padding: 0 50px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  @include form_container;
+  max-width: 1215px;
+}
+
+.page-title {
+  @include forms_page_title;
+}

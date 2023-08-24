@@ -3,10 +3,18 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { About, Login, Main, PageNotFound, Registration } from '../pages';
+import {
+  About,
+  Login,
+  Main,
+  PageNotFound,
+  Profile,
+  Registration,
+} from '../pages';
 import { Layout } from '../components/index';
 import Catalog from '../pages/catalog';
 import RequireAuth from './requireAuth/requiereAuth';
+import CheckAccountAuth from './accountAuth/accountAuth';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +26,10 @@ export const router = createBrowserRouter(
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
       </Route>
+      <Route element={<CheckAccountAuth />}>
+        <Route path="account" element={<Profile />} />
+      </Route>
+      <Route path="account" element={<Profile />} />
       <Route path="login" element={<Login />} />
       <Route path="registration" element={<Registration />} />
       <Route path="*" element={<PageNotFound />} />
