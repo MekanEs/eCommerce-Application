@@ -1,5 +1,8 @@
 import fetch from 'node-fetch';
-import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import {
+  ClientBuilder,
+  ExistingTokenMiddlewareOptions,
+} from '@commercetools/sdk-client-v2';
 import {
   ApiRoot,
   createApiBuilderFromCtpClient,
@@ -26,6 +29,21 @@ export const getApiRootLogin = (email: string, password: string): ApiRoot => {
 export const getApiRootRegis = (): ApiRoot => {
   const client = new ClientBuilder()
     .withProjectKey(CTP_PROJECT_KEY)
+    .withClientCredentialsFlow(authMiddlewareOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .withLoggerMiddleware()
+    .build();
+  return createApiBuilderFromCtpClient(client);
+};
+
+const authorization: string = localStorage.getItem('token') || '';
+const options: ExistingTokenMiddlewareOptions = {
+  force: true,
+};
+export const getApiRootToken = (): ApiRoot => {
+  const client = new ClientBuilder()
+    .withProjectKey(CTP_PROJECT_KEY)
+    .withExistingTokenFlow(authorization, options)
     .withClientCredentialsFlow(authMiddlewareOptions)
     .withHttpMiddleware(httpMiddlewareOptions)
     .withLoggerMiddleware()
