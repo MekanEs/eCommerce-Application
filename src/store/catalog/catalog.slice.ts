@@ -4,9 +4,11 @@ import { getApiRootRegis } from '../../services/ClientBuilder';
 
 const initialState: {
   categories: { name: string; id: string }[] | undefined;
+  activeCategory: { name: string; id: string };
   products: null | unknown;
 } = {
   categories: [],
+  activeCategory: { name: 'all', id: '1' },
   products: null,
 };
 
@@ -14,7 +16,6 @@ export const getProducts = createAsyncThunk(
   'catalog/getProducts',
   async function () {
     try {
-      console.log('work');
       const result = await getApiRootRegis()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .productProjections()
@@ -31,7 +32,6 @@ export const getCategories = createAsyncThunk(
   'catalog/getCategories',
   async function () {
     try {
-      console.log('work');
       const result = await getApiRootRegis()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .categories()
@@ -68,7 +68,8 @@ export const catalogSlice = createSlice({
         state.categories = [];
       })
       .addCase(getCategories.fulfilled, (state, action) => {
-        state.categories = action.payload;
+        const data = (action.payload && action.payload) || [];
+        state.categories = [{ name: 'all', id: '1' }, ...data];
       })
       .addCase(getCategories.rejected, (state) => {
         state.categories = [];
