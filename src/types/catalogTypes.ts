@@ -2,9 +2,9 @@ export type categorytype = { name: string; id: string };
 type price = {
   value: number;
   currencyCode: string;
-  discount: { value: number; id: string; name: string | undefined } | undefined;
+  discount: { value: number; id: string } | undefined;
 };
-export type discount = { name: string; description: string; id: string };
+
 type attribute = { name: string; value: string };
 export type producttype = {
   name: string;

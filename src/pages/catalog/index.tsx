@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 
 import styles from './catalog.module.scss';
 
-import { Products, Categories } from '../../components';
+import { ProductsLayout, Categories } from '../../components';
 
 const Catalog: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ const Catalog: React.FC = () => {
   return (
     <div className={styles.container}>
       <Categories />
-      <Products />
+      <ProductsLayout />
     </div>
   );
 };

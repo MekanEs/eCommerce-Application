@@ -30,7 +30,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { ISliceUser } from '../../interfaces/sliceUser';
+import { ISliceAuth } from '../../interfaces/sliceAuth';
 import { Fields } from '../../types/formInputs';
 
 const Registration: React.FC = (): React.JSX.Element => {
@@ -53,7 +53,7 @@ const Registration: React.FC = (): React.JSX.Element => {
 };
 
 function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
-  const dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+  const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction> = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
@@ -231,12 +231,12 @@ function registration(
   form: UseFormReturn<FormFields>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setSuccesMessage: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+  dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction>,
   navigator: NavigateFunction,
 ): void {
   dispatch(registrationUser(data)).then(() => {
-    const state = store.getState().user;
+    const state = store.getState().auth;
     if (state.status === 'ok') {
       setSuccesMessage(typeof state.message === 'string' ? state.message : '');
       setTimeout(() => {

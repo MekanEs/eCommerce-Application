@@ -13,14 +13,14 @@ import { loginUser } from '../../store/auth/auth.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { store } from '../../store/store';
 import { ThunkDispatch } from 'redux-thunk/es/types';
-import { ISliceUser } from '../../interfaces/sliceUser';
+import { ISliceAuth } from '../../interfaces/sliceAuth';
 import { AnyAction } from '@reduxjs/toolkit';
 
 const Login: React.FC = (): JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({
     mode: 'onChange',
   });
-  const dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+  const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction> = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
@@ -60,12 +60,12 @@ function login(
   data: FormFields,
   form: UseFormReturn<FormFields>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: ThunkDispatch<{ user: ISliceUser }, undefined, AnyAction> &
+  dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction>,
   navigator: NavigateFunction,
 ): void {
   dispatch(loginUser(data)).then((): void => {
-    const state: ISliceUser = store.getState().user;
+    const state: ISliceAuth = store.getState().auth;
     if (state.status === 'ok') {
       form.reset();
       navigator('/');
