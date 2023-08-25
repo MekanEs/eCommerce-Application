@@ -19,6 +19,7 @@
   border-bottom: 1px solid $defaultOutline;
   box-shadow: 4px 4px 0px 0px #fff;
   transition: all 0.3s ease;
+  cursor: pointer;
   &:hover {
     transform: translateY(-5px);
     border: 1px solid $active;
