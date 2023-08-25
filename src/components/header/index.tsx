@@ -12,11 +12,10 @@ import { checkToken } from '../../store/auth/auth.slice';
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const dispatch = useAppDispatch();
-  let isAuth = userAuth();
+  const isAuth = userAuth();
   useEffect(() => {
     if (isAuth) dispatch(checkToken());
   }, []);
-  isAuth = userAuth();
 
   return (
     <div className={styles.container}>

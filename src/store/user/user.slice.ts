@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ISliceUser } from '../../interfaces/sliceUser';
 
-
-
 const initialState: ISliceUser = {
   firstName: null,
   lastName: null,
