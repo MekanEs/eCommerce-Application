@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import styles from './modalSlider.module.scss';
@@ -25,8 +25,16 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
   selectedImage,
   closeModal,
 }): JSX.Element => {
+  const modalRef = useRef(null);
+
+  const handleCloseModal = (event: React.MouseEvent<HTMLElement>): void => {
+    if (event.target === modalRef.current) {
+      closeModal();
+    }
+  };
+
   return (
-    <div className={styles.modal}>
+    <div className={styles.modal} ref={modalRef} onClick={handleCloseModal}>
       <div className={styles['modal-content']}>
         <span className={styles['close-button']} onClick={closeModal}>
           X
