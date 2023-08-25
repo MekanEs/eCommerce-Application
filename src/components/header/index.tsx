@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
 import logo from '../../assets/img/svg/veros_logo.svg';
@@ -6,10 +6,17 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
 import Logout from '../logout';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { checkToken } from '../../store/auth/auth.slice';
 
 const Header: React.FC = () => {
   const path = useLocation().pathname;
-  const isAuth = userAuth();
+  const dispatch = useAppDispatch();
+  let isAuth = userAuth();
+  useEffect(() => {
+    if (isAuth) dispatch(checkToken());
+  }, []);
+  isAuth = userAuth();
 
   return (
     <div className={styles.container}>
