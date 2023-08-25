@@ -10,6 +10,7 @@ import {
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Slider from './slider';
+import createTagPrice from '../../components/product/tagPrice';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -17,6 +18,7 @@ const Product: React.FC = (): JSX.Element => {
   const productData = useSelector(selectProductData);
   const dispatch = useAppDispatch();
   const navigate: NavigateFunction = useNavigate();
+  const language = 'en-US';
 
   useEffect(() => {
     if (!productData && id) {
@@ -38,9 +40,9 @@ const Product: React.FC = (): JSX.Element => {
     return <></>;
   }
 
-  const productName = productData.masterData.current.name['en-US'];
+  const productName = productData.masterData.current.name[language];
   const productCategory =
-    productData.masterData.current.categories[0].obj?.name['en-US'];
+    productData.masterData.current.categories[0].obj?.name[language];
   const frameMaterial =
     productData.masterData.current.masterVariant.attributes[0].value;
   const wheelSize =
@@ -48,7 +50,7 @@ const Product: React.FC = (): JSX.Element => {
   const stock =
     productData.masterData.current.masterVariant.attributes[2].value;
   const productDescription =
-    productData.masterData.current.description['en-US'];
+    productData.masterData.current.description[language];
   const productImages = productData.masterData.current.masterVariant.images.map(
     (image: { url: string }) => image.url,
   );
@@ -57,11 +59,11 @@ const Product: React.FC = (): JSX.Element => {
   const productDiscountPrice =
     productData.masterData.current.masterVariant.prices[0].discounted?.value
       .centAmount;
-  const formattedPrice = formatPrice(productPrice);
+  const formattedPrice = formatPrice(productPrice, language);
 
   let formattedDiscountPrice;
   if (productDiscountPrice) {
-    formattedDiscountPrice = formatPrice(productDiscountPrice);
+    formattedDiscountPrice = formatPrice(productDiscountPrice, language);
   }
 
   return (
@@ -71,7 +73,7 @@ const Product: React.FC = (): JSX.Element => {
           <h2>{productName}</h2>
           <div className={styles.price}>
             <p className={styles['subtitle']}>Price</p>
-            {createTagPrice(formattedPrice, formattedDiscountPrice)}
+            {createTagPrice(formattedPrice, formattedDiscountPrice, styles)}
           </div>
           <div className={styles.info}>
             <p className={styles['subtitle']}>Info</p>
@@ -108,27 +110,11 @@ const Product: React.FC = (): JSX.Element => {
   );
 };
 
-function formatPrice(price: number): string {
-  return (price / 100).toLocaleString('en-US', {
+function formatPrice(price: number, language: string): string {
+  return (price / 100).toLocaleString(language, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-}
-
-function createTagPrice(
-  price: string,
-  discountPrice: string | undefined,
-): JSX.Element {
-  if (discountPrice) {
-    return (
-      <>
-        <p className={styles.discount}>$ {price}</p>
-        <p>{'$ ' + discountPrice}</p>
-      </>
-    );
-  } else {
-    return <p>$ {price}</p>;
-  }
 }
 
 export default Product;
