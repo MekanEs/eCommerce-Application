@@ -1,0 +1,51 @@
+@import '../../../scss/variables.scss';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  transition: all 0.3s ease !important;
+  scale: 1.3;
+}
+
+.modal-content {
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  background: $link;
+  border-radius: 50%;
+  padding: 9px 0 4px 16px;
+  z-index: 51;
+}
+
+@media (min-width: 1201px) {
+  .modal-content {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .modal-content {
+    max-width: 70%;
+  }
+}
