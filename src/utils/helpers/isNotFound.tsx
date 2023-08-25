@@ -1,15 +1,17 @@
 import { useLocation } from 'react-router-dom';
 
 const routes = [
-  '/',
-  '/about',
-  '/catalog',
-  '/registration',
-  '/login',
-  '/account',
+  /^\/$/,
+  /\/about/,
+  /\/catalog/,
+  /\/registration/,
+  /\/login/,
+  /\/account/,
+  /\/catalog\/\w\d/,
 ];
+
 function isNotFound(): boolean {
-  const path = useLocation().pathname;
-  return routes.every((el) => path !== el);
+  const path: string = useLocation().pathname;
+  return routes.every((el) => !el.test(path));
 }
 export default isNotFound;

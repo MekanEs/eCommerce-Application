@@ -1,0 +1,189 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  margin: 30px 0 160px;
+  padding: 30px;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+
+  button {
+    margin: 30px 0 10px;
+  }
+}
+
+.general-info {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    color: black;
+    font-family: Ubuntu;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+}
+
+.subtitle {
+  font-family: Ubuntu;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  opacity: 0.4;
+  margin: 15px 0;
+}
+
+.general {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  margin: 25px 0;
+}
+
+.price {
+  margin-top: 10px;
+
+  p {
+    &:last-child {
+      color: black;
+      font-family: Ubuntu;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+    }
+  }
+}
+
+.list-item {
+  display: flex;
+  width: max-content;
+  padding: 5px 0;
+
+  p {
+    font-size: 18px;
+  }
+}
+
+.item-title {
+  margin-right: 10px;
+  color: black;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+}
+
+.item-info {
+  color: black;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.slider {
+  max-width: 75%;
+  padding: 0 0 20px 20px;
+
+  img {
+    border-radius: 5px;
+  }
+}
+
+.description {
+  width: 100%;
+
+  p {
+      &:last-child {
+      color: black;
+      font-family: Ubuntu;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+    }
+  }
+}
+
+.discount {
+  font-size: 17px;
+  opacity: 0.4;
+  text-decoration: line-through;
+  margin-bottom: 5px;
+}
+
+
+@media (max-width: 1000px) {
+  .container {
+    margin: 30px 0 60px;
+  }
+
+  .container,
+  .price,
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .general-info {
+    align-items: center;
+
+    h2 {
+      font-size: calc(10px + 4vmin);
+      text-align: center;
+      margin: 20px 0px 10px;
+      max-width: 75%;
+    }
+  }
+
+  .general {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .info {
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .list-item {
+    justify-content: center;
+  }
+
+  .slider {
+    max-width: 100%;
+    padding: 0 0 20px 0;
+
+    img {
+      border-radius: 5px;
+    }
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  .subtitle {
+      text-align: center;
+    }
+
+    p {
+      &:last-child {
+        text-align: center;
+      }
+    }
+  }
+}
