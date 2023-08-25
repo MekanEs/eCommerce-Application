@@ -1,9 +1,14 @@
-import { BaseAddress } from '@commercetools/platform-sdk';
+import { Address } from '@commercetools/platform-sdk';
 
 export interface ISliceUser {
-  firstName: null | string;
-  lastName: null | string;
-  dateBirth: null | string;
-  email: null | string;
-  address: null | BaseAddress[];
+  status: null | string;
+  firstName: undefined | string;
+  lastName: undefined | string;
+  dateBirth: undefined | string;
+  email: undefined | string;
+  address: undefined | Address[];
+  defaultBillingAddressId: undefined | string;
+  defaultShippingAddressId: undefined | string;
+  message: null | string | unknown;
+  version: undefined | number;
 }
