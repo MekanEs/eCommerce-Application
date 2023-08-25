@@ -1,19 +1,14 @@
-import {
-  ClientResponse,
-  CustomerSignInResult,
-} from '@commercetools/platform-sdk';
+import { Address } from '@commercetools/platform-sdk';
 
 export interface ISliceUser {
-  status: string | null;
-  message: string | null | unknown;
-  id: string | null;
-  isAuth: null | boolean;
-}
-
-export interface CharacterSuccessResponse {
-  results: ClientResponse<CustomerSignInResult>;
-}
-
-export interface CharacterFailedResponse {
-  error: string;
+  status: null | string;
+  firstName: undefined | string;
+  lastName: undefined | string;
+  dateBirth: undefined | string;
+  email: undefined | string;
+  address: undefined | Address[];
+  defaultBillingAddressId: undefined | string;
+  defaultShippingAddressId: undefined | string;
+  message: null | string | unknown;
+  version: undefined | number;
 }

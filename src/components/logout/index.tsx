@@ -1,12 +1,12 @@
 import React from 'react';
-import { removeUser } from '../../store/auth/auth.slice';
+import { removeAuth } from '../../store/auth/auth.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import styles from './logout.module.scss';
 
 const Logout: React.FC = () => {
   const dispatch = useAppDispatch();
   const handleClick: () => void = () => {
-    dispatch(removeUser());
+    dispatch(removeAuth());
     localStorage.removeItem('token');
   };
   return (
