@@ -18,8 +18,6 @@ export const router = createBrowserRouter(
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
       </Route>
-      <Route path="login" element={<Login />} />
-      <Route path="registration" element={<Registration />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>,
   ),

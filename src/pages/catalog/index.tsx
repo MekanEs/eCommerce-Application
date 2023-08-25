@@ -12,7 +12,6 @@ const Catalog: React.FC = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
-  console.log(1);
 
   return (
     <div className={styles.container}>

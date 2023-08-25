@@ -1,26 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootRegis } from '../../services/ClientBuilder';
-import { categorytype, producttype } from '../../types/catalogTypes';
+import { categorytype, discount, producttype } from '../../types/catalogTypes';
 
 const initialState: {
   categories: categorytype[] | undefined;
   activeCategory: categorytype;
   products: producttype[] | undefined;
+  discounts: discount[] | undefined;
 } = {
   categories: [],
-  activeCategory: { name: 'all', id: '' },
+  activeCategory: { name: 'All', id: '' },
   products: [],
+  discounts: [],
 };
 
 export const getProducts = createAsyncThunk(
   'catalog/getProducts',
-  // eslint-disable-next-line max-lines-per-function
   async function (id?: string) {
     try {
       if (id !== '') {
-        console.log('id is', id);
-
         const result = await getApiRootRegis()
           .withProjectKey({ projectKey: CTP_PROJECT_KEY })
           .productProjections()
@@ -31,38 +30,14 @@ export const getProducts = createAsyncThunk(
             },
           })
           .execute();
-        return result.body.results.map((el) => {
-          return {
-            name: Object.values(el.name)[0],
-            id: el.id,
-            images: el.masterVariant.images?.map((el) => el.url),
-            prices: el.masterVariant.prices?.map((el) => {
-              return {
-                value: el.value.centAmount,
-                currencyCode: el.value.currencyCode,
-              };
-            }),
-          };
-        });
+        return result.body.results;
       } else {
         const result = await getApiRootRegis()
           .withProjectKey({ projectKey: CTP_PROJECT_KEY })
           .productProjections()
           .get()
           .execute();
-        return result.body.results.map((el) => {
-          return {
-            name: Object.values(el.name)[0],
-            id: el.id,
-            images: el.masterVariant.images?.map((el) => el.url),
-            prices: el.masterVariant.prices?.map((el) => {
-              return {
-                value: el.value.centAmount,
-                currencyCode: el.value.currencyCode,
-              };
-            }),
-          };
-        });
+        return result.body.results;
       }
     } catch (error) {
       if (error instanceof Error) return [];
@@ -79,14 +54,29 @@ export const getCategories = createAsyncThunk(
         .categories()
         .get()
         .execute();
-      return result.body.results.map((el) => {
-        return { name: Object.values(el.name)[0], id: el.id };
-      });
+      return result.body.results;
     } catch (error) {
       if (error instanceof Error) return [];
     }
   },
 );
+
+export const getDiscounts = createAsyncThunk(
+  'catalog/getDiscounts',
+  async function () {
+    try {
+      const result = await getApiRootRegis()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .productDiscounts()
+        .get()
+        .execute();
+      return result.body.results;
+    } catch (error) {
+      if (error instanceof Error) return '';
+    }
+  },
+);
+
 export const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
@@ -95,14 +85,58 @@ export const catalogSlice = createSlice({
       state.activeCategory = action.payload;
     },
   },
+  // eslint-disable-next-line max-lines-per-function
   extraReducers: (build) => {
     build
+      .addCase(getDiscounts.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.discounts = action.payload.map((el) => {
+            return {
+              name: Object.values(el.name)[0],
+              description:
+                (el.description && Object.values(el.description)[0]) || '',
+              id: el.id,
+            };
+          });
+        }
+      })
       .addCase(getProducts.pending, (state) => {
         state.products = [];
       })
       .addCase(getProducts.fulfilled, (state, action) => {
-        const data = (action.payload && action.payload) || [];
-        state.products = data;
+        if (action.payload) {
+          state.products = action.payload.map((el) => {
+            return {
+              name: Object.values(el.name)[0],
+              id: el.id,
+              atributes: el.masterVariant.attributes,
+              categories:
+                state.categories &&
+                [...state.categories].filter(
+                  (category) => category.id === el.categories[0].id,
+                ),
+              images: el.masterVariant.images?.map((el) => el.url),
+              prices: el.masterVariant.prices?.map((el) => {
+                return {
+                  value: el.value.centAmount,
+                  currencyCode: el.value.currencyCode,
+                  discount: el?.discounted && {
+                    name:
+                      state.discounts &&
+                      [...state.discounts]
+                        ?.filter((discount) => {
+                          if (el.discounted)
+                            return discount.id === el.discounted.discount.id;
+                        })
+                        .map((el) => el.name)[0],
+                    value: el.discounted.value.centAmount,
+                    id: el.discounted.discount.id,
+                  },
+                };
+              }),
+            };
+          });
+        }
       })
       .addCase(getProducts.rejected, (state) => {
         state.products = [];
@@ -112,8 +146,14 @@ export const catalogSlice = createSlice({
         state.categories = [];
       })
       .addCase(getCategories.fulfilled, (state, action) => {
-        const data = (action.payload && action.payload) || [];
-        state.categories = [{ name: 'all', id: '' }, ...data];
+        if (action.payload) {
+          state.categories = [
+            { name: { n: 'All' }, id: '' },
+            ...action.payload,
+          ].map((el) => {
+            return { name: Object.values(el.name)[0], id: el.id };
+          });
+        }
       })
       .addCase(getCategories.rejected, (state) => {
         state.categories = [];

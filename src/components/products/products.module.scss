@@ -1,10 +1,36 @@
+@import '../../scss/allVariables.scss';
+
 .container {
   display: flex;
   flex-wrap: wrap;
-  div {
-    width: 40%;
-    img {
-      width: 100%;
-    }
+}
+
+img {
+  width: 100%;
+}
+
+.product_cart {
+  width: 40%;
+}
+
+.attributes {
+  display: flex;
+  flex-direction: column;
+}
+
+.hasDiscount {
+  color: red;
+  text-decoration: line-through;
+}
+
+.noDiscount {
+  color: $gray;
+}
+
+.discountPrice {
+  color: green;
+  cursor: pointer;
+  &:hover {
+    color: $active;
   }
 }
