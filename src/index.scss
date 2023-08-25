@@ -58,3 +58,10 @@ button {
 .swiper-pagination-bullet-active {
   background: $link !important;
 }
+
+@media (max-width: 750px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+}
