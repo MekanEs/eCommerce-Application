@@ -20,11 +20,13 @@
   box-shadow: 4px 4px 0px 0px #fff;
   transition: all 0.3s ease;
   cursor: pointer;
+
   &:hover {
     transform: translateY(-5px);
     border: 1px solid $active;
     box-shadow: 4px 4px 0px 0px $link;
   }
+
   .productName {
     font-weight: 500;
     line-height: 140%;
@@ -56,6 +58,7 @@
 .discountPrice {
   color: green;
   cursor: pointer;
+
   &:hover {
     color: $active;
   }

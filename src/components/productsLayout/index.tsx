@@ -6,8 +6,6 @@ import ProductCard from './productCard';
 const ProductsLayout: React.FC = () => {
   const products = useAppSelector((state) => state.catalog.products);
 
-  console.log(products);
-
   return (
     <div className={styles.container}>
       {products && products.map((el) => <ProductCard product={el} />)}
