@@ -8,11 +8,14 @@
 }
 
 .product_cart {
+  padding: 10px;
   width: 290px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: space-between;
   border-radius: 5px;
   border: 1px solid #fff;
   border-right: 1px solid $defaultOutline;
@@ -33,33 +36,30 @@
     color: $black;
     font-size: 18px;
     width: 80%;
+    margin-bottom: 20px;
   }
 
   img {
     width: 100%;
+    margin-bottom: 10px;
   }
 
   .attributes {
     display: flex;
     flex-direction: column;
+    row-gap: 8px;
     @include text_transparent(15px);
+    margin-bottom: 20px;
   }
 }
 
-.hasDiscount {
-  color: red;
-  text-decoration: line-through;
-}
-
-.noDiscount {
-  color: $gray;
-}
-
-.discountPrice {
-  color: green;
-  cursor: pointer;
-
-  &:hover {
-    color: $active;
-  }
+.addToCart {
+  @include button_blue;
+  padding: 12px 0;
+  width: 90%;
+  margin-bottom: 15px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 1px;
 }

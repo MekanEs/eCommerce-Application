@@ -85,9 +85,9 @@ export const catalogSlice = createSlice({
                 state.categories &&
                 [...state.categories].filter(
                   (category) => category.id === el.categories[0].id,
-                ),
+                )[0],
               images: el.masterVariant.images?.map((el) => el.url),
-              prices: el.masterVariant.prices?.map((el) => {
+              price: el.masterVariant.prices?.map((el) => {
                 return {
                   value: el.value.centAmount,
                   currencyCode: el.value.currencyCode,
@@ -96,7 +96,7 @@ export const catalogSlice = createSlice({
                     id: el.discounted.discount.id,
                   },
                 };
-              }),
+              })[0],
             };
           });
         }
