@@ -1,0 +1,23 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  background-color: inherit;
+  border-radius: 10px;
+  padding: 5px 10px;
+  &:hover {
+    background-color: $hover;
+  }
+}
+
+.activeCategory {
+  background-color: $active;
+}

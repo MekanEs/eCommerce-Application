@@ -8,10 +8,10 @@
 }
 
 .header {
-  margin: 25px 0 0 0;
   display: flex;
   justify-content: space-between;
   border-bottom: $border;
+  padding: 25px 20px;
 }
 
 a {

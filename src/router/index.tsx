@@ -31,6 +31,7 @@ export const router = createBrowserRouter(
       <Route element={<CheckAccountAuth />}>
         <Route path="account" element={<Account />} />
       </Route>
+
       <Route path="*" element={<PageNotFound />} />
     </Route>,
   ),
