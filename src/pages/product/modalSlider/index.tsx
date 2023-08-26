@@ -33,6 +33,8 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
     }
   };
 
+  const showNavigation = images.length > 1;
+
   return (
     <div className={styles.modal} ref={modalRef} onClick={handleCloseModal}>
       <div className={styles['modal-content']}>
@@ -40,13 +42,13 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
           X
         </span>
         <Swiper
-          loop={true}
+          loop={showNavigation}
           slidesPerView={1}
-          navigation
+          navigation={showNavigation}
           pagination={{ clickable: true }}
           initialSlide={images.indexOf(selectedImage)}
-          mousewheel
-          keyboard={{ enabled: true }}
+          mousewheel={showNavigation}
+          keyboard={{ enabled: showNavigation }}
         >
           {images.map((imageUrl, index) => (
             <SwiperSlide key={index}>

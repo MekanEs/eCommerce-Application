@@ -33,6 +33,9 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
     setSelectedImage('');
     setModalOpen(false);
   };
+
+  const showNavigation = images.length > 1;
+
   return (
     <>
       {modalOpen && (
@@ -44,13 +47,13 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
       )}
 
       <Swiper
-        loop={true}
+        loop={showNavigation}
         slidesPerView={1}
         slidesPerGroup={1}
-        navigation
+        navigation={showNavigation}
         pagination={{ clickable: true }}
-        mousewheel
-        keyboard={{ enabled: true }}
+        mousewheel={showNavigation}
+        keyboard={{ enabled: showNavigation }}
         className={styles.container + ' ' + 'Swiper'}
       >
         {images.map((imageUrl, index) => (
