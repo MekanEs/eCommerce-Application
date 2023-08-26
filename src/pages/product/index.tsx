@@ -106,7 +106,9 @@ const Product: React.FC = (): JSX.Element => {
         <p className={styles['subtitle']}>Description</p>
         <p>{productDescription}</p>
       </div>
-      {createButton('add to cart')}
+      {stock < 1
+        ? createButton('add to cart', styles['button'], true)
+        : createButton('add to cart', styles['button'])}
     </div>
   );
 };
