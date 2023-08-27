@@ -8,7 +8,8 @@ const ProductsLayout: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {products && products.map((el) => <ProductCard product={el} />)}
+      {products &&
+        products.map((el, index) => <ProductCard product={el} key={index} />)}
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
 import cx from 'classnames';
 import styles from './categories.module.scss';
 import {
@@ -9,16 +7,14 @@ import {
 } from '../../store/catalog/catalog.slice';
 import { useDispatch } from 'react-redux';
 import { categorytype } from '../../types/catalogTypes';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const appDispatch = useAppDispatch();
-  const categories = useSelector(
-    (state: RootState) => state.catalog.categories,
-  );
-  const activeCategory = useSelector(
-    (state: RootState) => state.catalog.activeCategory,
+  const categories = useAppSelector((state) => state.catalog.categories);
+  const activeCategory = useAppSelector(
+    (state) => state.catalog.activeCategory,
   );
   useEffect(() => {
     appDispatch(getProducts(activeCategory.id));

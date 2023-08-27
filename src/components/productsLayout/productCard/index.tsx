@@ -14,24 +14,26 @@ const ProductCard: React.FC<props> = ({ product }) => {
   }
 
   return (
-    <NavLink to={`/catalog/${product.id}`}>
-      <div key={product.id} className={styles.product_cart}>
-        <div className={styles.productName}>{product.name}</div>
+    <div key={product.id}>
+      <NavLink to={`/catalog/${product.id}`}>
+        <div key={product.id} className={styles.product_cart}>
+          <div className={styles.productName}>{product.name}</div>
 
-        <img src={product.images[0]} alt="product image" />
+          <img src={product.images[0]} alt="product image" />
 
-        <div className={styles.attributes}>
-          <span> {product.categories.name}</span>
-          {product.atributes?.map((attribute, index) => (
-            <div>
-              <span>{attributes[index]}</span>: <span>{attribute.value}</span>
-            </div>
-          ))}
+          <div className={styles.attributes}>
+            <span> {product.categories.name}</span>
+            {product.atributes?.map((attribute, index) => (
+              <div key={index}>
+                <span>{attributes[index]}</span>: <span>{attribute.value}</span>
+              </div>
+            ))}
+          </div>
+          <Price price={product.price} />
+          <button className={styles.addToCart}>add to cart</button>
         </div>
-        <Price price={product.price} />
-        <button className={styles.addToCart}>add to cart</button>
-      </div>
-    </NavLink>
+      </NavLink>
+    </div>
   );
 };
 

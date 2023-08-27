@@ -7,38 +7,42 @@ const initialState: {
   categories: categorytype[] | undefined;
   activeCategory: categorytype;
   products: producttype[] | undefined;
+  total: number | undefined;
 } = {
   categories: [],
-  activeCategory: { name: 'All', id: '' },
+  activeCategory: { name: 'All', id: null },
   products: [],
+  total: 0,
 };
 
 export const getProducts = createAsyncThunk(
   'catalog/getProducts',
-  async function (id?: string) {
+  async function (id?: string | null) {
     try {
-      if (id !== '') {
+      if (id) {
         const result = await getApiRootRegis()
           .withProjectKey({ projectKey: CTP_PROJECT_KEY })
           .productProjections()
           .search()
           .get({
             queryArgs: {
+              limit: 9,
+              sort: 'price desc',
               filter: `categories.id:"${id}"`,
             },
           })
           .execute();
-        return result.body.results;
+        return result.body;
       } else {
         const result = await getApiRootRegis()
           .withProjectKey({ projectKey: CTP_PROJECT_KEY })
           .productProjections()
           .get()
           .execute();
-        return result.body.results;
+        return result.body;
       }
     } catch (error) {
-      if (error instanceof Error) return [];
+      if (error instanceof Error) return null;
     }
   },
 );
@@ -76,7 +80,8 @@ export const catalogSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         if (action.payload) {
-          state.products = action.payload.map((el) => {
+          state.total = action.payload.total;
+          state.products = action.payload.results.map((el) => {
             return {
               name: Object.values(el.name)[0],
               id: el.id,
