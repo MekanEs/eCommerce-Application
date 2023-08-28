@@ -15,14 +15,17 @@ import createTagPrice from '../../components/product/tagPrice';
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { id } = useParams();
-
-  const productData = useSelector(selectProductData);
   const dispatch = useAppDispatch();
   const navigate: NavigateFunction = useNavigate();
   const language = 'en-US';
+  let productData = useSelector(selectProductData);
+
+  if (productData && id !== productData.id && id) {
+    productData = null;
+  }
 
   useEffect(() => {
-    if (id) {
+    if (!productData && id) {
       dispatch(fetchProductData(id)).then((action) => {
         if (fetchProductData.rejected.match(action)) {
           navigate('/404');
