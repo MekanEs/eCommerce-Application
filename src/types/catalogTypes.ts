@@ -1,4 +1,4 @@
-export type categorytype = { name: string; id: string | null };
+export type categorytype = { name: string; id: string | undefined };
 export type price = {
   value: number;
   currencyCode: string;

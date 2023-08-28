@@ -4,19 +4,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.search_sort {
-  display: flex;
-  align-items: center;
-}
-
-.content {
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.sideBar {
-  display: flex;
-  flex-direction: column;
+  min-width: 100%;
 }

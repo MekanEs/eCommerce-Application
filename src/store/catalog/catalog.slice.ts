@@ -2,45 +2,33 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootRegis } from '../../services/ClientBuilder';
 import { categorytype, producttype } from '../../types/catalogTypes';
+import {
+  IProductFilter,
+  createQuery,
+} from '../productFilter/productFilter.slice';
 
 const initialState: {
   categories: categorytype[] | undefined;
-  activeCategory: categorytype;
   products: producttype[] | undefined;
   total: number | undefined;
 } = {
   categories: [],
-  activeCategory: { name: 'All', id: null },
   products: [],
   total: 0,
 };
 
 export const getProducts = createAsyncThunk(
   'catalog/getProducts',
-  async function (id?: string | null) {
+  async function (state: IProductFilter) {
     try {
-      if (id) {
-        const result = await getApiRootRegis()
-          .withProjectKey({ projectKey: CTP_PROJECT_KEY })
-          .productProjections()
-          .search()
-          .get({
-            queryArgs: {
-              limit: 9,
-              sort: 'price desc',
-              filter: `categories.id:"${id}"`,
-            },
-          })
-          .execute();
-        return result.body;
-      } else {
-        const result = await getApiRootRegis()
-          .withProjectKey({ projectKey: CTP_PROJECT_KEY })
-          .productProjections()
-          .get()
-          .execute();
-        return result.body;
-      }
+      const query = createQuery(state);
+      const result = await getApiRootRegis()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .productProjections()
+        .search()
+        .get(query)
+        .execute();
+      return result.body;
     } catch (error) {
       if (error instanceof Error) return null;
     }
@@ -66,11 +54,7 @@ export const getCategories = createAsyncThunk(
 export const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
-  reducers: {
-    setActiveCategories(state, action) {
-      state.activeCategory = action.payload;
-    },
-  },
+  reducers: {},
   // eslint-disable-next-line max-lines-per-function
   extraReducers: (build) => {
     build
@@ -128,5 +112,5 @@ export const catalogSlice = createSlice({
       });
   },
 });
-export const { setActiveCategories } = catalogSlice.actions;
+
 export default catalogSlice.reducer;

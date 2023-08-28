@@ -1,9 +1,23 @@
 /* eslint-disable max-lines-per-function */
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { ChangeEventHandler } from 'react';
 import styles from './range-slider.module.scss';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import {
+  setPriceMax,
+  setPriceMin,
+} from '../../store/productFilter/productFilter.slice';
+
 const PriceSlider: React.FC = () => {
-  const [min, setMin] = useState<number>(200);
-  const [max, setMax] = useState<number>(9000);
+  const appDispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.filter);
+  const min = state.priceRange.from;
+  const setMin = (value: number): void => {
+    appDispatch(setPriceMin(value));
+  };
+  const max = state.priceRange.to;
+  const setMax = (value: number): void => {
+    appDispatch(setPriceMax(value));
+  };
 
   function validateRange(): void {
     if (min > max) {
@@ -11,7 +25,8 @@ const PriceSlider: React.FC = () => {
       setMax(10000);
     }
   }
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event): void => {
     if (event.target.id === 'min') {
       setMin(+event.target.value);
     } else {
@@ -20,6 +35,7 @@ const PriceSlider: React.FC = () => {
 
     validateRange();
   };
+
   return (
     <div className={styles.card}>
       <h3>Price</h3>
@@ -34,6 +50,7 @@ const PriceSlider: React.FC = () => {
           max="10000"
           step="100"
         />
+
         <input
           id="max"
           type="range"

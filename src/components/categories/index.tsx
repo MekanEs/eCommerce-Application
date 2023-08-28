@@ -1,27 +1,23 @@
 import React, { useEffect } from 'react';
 import cx from 'classnames';
 import styles from './categories.module.scss';
-import {
-  getProducts,
-  setActiveCategories,
-} from '../../store/catalog/catalog.slice';
+import { getCategories } from '../../store/catalog/catalog.slice';
 import { useDispatch } from 'react-redux';
 import { categorytype } from '../../types/catalogTypes';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const appDispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
-  const activeCategory = useAppSelector(
-    (state) => state.catalog.activeCategory,
-  );
+  const activeCategory = useAppSelector((state) => state.filter.category);
   useEffect(() => {
-    appDispatch(getProducts(activeCategory.id));
-  }, [activeCategory.id]);
+    appDispatch(getCategories());
+  }, [appDispatch]);
 
   const handleClick = (el: categorytype): void => {
-    dispatch(setActiveCategories(el));
+    dispatch(setActiveCategory(el));
   };
 
   const categoriesJSX =

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sides {
+  display: flex;
+}
+
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+}
