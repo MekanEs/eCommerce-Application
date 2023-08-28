@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './product.module.scss';
-import createButton from '../../utils/helpers/functions/createButton';
+import createButton from '../../components/form/createButton/createButton';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {

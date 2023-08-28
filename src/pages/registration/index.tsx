@@ -24,8 +24,8 @@ import {
   createDefaultBilling,
   createDefaultShipping,
   createSameAddress,
-} from '../../utils/helpers/functions';
-import createButton from '../../utils/helpers/functions/createButton';
+} from '../../utils/helpers/formElements';
+import createButton from '../../components/form/createButton/createButton';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';

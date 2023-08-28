@@ -7,8 +7,8 @@ import styles from './login.module.scss';
 import {
   createEmailInput,
   createPasswordInput,
-} from '../../utils/helpers/functions';
-import createButton from '../../utils/helpers/functions/createButton';
+} from '../../utils/helpers/formElements';
+import createButton from '../../components/form/createButton/createButton';
 import { loginUser } from '../../store/auth/auth.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { store } from '../../store/store';
