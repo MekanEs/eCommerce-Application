@@ -1,4 +1,4 @@
-@import '../../../scss/variables.scss';
+@import '../../../scss/allVariables.scss';
 
 .modal {
   position: fixed;
@@ -47,6 +47,24 @@
   }
 }
 
+.swiper-navigation {
+  @include swiper_navigation(10px, 97.5%);
+}
+
+.swiper-button-prev {
+  margin-left: 5px;
+  @include swiper_button_prev;
+}
+
+.swiper-button-next {
+  margin-right: 5px;
+  @include swiper_button_next;
+}
+
+.swiper-pagination {
+  @include swiper_pagination(10px);
+}
+
 @media (min-width: 1201px) {
   .modal-content {
     max-width: 900px;
@@ -56,5 +74,12 @@
 @media (max-width: 1200px) {
   .modal-content {
     max-width: 70%;
+  }
+}
+
+@media (max-width: 750px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
   }
 }

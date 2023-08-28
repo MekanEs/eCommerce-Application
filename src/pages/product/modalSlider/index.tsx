@@ -6,7 +6,6 @@ import styles from './modalSlider.module.scss';
 import SwiperCore, {
   Navigation,
   Pagination,
-  Scrollbar,
   A11y,
   Keyboard,
   Mousewheel,
@@ -18,8 +17,9 @@ interface ModalSliderProps {
   closeModal: () => void;
 }
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Keyboard, Mousewheel]);
+SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
+// eslint-disable-next-line max-lines-per-function
 export const ModalSlider: React.FC<ModalSliderProps> = ({
   images,
   selectedImage,
@@ -44,8 +44,14 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
         <Swiper
           loop={showNavigation}
           slidesPerView={1}
-          navigation={showNavigation}
-          pagination={{ clickable: true }}
+          navigation={{
+            prevEl: '.' + styles['swiper-button-prev'],
+            nextEl: '.' + styles['swiper-button-next'],
+          }}
+          pagination={{
+            el: '.' + styles['swiper-pagination'],
+            clickable: true,
+          }}
           initialSlide={images.indexOf(selectedImage)}
           mousewheel={showNavigation}
           keyboard={{ enabled: showNavigation }}
@@ -56,6 +62,11 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className={styles['swiper-navigation']}>
+          <div className={styles['swiper-button-prev']}></div>
+          <div className={styles['swiper-button-next']}></div>
+        </div>
+        <div className={styles['swiper-pagination']}></div>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
-/* eslint-disable max-lines-per-function */
 import styles from './slider.module.scss';
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
   Navigation,
   Pagination,
-  Scrollbar,
   A11y,
   Keyboard,
   Mousewheel,
@@ -18,8 +16,9 @@ interface SliderProps {
   images: string[];
 }
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Keyboard, Mousewheel]);
+SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
+// eslint-disable-next-line max-lines-per-function
 const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
@@ -50,8 +49,11 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
         loop={showNavigation}
         slidesPerView={1}
         slidesPerGroup={1}
-        navigation={showNavigation}
-        pagination={{ clickable: true }}
+        navigation={{
+          prevEl: '.' + styles['swiper-button-prev'],
+          nextEl: '.' + styles['swiper-button-next'],
+        }}
+        pagination={{ el: '.' + styles['swiper-pagination'], clickable: true }}
         mousewheel={showNavigation}
         keyboard={{ enabled: showNavigation }}
         className={styles.container + ' ' + 'Swiper'}
@@ -66,6 +68,11 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className={styles['swiper-navigation']}>
+        <div className={styles['swiper-button-prev']}></div>
+        <div className={styles['swiper-button-next']}></div>
+      </div>
+      <div className={styles['swiper-pagination']}></div>
     </>
   );
 };
