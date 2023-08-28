@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Slider from './slider';
 import createTagPrice from '../../components/product/tagPrice';
+import formatPrice from '../../utils/helpers/formatPrice';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -115,12 +116,5 @@ const Product: React.FC = (): JSX.Element => {
     </div>
   );
 };
-
-function formatPrice(price: number, language: string): string {
-  return (price / 100).toLocaleString(language, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
 
 export default Product;
