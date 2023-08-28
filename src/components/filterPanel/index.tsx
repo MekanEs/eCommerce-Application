@@ -14,10 +14,17 @@ type Props = {
 };
 const FilterPanel: React.FC<Props> = ({ child }) => {
   const state = useAppSelector((state) => state.filter);
+  const catalog = useAppSelector((state) => state.catalog);
   createQuery(state);
   return (
     <div className={styles.container}>
-      <Search />
+      <div className={styles.upperPanel}>
+        <span className={styles.total}>
+          <span>Total: </span> <span> {catalog.total}</span>
+        </span>
+        <Search />
+      </div>
+
       <div className={styles.sides}>
         <div className={styles.sideBar}>
           <Categories />
