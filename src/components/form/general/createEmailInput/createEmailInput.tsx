@@ -13,7 +13,7 @@ export default function createEmailInput(
 
   return (
     <TextInput
-      label="Email"
+      label=""
       type="text"
       id="email"
       placeholder="user@example.com"
