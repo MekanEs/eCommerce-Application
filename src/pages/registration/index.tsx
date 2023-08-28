@@ -82,7 +82,7 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
           {createBillingAddressColumn(form)}
           {createShippingAddressColumn(form, form.watch('sameAddress'))}
         </div>
-        {createButton('registration')}
+        {createButton('registration', styles.button)}
       </form>
       {errorMessage && createErrorMessage(errorMessage)}
       {succesMessage && createSuccessMessage(succesMessage)}

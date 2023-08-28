@@ -48,7 +48,7 @@ const Login: React.FC = (): JSX.Element => {
         >
           {createEmailInput(form)}
           {createPasswordInput(form, warningMessage, setWarningMessage)}
-          {createButton('log in')}
+          {createButton('log in', styles.button)}
         </form>
         {errorMessage && <p className={styles['form-error']}>{errorMessage}</p>}
       </div>
