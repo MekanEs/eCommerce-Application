@@ -3,28 +3,6 @@ import styles from './registration.module.scss';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { FormFields } from '../../interfaces/formInputs';
-import {
-  createEmailInput,
-  createPasswordInput,
-  createFirstNameInput,
-  createLastNameInput,
-  createDateOfBirthInput,
-  createBillingCityInput,
-  createBillingCountryInput,
-  createBillingStreetInput,
-  createBillingHouseNumberInput,
-  createBillingApartmentInput,
-  createBillingPostcodeInput,
-  createShippingCountryInput,
-  createShippingCityInput,
-  createShippingStreetInput,
-  createShippingHouseNumberInput,
-  createShippingApartmentInput,
-  createShippingPostcodeInput,
-  createDefaultBilling,
-  createDefaultShipping,
-  createSameAddress,
-} from '../../utils/helpers/formElements';
 import createButton from '../../components/form/createButton/createButton';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
@@ -32,6 +10,9 @@ import { store } from '../../store/store';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { ISliceAuth } from '../../interfaces/sliceAuth';
 import { Fields } from '../../types/formInputs';
+import createGeneralInfoColumn from '../../components/form/generalInfoColumn';
+import createShippingAddressColumn from '../../components/form/shippingAddressColumn';
+import createBillingAddressColumn from '../../components/form/billingAddressColumn';
 
 const Registration: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({
@@ -52,6 +33,7 @@ const Registration: React.FC = (): React.JSX.Element => {
   );
 };
 
+// eslint-disable-next-line max-lines-per-function
 function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
   const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction> = useAppDispatch();
@@ -69,8 +51,10 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
   const [warningMessage, setWarningMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [succesMessage, setSuccesMessage] = useState('');
+
   createUseEffect(form, errorMessage, setErrorMessage);
   createUseEffect(form, succesMessage, setSuccesMessage);
+
   return (
     <>
       <form
@@ -78,9 +62,14 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className={styles['columns-container']}>
-          {createGeneralInfoColumn(form, warningMessage, setWarningMessage)}
-          {createBillingAddressColumn(form)}
-          {createShippingAddressColumn(form, form.watch('sameAddress'))}
+          {createGeneralInfoColumn(
+            form,
+            warningMessage,
+            setWarningMessage,
+            styles,
+          )}
+          {createBillingAddressColumn(form, styles)}
+          {createShippingAddressColumn(form, form.watch('sameAddress'), styles)}
         </div>
         {createButton('registration', styles.button)}
       </form>
@@ -89,6 +78,7 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
     </>
   );
 }
+
 function createErrorMessage(errorMessage: string): JSX.Element {
   return (
     <div>
@@ -102,6 +92,7 @@ function createErrorMessage(errorMessage: string): JSX.Element {
     </div>
   );
 }
+
 function createSuccessMessage(succesMessage: string): JSX.Element {
   return (
     <div>
@@ -111,68 +102,6 @@ function createSuccessMessage(succesMessage: string): JSX.Element {
       <div className={styles['additional-text']}>
         <p>Succesfully registered new user</p>
       </div>
-    </div>
-  );
-}
-function createGeneralInfoColumn(
-  form: UseFormReturn<FormFields>,
-  warningMessage: string,
-  setWarningMessage: React.Dispatch<React.SetStateAction<string>>,
-): React.JSX.Element {
-  return (
-    <div className={styles['general-column']}>
-      <h5 className={styles['form-title']}>General</h5>
-      {createEmailInput(form)}
-      {createPasswordInput(form, warningMessage, setWarningMessage)}
-      {createFirstNameInput(form)}
-      {createLastNameInput(form)}
-      {createDateOfBirthInput(form)}
-    </div>
-  );
-}
-
-function createBillingAddressColumn(
-  form: UseFormReturn<FormFields>,
-): React.JSX.Element {
-  return (
-    <div className={styles['billing-column']}>
-      <h5 className={styles['form-title']}>Billing address</h5>
-      {createBillingCountryInput(form)}
-      {createBillingCityInput(form)}
-      {createBillingStreetInput(form)}
-      <div className={styles['house-info']}>
-        {createBillingHouseNumberInput(form, styles['house-number'])}
-        {createBillingApartmentInput(form, styles['apartment'])}
-      </div>
-      {createBillingPostcodeInput(form)}
-      {createDefaultBilling(form.register)}
-      {createSameAddress(form.register)}
-    </div>
-  );
-}
-
-function createShippingAddressColumn(
-  form: UseFormReturn<FormFields>,
-  needDisable: boolean,
-): React.JSX.Element {
-  return (
-    <div
-      className={
-        styles['shipping-column'] +
-        ' ' +
-        (needDisable ? styles['disabled-shipping'] : '')
-      }
-    >
-      <h5 className={styles['form-title']}>Shipping address</h5>
-      {createShippingCountryInput(form)}
-      {createShippingCityInput(form)}
-      {createShippingStreetInput(form)}
-      <div className={styles['house-info']}>
-        {createShippingHouseNumberInput(form, styles['house-number'])}
-        {createShippingApartmentInput(form, styles['apartment'])}
-      </div>
-      {createShippingPostcodeInput(form)}
-      {createDefaultShipping(form.register)}
     </div>
   );
 }
