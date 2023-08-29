@@ -9,7 +9,7 @@
   @include form_container;
   flex-direction: row;
   max-width: 768px;
-  >*{
+  > * {
     color: $title;
     background: $footer;
   }
@@ -34,4 +34,51 @@
   background: $while;
   color: $link;
   z-index: 1;
+}
+
+.table-container {
+  position: relative;
+  width: 768px;
+  left: 7px;
+  height: 230px;
+  border-radius: 5px;
+  border: 1px solid $defaultOutline;
+  border-collapse: collapse;
+  tbody {
+    :nth-child(1) td {
+      color: $table-title;
+      @include font(14px, 19.6px, 500);
+    }
+  }
+  td {
+    border-bottom: 1px solid $defaultOutline;
+  }
+}
+
+.table-title {
+  text-align: start;
+}
+
+.table-title-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  height: 100%;
+  color: $title;
+  @include font(14px, 19.6px, 400);
+  border-right: 1px solid $defaultOutline;
+}
+
+.table-input {
+  width: 70%;
+  padding-left: 30px;
+  color: $table-title;
+  @include font(14px, 19.6px, 500);
+}
+
+.table-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

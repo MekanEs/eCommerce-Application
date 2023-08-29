@@ -6,7 +6,7 @@ import { getApiRootToken } from '../../services/ClientBuilder';
 import { store } from '../store';
 
 export const getUserData = createAsyncThunk(
-  'auth/getUserData',
+  'user/getUserData',
   async function (_, { rejectWithValue }) {
     try {
       const result: ClientResponse<Customer> = await getApiRootToken()
@@ -22,7 +22,7 @@ export const getUserData = createAsyncThunk(
 );
 
 export const getNewPassword = createAsyncThunk(
-  'auth/getNewPassword',
+  'user/getNewPassword',
   async function (_, { rejectWithValue }) {
     try {
       const state: ISliceUser = store.getState().user;
@@ -61,8 +61,18 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getUser(state) {
-      return state;
+    getUser(state, action) {
+      const body: Customer | undefined = action.payload?.body;
+      state.status = 'ok';
+      state.firstName = body?.firstName;
+      state.lastName = body?.lastName;
+      state.email = body?.email;
+      state.dateBirth = body?.dateOfBirth;
+      state.address = body?.addresses;
+      state.defaultBillingAddressId = body?.defaultBillingAddressId;
+      state.defaultShippingAddressId = body?.defaultShippingAddressId;
+      state.message = 'successfully';
+      state.version = body?.version;
     },
     removeUser(state) {
       state.status = null;
@@ -83,17 +93,7 @@ export const userSlice = createSlice({
         userSlice.caseReducers.removeUser(state);
       })
       .addCase(getUserData.fulfilled, (state, action) => {
-        const body: Customer | undefined = action.payload?.body;
-        state.status = 'ok';
-        state.firstName = body?.firstName;
-        state.lastName = body?.lastName;
-        state.email = body?.email;
-        state.dateBirth = body?.dateOfBirth;
-        state.address = body?.addresses;
-        state.defaultBillingAddressId = body?.defaultBillingAddressId;
-        state.defaultShippingAddressId = body?.defaultShippingAddressId;
-        state.message = 'successfully';
-        state.version = body?.version;
+        userSlice.caseReducers.getUser(state, action);
       })
       .addCase(getUserData.rejected, (state, action) => {
         state.status = 'error';
