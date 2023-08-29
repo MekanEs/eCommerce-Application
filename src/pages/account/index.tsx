@@ -1,27 +1,31 @@
-import React from 'react';
-import { useForm, UseFormReturn } from 'react-hook-form';
-import { FormFields } from '../../interfaces/formInputs';
-
-import { createFirstNameInput } from '../../utils/helpers/functions';
+import React, { ReactNode, useState } from 'react';
 import styles from './account.module.scss';
 
 const Account: React.FC = (): React.JSX.Element => {
-  const form: UseFormReturn<FormFields> = useForm<FormFields>({
-    mode: 'onChange',
-  });
+  const [activeType, setActiveType] = useState(0);
+  const array = ['General', 'My Address'];
 
   return (
     <div className={styles.container}>
       <h2 className={styles['page-title']}>personal account</h2>
-      <div className={styles['form-container']}>{createGeneralInfo(form)}</div>
+      <div className={styles['info-container']}>
+        {array.map((elem, index): ReactNode => {
+          return (
+            <div
+              onClick={(): void => setActiveType(index)}
+              className={
+                activeType === index
+                  ? `${styles['info-container_title']} ${styles['active']}`
+                  : `${styles['info-container_title']}`
+              }
+            >
+              {elem}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
-
-function createGeneralInfo(form: UseFormReturn<FormFields>): React.JSX.Element {
-  return (
-    <div className={styles['general-column']}>{createFirstNameInput(form)}</div>
-  );
-}
 
 export default Account;
