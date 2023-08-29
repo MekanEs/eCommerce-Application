@@ -1,11 +1,9 @@
-/* eslint-disable max-lines-per-function */
 import styles from './slider.module.scss';
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
   Navigation,
   Pagination,
-  Scrollbar,
   A11y,
   Keyboard,
   Mousewheel,
@@ -18,7 +16,7 @@ interface SliderProps {
   images: string[];
 }
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Keyboard, Mousewheel]);
+SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
 const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -33,6 +31,9 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
     setSelectedImage('');
     setModalOpen(false);
   };
+
+  const showNavigation = images.length > 1;
+
   return (
     <>
       {modalOpen && (
@@ -44,13 +45,16 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
       )}
 
       <Swiper
-        loop={true}
+        loop={showNavigation}
         slidesPerView={1}
         slidesPerGroup={1}
-        navigation
-        pagination={{ clickable: true }}
-        mousewheel
-        keyboard={{ enabled: true }}
+        navigation={{
+          prevEl: '.' + styles['swiper-button-prev'],
+          nextEl: '.' + styles['swiper-button-next'],
+        }}
+        pagination={{ el: '.' + styles['swiper-pagination'], clickable: true }}
+        mousewheel={showNavigation}
+        keyboard={{ enabled: showNavigation }}
         className={styles.container + ' ' + 'Swiper'}
       >
         {images.map((imageUrl, index) => (
@@ -63,6 +67,11 @@ const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className={styles['swiper-navigation']}>
+        <div className={styles['swiper-button-prev']}></div>
+        <div className={styles['swiper-button-next']}></div>
+      </div>
+      <div className={styles['swiper-pagination']}></div>
     </>
   );
 };

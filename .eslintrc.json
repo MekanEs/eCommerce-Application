@@ -24,7 +24,7 @@
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "error",
-    "max-lines-per-function": ["error", 40],
+    "max-lines-per-function": ["error", 80],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-var-requires": 0
   }

@@ -37,31 +37,3 @@ a,
 button {
   transition: all 0.3s ease;
 }
-
-.swiper-button-prev {
-  margin-left: 5px;
-  @include swiper_button;
-}
-
-.swiper-button-next {
-  margin-right: 5px;
-  @include swiper_button;
-}
-
-.swiper-pagination-bullet {
-  width: 13px !important;
-  height: 13px !important;
-  background: $link !important;
-  opacity: 0.7;
-}
-
-.swiper-pagination-bullet-active {
-  background: $link !important;
-}
-
-@media (max-width: 750px) {
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none !important;
-  }
-}

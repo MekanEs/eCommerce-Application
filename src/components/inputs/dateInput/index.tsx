@@ -1,8 +1,8 @@
 import React from 'react';
 import { InputProps } from '../../../interfaces/formInputs';
 import styles from './dateInput.module.scss';
-import getInputClasses from '../../../utils/helpers/functions/getInputClasses';
-import getLabelClasses from '../../../utils/helpers/functions/getLabelClasses';
+import getLabelClasses from '../../../utils/helpers/getLabelClasses/getLabelClasses';
+import getInputClasses from '../../../utils/helpers/getInputClasses/getInputClasses';
 
 const DateInput: React.FC<InputProps> = ({
   label,

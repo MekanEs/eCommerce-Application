@@ -6,7 +6,6 @@ import styles from './modalSlider.module.scss';
 import SwiperCore, {
   Navigation,
   Pagination,
-  Scrollbar,
   A11y,
   Keyboard,
   Mousewheel,
@@ -18,7 +17,7 @@ interface ModalSliderProps {
   closeModal: () => void;
 }
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Keyboard, Mousewheel]);
+SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
 export const ModalSlider: React.FC<ModalSliderProps> = ({
   images,
@@ -33,6 +32,8 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
     }
   };
 
+  const showNavigation = images.length > 1;
+
   return (
     <div className={styles.modal} ref={modalRef} onClick={handleCloseModal}>
       <div className={styles['modal-content']}>
@@ -40,13 +41,19 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
           X
         </span>
         <Swiper
-          loop={true}
+          loop={showNavigation}
           slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
+          navigation={{
+            prevEl: '.' + styles['swiper-button-prev'],
+            nextEl: '.' + styles['swiper-button-next'],
+          }}
+          pagination={{
+            el: '.' + styles['swiper-pagination'],
+            clickable: true,
+          }}
           initialSlide={images.indexOf(selectedImage)}
-          mousewheel
-          keyboard={{ enabled: true }}
+          mousewheel={showNavigation}
+          keyboard={{ enabled: showNavigation }}
         >
           {images.map((imageUrl, index) => (
             <SwiperSlide key={index}>
@@ -54,6 +61,11 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className={styles['swiper-navigation']}>
+          <div className={styles['swiper-button-prev']}></div>
+          <div className={styles['swiper-button-next']}></div>
+        </div>
+        <div className={styles['swiper-pagination']}></div>
       </div>
     </div>
   );
