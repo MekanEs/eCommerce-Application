@@ -33,7 +33,6 @@ const Registration: React.FC = (): React.JSX.Element => {
   );
 };
 
-// eslint-disable-next-line max-lines-per-function
 function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
   const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction> = useAppDispatch();

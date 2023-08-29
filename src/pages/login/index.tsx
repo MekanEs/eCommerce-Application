@@ -24,7 +24,18 @@ const Login: React.FC = (): JSX.Element => {
     Dispatch<AnyAction> = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
-    login(data, form, setErrorMessage, dispatch, navigator);
+    dispatch(loginUser(data)).then((): void => {
+      const state: ISliceAuth = store.getState().auth;
+      if (state.status === 'ok') {
+        form.reset();
+        navigator('/');
+      } else {
+        form.setError('email', {});
+        form.setError('password', {});
+
+        setErrorMessage(typeof state.message === 'string' ? state.message : '');
+      }
+    });
     setWarningMessage('');
   };
   const [warningMessage, setWarningMessage] = useState('');
@@ -55,28 +66,6 @@ const Login: React.FC = (): JSX.Element => {
     </div>
   );
 };
-
-function login(
-  data: FormFields,
-  form: UseFormReturn<FormFields>,
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
-    Dispatch<AnyAction>,
-  navigator: NavigateFunction,
-): void {
-  dispatch(loginUser(data)).then((): void => {
-    const state: ISliceAuth = store.getState().auth;
-    if (state.status === 'ok') {
-      form.reset();
-      navigator('/');
-    } else {
-      form.setError('email', {});
-      form.setError('password', {});
-
-      setErrorMessage(typeof state.message === 'string' ? state.message : '');
-    }
-  });
-}
 
 function createUseEffect(
   form: UseFormReturn<FormFields>,

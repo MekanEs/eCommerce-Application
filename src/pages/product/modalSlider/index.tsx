@@ -19,7 +19,6 @@ interface ModalSliderProps {
 
 SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
-// eslint-disable-next-line max-lines-per-function
 export const ModalSlider: React.FC<ModalSliderProps> = ({
   images,
   selectedImage,

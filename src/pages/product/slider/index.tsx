@@ -18,7 +18,6 @@ interface SliderProps {
 
 SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
-// eslint-disable-next-line max-lines-per-function
 const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
