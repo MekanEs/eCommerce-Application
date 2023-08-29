@@ -137,7 +137,11 @@ export const productFilterSlice = createSlice({
       state.offset = 0;
     },
     setOrder(state, action) {
-      state.sort = action.payload;
+      state.sort.order = action.payload;
+      state.offset = 0;
+    },
+    setSorting(state, action) {
+      state.sort.name = action.payload;
       state.offset = 0;
     },
     setMaterial(state, action) {
@@ -164,6 +168,7 @@ export const {
   setPriceMax,
   setPriceMin,
   setOrder,
+  setSorting,
   setMaterial,
   setWheelSize,
   setStockMin,

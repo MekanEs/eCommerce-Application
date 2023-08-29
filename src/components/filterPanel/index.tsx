@@ -11,6 +11,7 @@ import StockSlider from '../range-slider/stock';
 import { Pagination } from '../';
 import { useDispatch } from 'react-redux';
 import { resetState } from '../../store/productFilter/productFilter.slice';
+import Sort from '../sort';
 
 type Props = {
   child: JSX.Element;
@@ -29,6 +30,7 @@ const FilterPanel: React.FC<Props> = ({ child }) => {
           <span>Total: </span> <span> {catalog.total}</span>
         </span>
         <Search />
+        <Sort />
       </div>
 
       <div className={styles.sides}>
