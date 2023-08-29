@@ -1,11 +1,12 @@
 /* eslint-disable max-lines-per-function */
 import React, { ChangeEventHandler } from 'react';
 import styles from './range-slider.module.scss';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
   setPriceMax,
   setPriceMin,
-} from '../../store/productFilter/productFilter.slice';
+} from '../../../store/productFilter/productFilter.slice';
 
 const PriceSlider: React.FC = () => {
   const appDispatch = useAppDispatch();

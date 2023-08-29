@@ -62,4 +62,8 @@
   font-weight: 500;
   line-height: 140%;
   letter-spacing: 1px;
+  cursor: pointer;
+  &:disabled {
+    color: #fff;
+  }
 }

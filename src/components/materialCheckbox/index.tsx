@@ -2,20 +2,18 @@ import React, { ChangeEventHandler } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import {
   materialtype,
-  setAluminum,
-  setCarbon,
-  setSteel,
+  setMaterial,
 } from '../../store/productFilter/productFilter.slice';
 import { useDispatch } from 'react-redux';
 
 const Material: React.FC = () => {
   const dispatch = useDispatch();
   const materials = useAppSelector((state) => state.filter.materials);
-  const setters = { Aluminum: setAluminum, Carbon: setCarbon, Steel: setSteel };
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    dispatch(
-      setters[event.target.id as keyof typeof setters](event.target.checked),
-    );
+    const newObj = structuredClone(materials);
+    newObj[event.target.id as keyof materialtype] = event.target.checked;
+    dispatch(setMaterial(newObj));
   };
   return (
     <div>

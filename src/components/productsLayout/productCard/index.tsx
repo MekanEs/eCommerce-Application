@@ -6,23 +6,19 @@ import { NavLink } from 'react-router-dom';
 import Price from './price';
 
 type props = { product: producttype };
-// eslint-disable-next-line max-lines-per-function
+
 const ProductCard: React.FC<props> = ({ product }) => {
   const attributes = ['Frame material', 'Wheel size', 'Stock'];
-  if (!product.images || !product.categories || !product.price) {
-    return <></>;
-  }
-
   return (
     <div key={product.id}>
       <NavLink to={`/catalog/${product.id}`}>
         <div key={product.id} className={styles.product_cart}>
           <div className={styles.productName}>{product.name}</div>
 
-          <img src={product.images[0]} alt="product image" />
+          <img src={product.images && product.images[0]} alt="product image" />
 
           <div className={styles.attributes}>
-            <span> {product.categories.name}</span>
+            <span> {product.categories && product.categories.name}</span>
             {product.atributes?.map((attribute, index) => (
               <div key={index}>
                 <span>{attributes[index]}</span>: <span>{attribute.value}</span>
@@ -30,7 +26,16 @@ const ProductCard: React.FC<props> = ({ product }) => {
             ))}
           </div>
           <Price price={product.price} />
-          <button className={styles.addToCart}>add to cart</button>
+          <button
+            disabled={
+              product.atributes && product.atributes[2].value === 0
+                ? true
+                : false
+            }
+            className={styles.addToCart}
+          >
+            add to cart
+          </button>
         </div>
       </NavLink>
     </div>

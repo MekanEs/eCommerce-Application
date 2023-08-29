@@ -5,6 +5,7 @@ import { router } from '../router';
 import ProductsLayout from './productsLayout';
 import FilterPanel from './filterPanel';
 import Materials from './materialCheckbox';
+import Pagination from './pagination';
 export {
   Header,
   Footer,
@@ -13,4 +14,5 @@ export {
   ProductsLayout,
   FilterPanel,
   Materials,
+  Pagination,
 };

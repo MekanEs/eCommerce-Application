@@ -5,7 +5,7 @@ export type price = {
   discount: { value: number; id: string } | undefined;
 };
 
-type attribute = { name: string; value: string };
+type attribute = { name: string; value: string | number };
 export type producttype = {
   name: string;
   id: string;

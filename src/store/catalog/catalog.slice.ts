@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
-import { getApiRootRegis } from '../../services/ClientBuilder';
+import { getApiRootRegis, getApiRootToken } from '../../services/ClientBuilder';
 import { categorytype, producttype } from '../../types/catalogTypes';
 import {
   IProductFilter,
@@ -22,7 +22,7 @@ export const getProducts = createAsyncThunk(
   async function (state: IProductFilter) {
     try {
       const query = createQuery(state);
-      const result = await getApiRootRegis()
+      const result = await getApiRootToken()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .productProjections()
         .search()
@@ -59,9 +59,6 @@ export const catalogSlice = createSlice({
   extraReducers: (build) => {
     build
 
-      .addCase(getProducts.pending, (state) => {
-        state.products = [];
-      })
       .addCase(getProducts.fulfilled, (state, action) => {
         if (action.payload) {
           state.total = action.payload.total;
@@ -94,9 +91,6 @@ export const catalogSlice = createSlice({
         state.products = [];
       })
 
-      .addCase(getCategories.pending, (state) => {
-        state.categories = [];
-      })
       .addCase(getCategories.fulfilled, (state, action) => {
         if (action.payload) {
           state.categories = [

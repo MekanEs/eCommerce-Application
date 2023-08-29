@@ -1,11 +1,7 @@
 import React, { ChangeEventHandler } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import {
-  set16,
-  set20,
-  set24,
-  set26,
-  set29,
+  setWheelSize,
   wheelSizetype,
 } from '../../store/productFilter/productFilter.slice';
 import { useDispatch } from 'react-redux';
@@ -13,17 +9,11 @@ import { useDispatch } from 'react-redux';
 const WheelSize: React.FC = () => {
   const dispatch = useDispatch();
   const wheelSize = useAppSelector((state) => state.filter.wheelsize);
-  const setters = {
-    '16\\"': set16,
-    '20\\"': set20,
-    '24\\"': set24,
-    '26\\"': set26,
-    '29\\"': set29,
-  };
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    dispatch(
-      setters[event.target.id as keyof typeof setters](event.target.checked),
-    );
+    const newObj = structuredClone(wheelSize);
+    newObj[event.target.id as keyof wheelSizetype] = event.target.checked;
+    dispatch(setWheelSize(newObj));
   };
   return (
     <div>

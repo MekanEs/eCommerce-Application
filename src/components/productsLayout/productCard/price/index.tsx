@@ -3,8 +3,11 @@ import { price } from '../../../../types/catalogTypes';
 import cx from 'classnames';
 import styles from './price.module.scss';
 
-type propsType = { price: price };
+type propsType = { price: price | undefined };
 const Price: React.FC<propsType> = ({ price }) => {
+  if (!price) {
+    return <></>;
+  }
   return (
     <div
       className={cx(

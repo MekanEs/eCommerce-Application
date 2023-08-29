@@ -3,11 +3,14 @@ import React from 'react';
 import styles from './filterPanel.module.scss';
 import Search from '../search';
 import Categories from '../categories';
-import PriceSlider from '../range-slider';
-import { createQuery } from '../../store/productFilter/productFilter.slice';
+import PriceSlider from '../range-slider/price';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { Materials } from '..';
 import WheelSize from '../wheelSizeCheckbox';
+import StockSlider from '../range-slider/stock';
+import { Pagination } from '../';
+import { useDispatch } from 'react-redux';
+import { resetState } from '../../store/productFilter/productFilter.slice';
 
 type Props = {
   child: JSX.Element;
@@ -15,7 +18,10 @@ type Props = {
 const FilterPanel: React.FC<Props> = ({ child }) => {
   const state = useAppSelector((state) => state.filter);
   const catalog = useAppSelector((state) => state.catalog);
-  createQuery(state);
+  const dispatch = useDispatch();
+  const handleClick = (): void => {
+    dispatch(resetState());
+  };
   return (
     <div className={styles.container}>
       <div className={styles.upperPanel}>
@@ -29,11 +35,14 @@ const FilterPanel: React.FC<Props> = ({ child }) => {
         <div className={styles.sideBar}>
           <Categories />
           <PriceSlider />
+          <StockSlider />
           <Materials />
           <WheelSize />
+          <button onClick={handleClick}>reset</button>
         </div>
         {child}
       </div>
+      <Pagination offset={state.offset} total={catalog.total} />
     </div>
   );
 };
