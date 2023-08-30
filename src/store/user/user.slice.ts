@@ -1,5 +1,6 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootToken } from '../../services/ClientBuilder';
@@ -35,6 +36,45 @@ export const getNewPassword = createAsyncThunk(
             version: state.version ? state.version : 1,
             currentPassword: '1234Qwer',
             newPassword: '1234qweR',
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getNewDataUser = createAsyncThunk(
+  'user/getNewDataUser',
+  async function (data: FormFields, { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: [
+              {
+                action: 'setLastName',
+                lastName: data.lastName,
+              },
+              {
+                action: 'setFirstName',
+                firstName: data.firstName,
+              },
+              {
+                action: 'setDateOfBirth',
+                dateOfBirth: data.dateOfBirth,
+              },
+              {
+                action: 'changeEmail',
+                email: data.email,
+              },
+            ],
           },
         })
         .execute();
@@ -109,6 +149,13 @@ export const userSlice = createSlice({
         state.version = action.payload?.body.version;
       })
       .addCase(getNewPassword.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
+      })
+      .addCase(getNewDataUser.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getNewDataUser.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
       });

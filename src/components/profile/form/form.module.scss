@@ -1,0 +1,19 @@
+@import '../../../scss/allVariables.scss';
+
+.input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.errors {
+  color: $error;
+  font-size: 12px;
+}
+
+.input[type='date'] {
+  padding: 0;
+}

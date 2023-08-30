@@ -270,3 +270,19 @@
     background: $active;
   }
 }
+@mixin profile-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 384px;
+  height: 36px;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+}
+
+@mixin font($size, $height, $weight, $style: normal) {
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+}

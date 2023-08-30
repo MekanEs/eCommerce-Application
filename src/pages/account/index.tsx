@@ -1,8 +1,14 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
+import createButton from '../../components/form/createButton/createButton';
+import { createDateInputProfile } from '../../components/profile/form/createDateInput';
+import { createEmailInputProfile } from '../../components/profile/form/createEmailInput';
+import { createFirstNameInputProfile } from '../../components/profile/form/createFistName';
+import { createLastNameInputProfile } from '../../components/profile/form/createLastNameInput';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
-import { getUserData } from '../../store/user/user.slice';
-import createButton from '../../utils/helpers/functions/createButton';
+import { getNewDataUser, getUserData } from '../../store/user/user.slice';
 import styles from './account.module.scss';
 
 const Account: React.FC = (): React.JSX.Element => {
@@ -35,8 +41,14 @@ const Account: React.FC = (): React.JSX.Element => {
 };
 
 function createUserGeneral(): React.JSX.Element {
-  const state: ISliceUser = useAppSelector((state) => state.user);
+  const form: UseFormReturn<FormFields> = useForm<FormFields>({
+    mode: 'onChange',
+  });
   const dispatch = useAppDispatch();
+  const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
+    dispatch(getNewDataUser(data));
+  };
+  const state: ISliceUser = useAppSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUserData());
@@ -44,15 +56,20 @@ function createUserGeneral(): React.JSX.Element {
 
   return (
     <div>
-      {createRowTable(state)}
-      <div className={styles['table-button']}>
-        {createButton('save changes')}
-      </div>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        {createRowTable(state, form)}
+        <div className={styles['table-button']}>
+          {createButton('save changes', styles.button)}
+        </div>
+      </form>
     </div>
   );
 }
 
-function createRowTable(state: ISliceUser): React.JSX.Element {
+function createRowTable(
+  state: ISliceUser,
+  form: UseFormReturn<FormFields>,
+): React.JSX.Element {
   return (
     <table className={styles['table-container']}>
       <tbody>
@@ -62,19 +79,33 @@ function createRowTable(state: ISliceUser): React.JSX.Element {
         </tr>
         <tr>
           <td className={styles['table-title-name']}>First name</td>
-          <td className={styles['table-input']}>{state.firstName}</td>
+          <td className={styles['table-input']}>
+            {state.firstName
+              ? createFirstNameInputProfile(form, state.firstName)
+              : ''}
+          </td>
         </tr>
         <tr>
           <td className={styles['table-title-name']}>Last name</td>
-          <td className={styles['table-input']}>{state.lastName}</td>
+          <td className={styles['table-input']}>
+            {state.lastName
+              ? createLastNameInputProfile(form, state.lastName)
+              : ''}
+          </td>
         </tr>
         <tr>
           <td className={styles['table-title-name']}>Date of Birth</td>
-          <td className={styles['table-input']}>{state.dateBirth}</td>
+          <td className={styles['table-input']}>
+            {state.dateBirth
+              ? createDateInputProfile(form, state.dateBirth)
+              : ''}
+          </td>
         </tr>
         <tr>
           <td className={styles['table-title-name']}>Email</td>
-          <td className={styles['table-input']}>{state.email}</td>
+          <td className={styles['table-input']}>
+            {state.email ? createEmailInputProfile(form, state.email) : ''}
+          </td>
         </tr>
       </tbody>
     </table>

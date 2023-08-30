@@ -1,4 +1,5 @@
 @import '../../scss/allVariables.scss';
+@import '../../components/button/button.module.scss';
 
 .container {
   @include form_container;
@@ -48,6 +49,9 @@
     :nth-child(1) td {
       color: $table-title;
       @include font(14px, 19.6px, 500);
+    }
+    >*{
+      height: 40px;
     }
   }
   td {
