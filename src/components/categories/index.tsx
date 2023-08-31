@@ -7,31 +7,65 @@ import { categorytype } from '../../types/catalogTypes';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 
+// eslint-disable-next-line max-lines-per-function
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
+  const childCategory = useAppSelector((state) => state.catalog.childCategory);
   const activeCategory = useAppSelector((state) => state.filter.category);
+  console.log(childCategory);
 
   const handleClick = (el: categorytype): void => {
     dispatch(setActiveCategory(el));
   };
-
   const categoriesJSX =
     categories &&
     categories.map((el, index) => (
-      <button
-        onClick={(): void => handleClick(el)}
-        className={cx(
-          styles.categories,
-          el.name === activeCategory.name ? styles.activeCategory : '',
-        )}
-        key={index}
-        data-id={el.id}
-      >
-        {el.name}
-      </button>
+      <div>
+        <button
+          onClick={(): void => handleClick(el)}
+          className={cx(
+            styles.category,
+            el.name === activeCategory.name ? styles.activeCategory : '',
+          )}
+          key={index}
+          data-id={el.id}
+        >
+          {el.name}
+        </button>
+      </div>
     ));
-  return <div className={styles.container}>{categoriesJSX}</div>;
+  return (
+    <div className={styles.container}>
+      <div className={styles.categories}> {categoriesJSX}</div>
+      <div className={styles.categories}>
+        {childCategory &&
+          childCategory
+            .filter(
+              (el) =>
+                el.ancestor.id === activeCategory.id ||
+                el.id === activeCategory.id,
+            )
+            .map((el, index) => {
+              return (
+                <button
+                  onClick={(): void => handleClick(el)}
+                  className={cx(
+                    styles.category,
+                    el.name === activeCategory.name
+                      ? styles.activeCategory
+                      : '',
+                  )}
+                  key={index}
+                  data-id={el.id}
+                >
+                  {el.ancestor.name} &gt; {el.name}
+                </button>
+              );
+            })}
+      </div>
+    </div>
+  );
 };
 
 export default Categories;

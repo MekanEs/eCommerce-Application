@@ -18,7 +18,11 @@ const ProductCard: React.FC<props> = ({ product }) => {
           <img src={product.images && product.images[0]} alt="product image" />
 
           <div className={styles.attributes}>
-            <span> {product.categories && product.categories.name}</span>
+            <span>
+              {' '}
+              {product.categories &&
+                product.categories.map((el) => el.name).join('>')}
+            </span>
             {product.atributes?.map((attribute, index) => (
               <div key={index}>
                 <span>{attributes[index]}</span>: <span>{attribute.value}</span>

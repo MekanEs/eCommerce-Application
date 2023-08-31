@@ -47,6 +47,7 @@ type querytype = {
     offset: number;
     limit: number;
     'text.en-US': string | undefined;
+    expand?: string;
   };
 };
 
@@ -94,6 +95,7 @@ export function createQuery(state: IProductFilter): querytype {
       offset: state.offset,
       limit: 9,
       'text.en-US': state.text ? `"${state.text}"` : undefined,
+      expand: 'categories[*]',
     },
   };
   return query;

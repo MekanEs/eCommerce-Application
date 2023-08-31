@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import styles from './range-slider.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
@@ -10,21 +10,22 @@ import {
 const StockSlider: React.FC = () => {
   const appDispatch = useAppDispatch();
   const state = useAppSelector((state) => state.filter);
-  const min = state.stockRange.from;
-  const setMin = (value: number): void => {
-    appDispatch(setStockMin(value));
-  };
-  const max = state.stockRange.to;
-  const setMax = (value: number): void => {
-    appDispatch(setStockMax(value));
-  };
+  const initialMin = state.stockRange.from;
+  const initialMax = state.stockRange.to;
+  const [min, setMin] = useState(initialMin);
+  const [max, setMax] = useState(initialMax);
 
   function validateRange(): void {
     if (min > max) {
       setMin(0);
-      setMax(10000);
+      setMax(50);
     }
   }
+
+  const handleMouseUp: React.MouseEventHandler<HTMLInputElement> = (): void => {
+    appDispatch(setStockMin(min));
+    appDispatch(setStockMax(max));
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event): void => {
     if (event.target.id === 'min') {
@@ -44,6 +45,7 @@ const StockSlider: React.FC = () => {
           id="min"
           type="range"
           onChange={handleChange}
+          onMouseUp={handleMouseUp}
           className={styles.min}
           value={min}
           min="0"
@@ -55,6 +57,7 @@ const StockSlider: React.FC = () => {
           id="max"
           type="range"
           onChange={handleChange}
+          onMouseUp={handleMouseUp}
           className={styles.max}
           value={max}
           min="0"

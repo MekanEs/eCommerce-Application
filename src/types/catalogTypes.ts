@@ -1,4 +1,8 @@
-export type categorytype = { name: string; id: string | undefined };
+export type categorytype = {
+  name: string;
+  id: string | undefined;
+};
+
 export type price = {
   value: number;
   currencyCode: string;
@@ -11,6 +15,6 @@ export type producttype = {
   id: string;
   price: price | undefined;
   images: string[] | undefined;
-  categories: categorytype | undefined;
+  categories: categorytype[] | undefined;
   atributes: attribute[] | undefined;
 };

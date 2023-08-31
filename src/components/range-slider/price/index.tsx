@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import styles from './range-slider.module.scss';
-
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
   setPriceMax,
@@ -11,14 +10,10 @@ import {
 const PriceSlider: React.FC = () => {
   const appDispatch = useAppDispatch();
   const state = useAppSelector((state) => state.filter);
-  const min = state.priceRange.from;
-  const setMin = (value: number): void => {
-    appDispatch(setPriceMin(value));
-  };
-  const max = state.priceRange.to;
-  const setMax = (value: number): void => {
-    appDispatch(setPriceMax(value));
-  };
+  const initialMin = state.priceRange.from;
+  const initialMax = state.priceRange.to;
+  const [min, setMin] = useState(initialMin);
+  const [max, setMax] = useState(initialMax);
 
   function validateRange(): void {
     if (min > max) {
@@ -26,6 +21,11 @@ const PriceSlider: React.FC = () => {
       setMax(10000);
     }
   }
+
+  const handleMouseUp: React.MouseEventHandler<HTMLInputElement> = (): void => {
+    appDispatch(setPriceMin(min));
+    appDispatch(setPriceMax(max));
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event): void => {
     if (event.target.id === 'min') {
@@ -44,6 +44,7 @@ const PriceSlider: React.FC = () => {
         <input
           id="min"
           type="range"
+          onMouseUp={handleMouseUp}
           onChange={handleChange}
           className={styles.min}
           value={min}
@@ -51,10 +52,10 @@ const PriceSlider: React.FC = () => {
           max="10000"
           step="100"
         />
-
         <input
           id="max"
           type="range"
+          onMouseUp={handleMouseUp}
           onChange={handleChange}
           className={styles.max}
           value={max}
@@ -65,7 +66,6 @@ const PriceSlider: React.FC = () => {
       </div>
       <div className={styles.price}>
         <p id="min-value">${min}</p>
-
         <p id="max-value">${max}</p>
       </div>
     </div>

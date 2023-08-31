@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
-import { getApiRootRegis, getApiRootToken } from '../../services/ClientBuilder';
+import { getApiRootRegis } from '../../services/ClientBuilder';
 import { categorytype, producttype } from '../../types/catalogTypes';
 import {
   IProductFilter,
@@ -9,11 +9,18 @@ import {
 
 const initialState: {
   categories: categorytype[] | undefined;
+  childCategory: {
+    name: string;
+    id: string | undefined;
+    ancestor: { id: string; name: string };
+  }[];
+
   products: producttype[] | undefined;
   total: number | undefined;
 } = {
   categories: [],
   products: [],
+  childCategory: [],
   total: 0,
 };
 
@@ -22,7 +29,7 @@ export const getProducts = createAsyncThunk(
   async function (state: IProductFilter) {
     try {
       const query = createQuery(state);
-      const result = await getApiRootToken()
+      const result = await getApiRootRegis()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .productProjections()
         .search()
@@ -42,7 +49,7 @@ export const getCategories = createAsyncThunk(
       const result = await getApiRootRegis()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .categories()
-        .get()
+        .get({ queryArgs: { expand: 'ancestors[*]' } })
         .execute();
       return result.body.results;
     } catch (error) {
@@ -67,11 +74,12 @@ export const catalogSlice = createSlice({
               name: Object.values(el.name)[0],
               id: el.id,
               atributes: el.masterVariant.attributes,
-              categories:
-                state.categories &&
-                [...state.categories].filter(
-                  (category) => category.id === el.categories[0].id,
-                )[0],
+              categories: el.categories.map((category) => {
+                if (category.obj) {
+                  return { id: category.id, name: category.obj?.name['en-US'] };
+                }
+                return { id: category.id, name: 'name' };
+              }),
               images: el.masterVariant.images?.map((el) => el.url),
               price: el.masterVariant.prices?.map((el) => {
                 return {
@@ -94,11 +102,28 @@ export const catalogSlice = createSlice({
       .addCase(getCategories.fulfilled, (state, action) => {
         if (action.payload) {
           state.categories = [
-            { name: { n: 'All' }, id: '' },
+            { name: { n: 'All' }, id: undefined, ancestors: [] },
             ...action.payload,
-          ].map((el) => {
-            return { name: Object.values(el.name)[0], id: el.id };
-          });
+          ]
+            .filter((category) => category.ancestors.length === 0)
+            .map((el) => {
+              return { name: Object.values(el.name)[0], id: el.id };
+            });
+          state.childCategory = action.payload
+
+            .filter((category) => category.ancestors.length > 0)
+            .map((el) => {
+              return {
+                name: Object.values(el.name)[0],
+                id: el.id,
+                ancestor: {
+                  id: el.ancestors[0].id,
+                  name: el.ancestors[0].obj
+                    ? el.ancestors[0].obj.name['en-US']
+                    : '',
+                },
+              };
+            });
         }
       })
       .addCase(getCategories.rejected, (state) => {

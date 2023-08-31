@@ -25,6 +25,8 @@ const FilterPanel: React.FC<Props> = ({ child }) => {
   };
   return (
     <div className={styles.container}>
+      <Categories />
+
       <div className={styles.upperPanel}>
         <span className={styles.total}>
           <span>Total: </span> <span> {catalog.total}</span>
@@ -35,7 +37,6 @@ const FilterPanel: React.FC<Props> = ({ child }) => {
 
       <div className={styles.sides}>
         <div className={styles.sideBar}>
-          <Categories />
           <PriceSlider />
           <StockSlider />
           <Materials />
