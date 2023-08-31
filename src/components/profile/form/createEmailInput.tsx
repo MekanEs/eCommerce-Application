@@ -15,19 +15,22 @@ export function createEmailInputProfile(
 
   return (
     <div className={styles.fieldProfile}>
-      <input
-        defaultValue={value}
-        type="text"
-        id="email"
-        {...register('email', {
-          required: 'The field is required',
-          validate: validateEmail,
-        })}
-        className={styles['input']}
-      />
-      {errors.email && (
-        <div className={styles.errors}>{errors.email?.message}</div>
-      )}
+      <div>
+        <input
+          defaultValue={value}
+          type="text"
+          id="email"
+          {...register('email', {
+            required: 'The field is required',
+            validate: validateEmail,
+          })}
+          className={styles['input']}
+        />
+        {errors.email && (
+          <div className={styles.errors}>{errors.email?.message}</div>
+        )}
+      </div>
+      <span></span>
     </div>
   );
 }

@@ -15,24 +15,27 @@ export function createDateInputProfile(
 
   return (
     <div className={styles.fieldProfile}>
-      <input
-        defaultValue={value}
-        type="date"
-        id="dateOfBirth"
-        {...register('dateOfBirth', {
-          pattern: {
-            value: /^\d{4}-\d{2}-\d{2}$/,
-            message: 'Enter a valid date in the format YYYY-MM-DD',
-          },
-          required: 'The field is required',
-          validate: validateDate,
-        })}
-        aria-invalid="true"
-        className={styles['input']}
-      />
-      {errors.dateOfBirth && (
-        <div className={styles.errors}>{errors.dateOfBirth?.message}</div>
-      )}
+      <div>
+        <input
+          defaultValue={value}
+          type="text"
+          id="dateOfBirth"
+          {...register('dateOfBirth', {
+            pattern: {
+              value: /^\d{4}-\d{2}-\d{2}$/,
+              message: 'Enter a valid date in the format YYYY-MM-DD',
+            },
+            required: 'The field is required',
+            validate: validateDate,
+          })}
+          aria-invalid="true"
+          className={styles['input']}
+        />
+        {errors.dateOfBirth && (
+          <div className={styles.errors}>{errors.dateOfBirth?.message}</div>
+        )}
+      </div>
+      <span></span>
     </div>
   );
 }

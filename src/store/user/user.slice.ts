@@ -24,7 +24,7 @@ export const getUserData = createAsyncThunk(
 
 export const getNewPassword = createAsyncThunk(
   'user/getNewPassword',
-  async function (_, { rejectWithValue }) {
+  async function (data: FormFields, { rejectWithValue }) {
     try {
       const state: ISliceUser = store.getState().user;
       const result: ClientResponse<Customer> = await getApiRootToken()
@@ -34,8 +34,8 @@ export const getNewPassword = createAsyncThunk(
         .post({
           body: {
             version: state.version ? state.version : 1,
-            currentPassword: '1234Qwer',
-            newPassword: '1234qweR',
+            currentPassword: data.password,
+            newPassword: data.newPassword,
           },
         })
         .execute();

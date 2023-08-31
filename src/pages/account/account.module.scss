@@ -1,5 +1,6 @@
 @import '../../scss/allVariables.scss';
 @import '../../components/button/button.module.scss';
+@import '../../components/profile/form/form.module.scss';
 
 .container {
   @include form_container;
@@ -10,6 +11,7 @@
   @include form_container;
   flex-direction: row;
   max-width: 768px;
+  margin: 0;
   > * {
     color: $title;
     background: $footer;
@@ -45,17 +47,31 @@
   border-radius: 5px;
   border: 1px solid $defaultOutline;
   border-collapse: collapse;
+  margin-top: 40px;
   tbody {
     :nth-child(1) td {
       color: $table-title;
       @include font(14px, 19.6px, 500);
     }
-    >*{
+    > * {
       height: 40px;
     }
   }
   td {
     border-bottom: 1px solid $defaultOutline;
+  }
+  tr span {
+    width: 17px;
+    height: 17px;
+    background-image: url('../../assets/img/svg/edit.svg');
+  }
+  tr:not(:first-child):focus-within {
+    background: $footer;
+    span {
+      width: 40px;
+      height: 40px;
+      background-image: url('../../assets/img/svg/arrow.svg');
+    }
   }
 }
 
@@ -64,11 +80,8 @@
 }
 
 .table-title-name {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  text-align: end;
   padding-right: 20px;
-  height: 100%;
   color: $title;
   @include font(14px, 19.6px, 400);
   border-right: 1px solid $defaultOutline;
@@ -76,7 +89,7 @@
 
 .table-input {
   width: 70%;
-  padding-left: 30px;
+  padding: 0 15px 0 30px;
   color: $table-title;
   @include font(14px, 19.6px, 500);
 }

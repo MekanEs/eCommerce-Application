@@ -15,19 +15,22 @@ export function createLastNameInputProfile(
 
   return (
     <div className={styles.fieldProfile}>
-      <input
-        defaultValue={value}
-        type="text"
-        id="lastName"
-        {...register('lastName', {
-          required: 'The field is required',
-          validate: validateName,
-        })}
-        className={styles['input']}
-      />
-      {errors.lastName && (
-        <div className={styles.errors}>{errors.lastName?.message}</div>
-      )}
+      <div>
+        <input
+          defaultValue={value}
+          type="text"
+          id="lastName"
+          {...register('lastName', {
+            required: 'The field is required',
+            validate: validateName,
+          })}
+          className={styles['input']}
+        />
+        {errors.lastName && (
+          <div className={styles.errors}>{errors.lastName?.message}</div>
+        )}
+      </div>
+      <span></span>
     </div>
   );
 }
