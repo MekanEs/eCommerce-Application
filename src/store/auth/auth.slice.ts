@@ -12,7 +12,7 @@ import {
   getApiRootToken,
 } from '../../services/ClientBuilder';
 import { logUser, regUser } from '../../types/auth';
-import { getAddress } from '../../utils/helpers/functions/getAddress';
+import { getAddress } from '../../utils/helpers/getAddress';
 
 const initialState: ISliceAuth = {
   status: null,

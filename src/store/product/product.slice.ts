@@ -3,7 +3,7 @@ import { ISliceProduct } from '../../interfaces/sliceProduct';
 import { CTP_PROJECT_KEY } from '../../services';
 import { RootState } from '../store';
 import { Product } from '@commercetools/platform-sdk';
-import { getApiRootToken } from '../../services/ClientBuilder';
+import { getApiRootRegis } from '../../services/ClientBuilder';
 
 const initialState: ISliceProduct = {
   productData: null,
@@ -13,7 +13,7 @@ const initialState: ISliceProduct = {
 export const fetchProductData = createAsyncThunk(
   'product/fetchProductData',
   async function (id: string) {
-    const result = await getApiRootToken()
+    const result = await getApiRootRegis()
       .withProjectKey({ projectKey: CTP_PROJECT_KEY })
       .products()
       .withId({ ID: id })

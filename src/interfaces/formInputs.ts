@@ -22,6 +22,8 @@ export interface SelectOptions {
 export interface ButtonProps {
   label: string;
   type: string;
+  className?: string;
+  disabled?: boolean;
   onClick: () => void;
 }
 

@@ -1,28 +1,5 @@
 @import '../../scss/allVariables.scss';
 
 .button {
-  font-size: 17px;
-  text-transform: lowercase;
-  width: 320px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  background: $link;
-  margin: 25px 0;
-
-  &:hover {
-    cursor: pointer;
-    background: $hover;
-  }
-
-  &:active {
-    background: $active;
-  }
-
-  &:disabled {
-    cursor: default;
-    background: $disabled;
-    color: $disabledText;
-  }
+  @include button
 }

@@ -9,8 +9,9 @@
 .categories {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 20px;
   justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .category {

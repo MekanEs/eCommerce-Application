@@ -13,7 +13,6 @@ const Categories: React.FC = () => {
   const categories = useAppSelector((state) => state.catalog.categories);
   const childCategory = useAppSelector((state) => state.catalog.childCategory);
   const activeCategory = useAppSelector((state) => state.filter.category);
-  console.log(childCategory);
 
   const handleClick = (el: categorytype): void => {
     dispatch(setActiveCategory(el));
@@ -39,6 +38,9 @@ const Categories: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.categories}> {categoriesJSX}</div>
       <div className={styles.categories}>
+        <h4>
+          {activeCategory.ancestor && `${activeCategory.ancestor.name} >`}
+        </h4>
         {childCategory &&
           childCategory
             .filter(
@@ -59,7 +61,7 @@ const Categories: React.FC = () => {
                   key={index}
                   data-id={el.id}
                 >
-                  {el.ancestor.name} &gt; {el.name}
+                  {el.name}
                 </button>
               );
             })}
