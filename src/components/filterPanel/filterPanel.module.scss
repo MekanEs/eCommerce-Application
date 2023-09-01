@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.upperPanel {
+  display: flex;
+}
+
+.total {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 16px;
+  align-items: center;
+  white-space: pre;
+}
+
+.sides {
+  display: flex;
+}
+
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+}

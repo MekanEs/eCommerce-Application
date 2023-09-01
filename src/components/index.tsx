@@ -3,5 +3,16 @@ import Footer from './footer';
 import Layout from './layout';
 import { router } from '../router';
 import ProductsLayout from './productsLayout';
-import Categories from './categories';
-export { Header, Footer, Layout, router, ProductsLayout, Categories };
+import FilterPanel from './filterPanel';
+import Materials from './materialCheckbox';
+import Pagination from './pagination';
+export {
+  Header,
+  Footer,
+  Layout,
+  router,
+  ProductsLayout,
+  FilterPanel,
+  Materials,
+  Pagination,
+};

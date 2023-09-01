@@ -1,15 +1,20 @@
-export type categorytype = { name: string; id: string };
-type price = {
+export type categorytype = {
+  name: string;
+  id: string | undefined;
+  ancestor?: { id: string; name: string };
+};
+
+export type price = {
   value: number;
   currencyCode: string;
   discount: { value: number; id: string } | undefined;
 };
 
-type attribute = { name: string; value: string };
+type attribute = { name: string; value: string | number };
 export type producttype = {
   name: string;
   id: string;
-  prices: price[] | undefined;
+  price: price | undefined;
   images: string[] | undefined;
   categories: categorytype[] | undefined;
   atributes: attribute[] | undefined;

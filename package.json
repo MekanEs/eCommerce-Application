@@ -13,12 +13,14 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
     "@types/react-redux": "^7.1.25",
     "@types/redux-mock-store": "^1.0.3",
     "classnames": "^2.3.2",
+    "lodash.debounce": "^4.0.8",
     "postcode-validator": "^3.8.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,8 +37,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "serve": "serve -s build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "prettier": "prettier --write .",
     "lint": "eslint src",
     "prepare": "husky install",
@@ -83,6 +83,7 @@
     "jest-environment-jsdom": "^29.6.2",
     "prettier": "3.0.0",
     "sass": "^1.64.2",
+    "serve": "^14.2.1",
     "ts-jest": "^29.1.1"
   }
 }

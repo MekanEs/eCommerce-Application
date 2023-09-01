@@ -3,9 +3,9 @@ import { getCategories } from '../../store/catalog/catalog.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 
 import styles from './catalog.module.scss';
+import { FilterPanel, ProductsLayout } from '../../components';
 
-import { ProductsLayout, Categories } from '../../components';
-
+// eslint-disable-next-line max-lines-per-function
 const Catalog: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -15,8 +15,7 @@ const Catalog: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Categories />
-      <ProductsLayout />
+      <FilterPanel child={<ProductsLayout />} />
     </div>
   );
 };

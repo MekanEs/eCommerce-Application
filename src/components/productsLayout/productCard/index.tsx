@@ -1,51 +1,48 @@
 import React from 'react';
 import styles from './productCard.module.scss';
-import cx from 'classnames';
+
 import { producttype } from '../../../types/catalogTypes';
 import { NavLink } from 'react-router-dom';
+import Price from './price';
 
 type props = { product: producttype };
-// eslint-disable-next-line max-lines-per-function
+
 const ProductCard: React.FC<props> = ({ product }) => {
   const attributes = ['Frame material', 'Wheel size', 'Stock'];
-
   return (
-    <NavLink to={`/catalog/${product.id}`}>
-      <div key={product.id} className={styles.product_cart}>
-        <div className={styles.productName}>{product.name}</div>
+    <div key={product.id}>
+      <NavLink to={`/catalog/${product.id}`}>
+        <div key={product.id} className={styles.product_cart}>
+          <div className={styles.productName}>{product.name}</div>
 
-        <img src={product.images && product.images[0]} alt="product image" />
+          <img src={product.images && product.images[0]} alt="product image" />
 
-        <div className={styles.attributes}>
-          {product.categories &&
-            product.categories.map((el) => <span>{el.name}</span>)}
-          {product.atributes?.map((attribute, index) => (
-            <div>
-              <span>{attributes[index]}</span>: <span>{attribute.value}</span>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className={cx(
-            product.prices && product.prices[0].discount
-              ? styles.hasDiscount
-              : styles.noDiscount,
-          )}
-        >
-          ${product.prices && product.prices[0].value / 100}
-        </div>
-
-        {product.prices && product.prices[0].discount && (
-          <div>
-            <span className={styles.discountPrice}>
-              ${product.prices[0].discount.value / 100}
+          <div className={styles.attributes}>
+            <span>
+              {' '}
+              {product.categories &&
+                product.categories.map((el) => el.name).join('>')}
             </span>
+            {product.atributes?.map((attribute, index) => (
+              <div key={index}>
+                <span>{attributes[index]}</span>: <span>{attribute.value}</span>
+              </div>
+            ))}
           </div>
-        )}
-        <button>add to cart</button>
-      </div>
-    </NavLink>
+          <Price price={product.price} />
+          <button
+            disabled={
+              product.atributes && product.atributes[2].value === 0
+                ? true
+                : false
+            }
+            className={styles.addToCart}
+          >
+            add to cart
+          </button>
+        </div>
+      </NavLink>
+    </div>
   );
 };
 

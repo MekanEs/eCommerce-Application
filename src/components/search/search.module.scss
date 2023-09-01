@@ -1,0 +1,27 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  color: #555;
+  display: flex;
+  padding: 2px 30px;
+  border: none;
+  background: url('../../assets/img/svg/search_icon.svg') no-repeat 0% 50%;
+  width: 100%;
+  input {
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 7px 8px;
+    font-size: 18px;
+    color: #000;
+    border-radius: inherit;
+
+    &:focus-visible,
+    &:focus,
+    &:hover,
+    &:visited {
+      background: none;
+      outline: none;
+    }
+  }
+}
