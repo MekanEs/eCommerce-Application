@@ -8,7 +8,7 @@ import {
   createEmailInput,
   createPasswordInput,
 } from '../../utils/helpers/formElements';
-import createButton from '../../components/form/createButton/createButton';
+import { CreateButton } from '../../components/form/createButton/createButton';
 import { loginUser } from '../../store/auth/auth.slice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { store } from '../../store/store';
@@ -59,7 +59,7 @@ const Login: React.FC = (): JSX.Element => {
         >
           {createEmailInput(form)}
           {createPasswordInput(form, warningMessage, setWarningMessage)}
-          {createButton('log in', styles.button)}
+          <CreateButton label={'log in'} className={styles.button} />
         </form>
         {errorMessage && <p className={styles['form-error']}>{errorMessage}</p>}
       </div>

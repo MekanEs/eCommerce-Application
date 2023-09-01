@@ -4,10 +4,15 @@ import styles from './form.module.scss';
 import { FormFields } from '../../../interfaces/formInputs';
 import validateEmail from '../../../utils/helpers/validate/validateEmail/validateEmail';
 
-export function createEmailInputProfile(
-  form: UseFormReturn<FormFields>,
-  value: string,
-): React.JSX.Element {
+type CreateEmailInputProfile = {
+  form: UseFormReturn<FormFields>;
+  value: string;
+};
+
+export const CreateEmailInputProfile: React.FC<CreateEmailInputProfile> = ({
+  form,
+  value,
+}): React.JSX.Element => {
   const {
     register,
     formState: { errors },
@@ -33,4 +38,4 @@ export function createEmailInputProfile(
       <span></span>
     </div>
   );
-}
+};

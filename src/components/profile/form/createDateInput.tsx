@@ -4,10 +4,15 @@ import styles from './form.module.scss';
 import { FormFields } from '../../../interfaces/formInputs';
 import validateDate from '../../../utils/helpers/validate/validateDate/validateDate';
 
-export function createDateInputProfile(
-  form: UseFormReturn<FormFields>,
-  value: string,
-): React.JSX.Element {
+type CreateDateInputProfile = {
+  form: UseFormReturn<FormFields>;
+  value: string;
+};
+
+export const CreateDateInputProfile: React.FC<CreateDateInputProfile> = ({
+  form,
+  value,
+}): React.JSX.Element => {
   const {
     register,
     formState: { errors },
@@ -38,4 +43,4 @@ export function createDateInputProfile(
       <span></span>
     </div>
   );
-}
+};

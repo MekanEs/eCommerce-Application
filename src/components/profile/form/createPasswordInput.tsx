@@ -8,10 +8,14 @@ import eyeShow from '../../../assets/img/svg/eye-show.svg';
 
 const WARINING_REGEXP = /(?=.*[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~])/;
 
-export function createPasswordInputProfile(
-  form: UseFormReturn<FormFields>,
-  id: 'password' | 'newPassword' | 'currentPassword',
-): React.JSX.Element {
+type CreatePasswordInputProfile = {
+  form: UseFormReturn<FormFields>;
+  id: 'password' | 'newPassword' | 'currentPassword';
+};
+
+export const CreatePasswordInputProfile: React.FC<
+  CreatePasswordInputProfile
+> = ({ form, id }): React.JSX.Element => {
   const {
     register,
     formState: { errors },
@@ -70,4 +74,4 @@ export function createPasswordInputProfile(
       <span></span>
     </div>
   );
-}
+};

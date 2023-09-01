@@ -1,0 +1,59 @@
+@import '../../../scss/allVariables.scss';
+@import '../../../components/button/button.module.scss';
+@import '../../../components/profile/form/form.module.scss';
+
+.table-container {
+  position: relative;
+  width: 768px;
+  left: 7px;
+  height: 230px;
+  border-radius: 5px;
+  border: 1px solid $defaultOutline;
+  border-collapse: collapse;
+  margin-top: 40px;
+  margin-bottom: 25px;
+  tbody {
+    :nth-child(1) td {
+      color: $table-title;
+      @include font(14px, 19.6px, 500);
+    }
+    > * {
+      height: 40px;
+    }
+  }
+  td {
+    border-bottom: 1px solid $defaultOutline;
+  }
+  tr span {
+    width: 17px;
+    height: 17px;
+    background-image: url('../../../assets/img/svg/edit.svg');
+  }
+  tr:not(:first-child):focus-within {
+    background: $footer;
+    span {
+      width: 40px;
+      height: 40px;
+      background-image: url('../../../assets/img/svg/arrow.svg');
+    }
+  }
+}
+
+.table-title {
+  text-align: start;
+}
+
+.table-title-name {
+  text-align: end;
+  padding-right: 20px;
+  color: $title;
+  @include font(14px, 19.6px, 400);
+  border-right: 1px solid $defaultOutline;
+}
+
+.table-input {
+  width: 70%;
+  padding: 0 15px 0 30px;
+  color: $table-title;
+  @include font(14px, 19.6px, 500);
+}
