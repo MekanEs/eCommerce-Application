@@ -2,11 +2,13 @@ import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { CreateDateInputProfile } from '../form/createDateInput';
 import { CreateEmailInputProfile } from '../form/createEmailInput';
-import { CreateTextInputProfile } from '../form/createTextInpur';
+import { CreateTextInputProfile } from '../form/createTextInput';
 import { CreatePasswordInputProfile } from '../form/createPasswordInput';
 import { FormFields } from '../../../interfaces/formInputs';
 import { ISliceUser } from '../../../interfaces/sliceUser';
 import styles from './createTable.module.scss';
+import { BaseAddress } from '@commercetools/platform-sdk';
+import { CreateTextInputAddress } from '../form/userAddressForm/createTextInput';
 
 type CreateTableInfo = {
   state: ISliceUser;
@@ -109,6 +111,89 @@ export const CreateTablePassword: React.FC<CreateTablePassword> = ({
             <CreatePasswordInputProfile form={form} id={'currentPassword'} />
           </td>
         </tr>
+      </tbody>
+    </table>
+  );
+};
+
+type CreateRowAddress = {
+  value: string;
+  form: UseFormReturn<BaseAddress[]>;
+  index: number;
+  title: string;
+};
+
+const CreateRowAddress: React.FC<CreateRowAddress> = ({
+  value,
+  form,
+  index,
+  title,
+}): React.JSX.Element => {
+  return (
+    <tr>
+      <td className={styles['table-title-name']}>{title}</td>
+      <td className={styles['table-input']}>
+        {value ? (
+          <CreateTextInputAddress
+            form={form}
+            value={value}
+            id={title}
+            index={index}
+          />
+        ) : (
+          ''
+        )}
+      </td>
+    </tr>
+  );
+};
+
+type CreateTableAddress = {
+  address: BaseAddress;
+  form: UseFormReturn<BaseAddress[]>;
+  index: number;
+  title: string;
+};
+
+export const CreateTableAddress: React.FC<CreateTableAddress> = ({
+  address,
+  form,
+  index,
+  title,
+}): React.JSX.Element => {
+  return (
+    <table className={styles['table-container']}>
+      <tbody>
+        <tr>
+          <td className={styles['table-title-name']}>
+            Address {title} {index}
+          </td>
+          <td className={styles['table-input']}></td>
+        </tr>
+        <CreateRowAddress
+          form={form}
+          value={address.country}
+          index={index}
+          title={'Country'}
+        />
+        <CreateRowAddress
+          form={form}
+          value={address.city ? address.city : ''}
+          index={index}
+          title={'City'}
+        />
+        <CreateRowAddress
+          form={form}
+          value={address.streetName ? address.streetName : ''}
+          index={index}
+          title={'Street'}
+        />
+        <CreateRowAddress
+          form={form}
+          value={address.country}
+          index={index}
+          title={'House number'}
+        />
       </tbody>
     </table>
   );

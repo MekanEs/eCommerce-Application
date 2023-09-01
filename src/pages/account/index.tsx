@@ -5,6 +5,7 @@ import styles from './account.module.scss';
 import classNames from 'classnames';
 import CreateGeneralInfo from './userInfo/createGeneralInfo';
 import CreateGeneralPassword from './userInfo/createGeneralPassword';
+import CreateUserAddress from './userAddress/createUserAddress';
 
 const Account: React.FC = (): React.JSX.Element => {
   const [activeType, setActiveType] = useState(0);
@@ -39,7 +40,9 @@ const Account: React.FC = (): React.JSX.Element => {
           <CreateGeneralPassword />
         </div>
       ) : (
-        <div>{1}</div>
+        <div>
+          <CreateUserAddress />
+        </div>
       )}
     </div>
   );

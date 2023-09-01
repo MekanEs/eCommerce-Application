@@ -94,6 +94,8 @@ const initialState: ISliceUser = {
   address: undefined,
   defaultBillingAddressId: undefined,
   defaultShippingAddressId: undefined,
+  billingAddressIds: undefined,
+  shippingAddressIds: undefined,
   message: null,
   version: undefined,
 };
@@ -111,6 +113,8 @@ export const userSlice = createSlice({
       state.address = body?.addresses;
       state.defaultBillingAddressId = body?.defaultBillingAddressId;
       state.defaultShippingAddressId = body?.defaultShippingAddressId;
+      state.billingAddressIds = body?.billingAddressIds;
+      state.shippingAddressIds = body?.shippingAddressIds;
       state.message = 'successfully';
       state.version = body?.version;
     },
@@ -123,6 +127,8 @@ export const userSlice = createSlice({
       state.address = undefined;
       state.defaultBillingAddressId = undefined;
       state.defaultShippingAddressId = undefined;
+      state.billingAddressIds = undefined;
+      state.shippingAddressIds = undefined;
       state.message = null;
       state.version = undefined;
     },
