@@ -65,9 +65,9 @@ const StockSlider: React.FC = () => {
           step="1"
         />
       </div>
-      <div className={styles.price}>
-        <p id="min-value">{min}</p>
 
+      <div className={styles.stock}>
+        <p id="min-value">{min}</p>
         <p id="max-value">{max}</p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 export type categorytype = {
   name: string;
   id: string | undefined;
+  key?:string;
   ancestor?: { id: string; name: string };
 };
 

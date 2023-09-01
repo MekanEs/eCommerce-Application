@@ -5,10 +5,11 @@ import { producttype } from '../../../types/catalogTypes';
 import { NavLink } from 'react-router-dom';
 import Price from './price';
 
-type props = { product: producttype };
+type productTypeProps = { product: producttype };
 
-const ProductCard: React.FC<props> = ({ product }) => {
+const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const attributes = ['Frame material', 'Wheel size', 'Stock'];
+
   return (
     <div key={product.id}>
       <NavLink to={`/catalog/${product.id}`}>

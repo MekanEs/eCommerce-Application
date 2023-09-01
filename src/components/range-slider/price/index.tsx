@@ -52,6 +52,7 @@ const PriceSlider: React.FC = () => {
           max="10000"
           step="100"
         />
+
         <input
           id="max"
           type="range"
@@ -64,6 +65,7 @@ const PriceSlider: React.FC = () => {
           step="100"
         />
       </div>
+
       <div className={styles.price}>
         <p id="min-value">${min}</p>
         <p id="max-value">${max}</p>

@@ -20,14 +20,13 @@ const Categories: React.FC = () => {
   const categoriesJSX =
     categories &&
     categories.map((el, index) => (
-      <div>
+      <div key={index}>
         <button
           onClick={(): void => handleClick(el)}
           className={cx(
             styles.category,
             el.name === activeCategory.name ? styles.activeCategory : '',
           )}
-          key={index}
           data-id={el.id}
         >
           {el.name}

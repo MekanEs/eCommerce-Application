@@ -1,3 +1,18 @@
+@import '../../scss/allVariables.scss';
+
 .container {
   display: flex;
+
+  .select {
+    @include text_def(17px);
+    padding: 10px 20px;
+    background-color: $footer;
+    border: none;
+    option {
+      @include text_def(17px);
+      border-radius: 2px;
+      border: 1px solid $defaultOutline;
+      width: 80%;
+    }
+  }
 }

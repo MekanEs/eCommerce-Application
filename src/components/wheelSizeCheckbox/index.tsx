@@ -2,7 +2,7 @@ import React, { ChangeEventHandler } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import {
   setWheelSize,
-  wheelSizetype,
+  wheelSizeType,
 } from '../../store/productFilter/productFilter.slice';
 import { useDispatch } from 'react-redux';
 
@@ -12,7 +12,7 @@ const WheelSize: React.FC = () => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newObj = structuredClone(wheelSize);
-    newObj[event.target.id as keyof wheelSizetype] = event.target.checked;
+    newObj[event.target.id as keyof wheelSizeType] = event.target.checked;
     dispatch(setWheelSize(newObj));
   };
   return (
@@ -26,7 +26,7 @@ const WheelSize: React.FC = () => {
               type="checkbox"
               name={el}
               id={el}
-              checked={wheelSize[el as keyof wheelSizetype]}
+              checked={wheelSize[el as keyof wheelSizeType]}
             />
             <label htmlFor={el}>{el}</label>
           </div>

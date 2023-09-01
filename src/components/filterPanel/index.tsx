@@ -25,27 +25,33 @@ const FilterPanel: React.FC<Props> = ({ child }) => {
   };
   return (
     <div className={styles.container}>
+      <h2 className={styles.header}>Our best bikes are right here!</h2>
       <Categories />
-
-      <div className={styles.upperPanel}>
-        <span className={styles.total}>
-          <span>Total: </span> <span> {catalog.total}</span>
-        </span>
-        <Search />
-        <Sort />
-      </div>
-
-      <div className={styles.sides}>
-        <div className={styles.sideBar}>
-          <PriceSlider />
-          <StockSlider />
-          <Materials />
-          <WheelSize />
-          <button onClick={handleClick}>reset</button>
+      <div className={styles.filterPanel}>
+        <div className={styles.upperPanel}>
+          <div className={styles.total}>
+            <span>Total: </span> <span> {catalog.total}</span>
+          </div>
+          <Search />
+          <Sort />
         </div>
-        {child}
+
+        <div className={styles.sides}>
+          <div className={styles.sideBar}>
+            <PriceSlider />
+            <StockSlider />
+            <Materials />
+            <WheelSize />
+            <button className={styles.resetButton} onClick={handleClick}>
+              reset
+            </button>
+          </div>
+          <div>
+            {child}
+            <Pagination offset={state.offset} total={catalog.total} />
+          </div>
+        </div>
       </div>
-      <Pagination offset={state.offset} total={catalog.total} />
     </div>
   );
 };
