@@ -1,19 +1,17 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import styles from './form.module.scss';
-import { FormFields } from '../../../interfaces/formInputs';
-import validateName from '../../../utils/helpers/validate/validateDefault/validateDefault';
+import styles from '../form.module.scss';
+import { FormFields } from '../../../../interfaces/formInputs';
+import validateEmail from '../../../../utils/helpers/validate/validateEmail/validateEmail';
 
-type CreateTextInputProfile = {
+type CreateEmailInputProfile = {
   form: UseFormReturn<FormFields>;
   value: string;
-  id: 'firstName' | 'lastName';
 };
 
-export const CreateTextInputProfile: React.FC<CreateTextInputProfile> = ({
+export const CreateEmailInputProfile: React.FC<CreateEmailInputProfile> = ({
   form,
   value,
-  id,
 }): React.JSX.Element => {
   const {
     register,
@@ -26,15 +24,15 @@ export const CreateTextInputProfile: React.FC<CreateTextInputProfile> = ({
         <input
           defaultValue={value}
           type="text"
-          id={id}
-          {...register(id, {
+          id="email"
+          {...register('email', {
             required: 'The field is required',
-            validate: validateName,
+            validate: validateEmail,
           })}
           className={styles['input']}
         />
-        {errors[id] && (
-          <div className={styles.errors}>{errors[id]?.message}</div>
+        {errors.email && (
+          <div className={styles.errors}>{errors.email?.message}</div>
         )}
       </div>
       <span></span>

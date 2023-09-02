@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import styles from './form.module.scss';
-import { FormFields } from '../../../interfaces/formInputs';
-import validatePassword from '../../../utils/helpers/validate/validatePassword/validatePassword';
-import eyeHide from '../../../assets/img/svg/eye-hide.svg';
-import eyeShow from '../../../assets/img/svg/eye-show.svg';
+import styles from '../form.module.scss';
+import { FormFields } from '../../../../interfaces/formInputs';
+import validatePassword from '../../../../utils/helpers/validate/validatePassword/validatePassword';
+import eyeHide from '../../../../assets/img/svg/eye-hide.svg';
+import eyeShow from '../../../../assets/img/svg/eye-show.svg';
 
 const WARINING_REGEXP = /(?=.*[!\\"#$%&'()*+,-.\\/:;<=>?@[\]^_`{|}~])/;
 
@@ -26,7 +26,7 @@ export const CreatePasswordInputProfile: React.FC<
 
   return (
     <div className={styles.fieldProfile}>
-      <div className={styles['input-Container']}>
+      <div className={styles['input-container']}>
         <div>
           <input
             type={showPassword ? 'text' : 'password'}

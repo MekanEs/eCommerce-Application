@@ -1,21 +1,19 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from '../form.module.scss';
-import { BaseAddress } from '@commercetools/platform-sdk';
-import validateDefault from '../../../../utils/helpers/validate/validateDefault/validateDefault';
+import { FormFields } from '../../../../interfaces/formInputs';
+import validateName from '../../../../utils/helpers/validate/validateDefault/validateDefault';
 
-type CreateTextInputAddress = {
-  form: UseFormReturn<BaseAddress[]>;
+type CreateTextInputProfile = {
+  form: UseFormReturn<FormFields>;
   value: string;
-  id: string;
-  index: number;
+  id: 'firstName' | 'lastName';
 };
 
-export const CreateTextInputAddress: React.FC<CreateTextInputAddress> = ({
+export const CreateTextInputProfile: React.FC<CreateTextInputProfile> = ({
   form,
   value,
   id,
-  index,
 }): React.JSX.Element => {
   const {
     register,
@@ -29,14 +27,14 @@ export const CreateTextInputAddress: React.FC<CreateTextInputAddress> = ({
           defaultValue={value}
           type="text"
           id={id}
-          {...register(`${index}.country`, {
+          {...register(id, {
             required: 'The field is required',
-            validate: validateDefault,
+            validate: validateName,
           })}
           className={styles['input']}
         />
-        {errors[index]?.country && (
-          <div className={styles.errors}>{errors[index]?.country?.message}</div>
+        {errors[id] && (
+          <div className={styles.errors}>{errors[id]?.message}</div>
         )}
       </div>
       <span></span>

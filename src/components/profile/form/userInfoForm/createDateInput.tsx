@@ -1,8 +1,8 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import styles from './form.module.scss';
-import { FormFields } from '../../../interfaces/formInputs';
-import validateDate from '../../../utils/helpers/validate/validateDate/validateDate';
+import styles from '../form.module.scss';
+import { FormFields } from '../../../../interfaces/formInputs';
+import validateDate from '../../../../utils/helpers/validate/validateDate/validateDate';
 
 type CreateDateInputProfile = {
   form: UseFormReturn<FormFields>;

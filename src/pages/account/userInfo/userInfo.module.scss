@@ -4,3 +4,11 @@
   display: flex;
   justify-content: center;
 }
+
+.table-adding {
+  display: flex;
+  justify-content: center;
+  color: $defaultLabel;
+  background: $while;
+  cursor: pointer;
+}

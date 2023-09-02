@@ -1,9 +1,14 @@
 @import '../../../scss/allVariables.scss';
+@import '../personalInfo/createTable.module.scss';
 
 .fieldProfile {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .select {
+    background-image: none !important;
+  }
 }
 
 .input {
@@ -12,11 +17,11 @@
   width: 100%;
   box-sizing: border-box;
   font-size: 15px;
-}
 
-.input:focus {
-  background: $footer;
-  color: $link;
+  &:focus {
+    background: $footer;
+    color: $link;
+  }
 }
 
 .errors {
@@ -33,7 +38,7 @@
   padding: 0;
 }
 
-.input-Container {
+.input-container {
   display: flex;
   align-items: center;
   justify-content: space-between;

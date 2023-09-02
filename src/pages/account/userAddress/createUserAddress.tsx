@@ -1,38 +1,77 @@
-import { BaseAddress } from '@commercetools/platform-sdk';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
 import { CreateButton } from '../../../components/form/createButton/createButton';
 import { CreateTableAddress } from '../../../components/profile/personalInfo/createTable';
 import { store } from '../../../store/store';
 import styles from '../userInfo/userInfo.module.scss';
+import { FormAddress } from '../../../interfaces/formInputs';
 
 const CreateUserAddress: React.FC = (): React.JSX.Element => {
-  const form: UseFormReturn<BaseAddress[]> = useForm<BaseAddress[]>({
+  const form: UseFormReturn<FormAddress[]> = useForm<FormAddress[]>({
     mode: 'onChange',
   });
-  const onSubmit: SubmitHandler<BaseAddress[]> = (
-    data: BaseAddress[],
+  const onSubmit: SubmitHandler<FormAddress[]> = (
+    data: FormAddress[],
   ): void => {
     console.log(data);
   };
   const state = store.getState().user;
+  const [countAddress, setcountAddress] = useState(
+    state.address ? state.address.length : 0,
+  );
   return (
     <>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         {state.address?.map((elem, index): ReactNode => {
+          const [isShow, setisShow] = useState(true);
+          const title =
+            elem.id === state.defaultBillingAddressId
+              ? 'Default billing addres'
+              : elem.id === state.defaultShippingAddressId
+              ? 'Default shipping addres'
+              : '';
           return (
             <div key={index}>
-              <CreateTableAddress
-                address={elem}
-                form={form}
-                index={index}
-                title={'bil'}
-              />
+              {isShow ? (
+                <CreateTableAddress
+                  address={elem}
+                  form={form}
+                  index={index}
+                  title={title}
+                  setisShow={setisShow}
+                />
+              ) : (
+                ''
+              )}
             </div>
           );
         })}
         <div className={styles['table-button']}>
           <CreateButton label={'save changes'} className={styles.button} />
+        </div>
+        <div
+          className={styles['table-adding']}
+          onClick={(): React.JSX.Element => {
+            const [isShow, setisShow] = useState(true);
+            setcountAddress(countAddress + 1);
+            return (
+              <div key={countAddress}>
+                {isShow ? (
+                  <CreateTableAddress
+                    address={{ country: '' }}
+                    form={form}
+                    index={countAddress}
+                    title={''}
+                    setisShow={setisShow}
+                  />
+                ) : (
+                  ''
+                )}
+              </div>
+            );
+          }}
+        >
+          + add new address
         </div>
       </form>
     </>

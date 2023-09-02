@@ -1,14 +1,21 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { CreateDateInputProfile } from '../form/createDateInput';
-import { CreateEmailInputProfile } from '../form/createEmailInput';
-import { CreateTextInputProfile } from '../form/createTextInput';
-import { CreatePasswordInputProfile } from '../form/createPasswordInput';
+import { CreateDateInputProfile } from '../form/userInfoForm/createDateInput';
+import { CreateEmailInputProfile } from '../form/userInfoForm/createEmailInput';
+import { CreateTextInputProfile } from '../form/userInfoForm/createTextInput';
+import { CreatePasswordInputProfile } from '../form/userInfoForm/createPasswordInput';
 import { FormFields } from '../../../interfaces/formInputs';
 import { ISliceUser } from '../../../interfaces/sliceUser';
 import styles from './createTable.module.scss';
 import { BaseAddress } from '@commercetools/platform-sdk';
-import { CreateTextInputAddress } from '../form/userAddressForm/createTextInput';
+import { FormAddress } from '../../../interfaces/formInputs';
+import { CreateContryRow } from '../form/userAddressForm/createСountry';
+import { CreateCityRow } from '../form/userAddressForm/createCity';
+import { CreateApartmentRow } from '../form/userAddressForm/createApartment';
+import { CreateHouseRow } from '../form/userAddressForm/createHouse';
+import { CreateStreetRow } from '../form/userAddressForm/createStreet';
+import { CreatePostcodeRow } from '../form/userAddressForm/createPostcode';
+import Checkbox from '../../checkbox';
 
 type CreateTableInfo = {
   state: ISliceUser;
@@ -116,43 +123,12 @@ export const CreateTablePassword: React.FC<CreateTablePassword> = ({
   );
 };
 
-type CreateRowAddress = {
-  value: string;
-  form: UseFormReturn<BaseAddress[]>;
-  index: number;
-  title: string;
-};
-
-const CreateRowAddress: React.FC<CreateRowAddress> = ({
-  value,
-  form,
-  index,
-  title,
-}): React.JSX.Element => {
-  return (
-    <tr>
-      <td className={styles['table-title-name']}>{title}</td>
-      <td className={styles['table-input']}>
-        {value ? (
-          <CreateTextInputAddress
-            form={form}
-            value={value}
-            id={title}
-            index={index}
-          />
-        ) : (
-          ''
-        )}
-      </td>
-    </tr>
-  );
-};
-
 type CreateTableAddress = {
   address: BaseAddress;
-  form: UseFormReturn<BaseAddress[]>;
+  form: UseFormReturn<FormAddress[]>;
   index: number;
   title: string;
+  setisShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const CreateTableAddress: React.FC<CreateTableAddress> = ({
@@ -160,40 +136,67 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
   form,
   index,
   title,
+  setisShow,
 }): React.JSX.Element => {
   return (
     <table className={styles['table-container']}>
       <tbody>
         <tr>
-          <td className={styles['table-title-name']}>
-            Address {title} {index}
+          <td className={styles['table-title-name']}>Address №{index + 1}</td>
+          <td className={styles['table-header']}>
+            <div className={styles['table-default-address']}>{title}</div>
+            <div
+              className={styles['table-remove-address']}
+              onClick={(): void => {
+                setisShow(false);
+                form.resetField(`${index}`);
+              }}
+            >
+              remove address
+            </div>
           </td>
-          <td className={styles['table-input']}></td>
         </tr>
-        <CreateRowAddress
-          form={form}
-          value={address.country}
-          index={index}
-          title={'Country'}
-        />
-        <CreateRowAddress
+        <CreateContryRow form={form} value={address.country} index={index} />
+        <CreateCityRow
           form={form}
           value={address.city ? address.city : ''}
           index={index}
-          title={'City'}
         />
-        <CreateRowAddress
+        <CreateStreetRow
           form={form}
           value={address.streetName ? address.streetName : ''}
           index={index}
-          title={'Street'}
         />
-        <CreateRowAddress
+        <CreateHouseRow
           form={form}
-          value={address.country}
+          value={address.building ? address.building : ''}
           index={index}
-          title={'House number'}
         />
+        <CreateApartmentRow
+          form={form}
+          value={address.apartment ? address.apartment : ''}
+          index={index}
+        />
+        <CreatePostcodeRow
+          form={form}
+          value={address.postalCode ? address.postalCode : ''}
+          index={index}
+        />
+        <tr>
+          <td className={styles['table-title-name']}></td>
+          <td className={styles['table-checkbox']}>
+            <Checkbox
+              id={'set-default-billing'}
+              label={'Use as default billing address'}
+              hookData={form.register(`${index}.defaultBilling`, {})}
+            />
+            <Checkbox
+              id={'set-default-billing'}
+              label={'Use as default shipping address'}
+              hookData={form.register(`${index}.defaultShiping`, {})}
+            />
+          </td>
+        </tr>
       </tbody>
     </table>
   );

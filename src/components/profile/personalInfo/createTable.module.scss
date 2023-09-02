@@ -1,6 +1,5 @@
 @import '../../../scss/allVariables.scss';
 @import '../../../components/button/button.module.scss';
-@import '../../../components/profile/form/form.module.scss';
 
 .table-container {
   position: relative;
@@ -56,4 +55,34 @@
   padding: 0 15px 0 30px;
   color: $table-title;
   @include font(14px, 19.6px, 500);
+}
+
+.table-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 0 30px;
+  height: 40px;
+  @include font(11px, 15.4px, 400);
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 0 30px;
+  height: 40px;
+  @include font(11px, 15.4px, 400);
+
+  .table-default-address {
+    border-radius: 5px;
+    padding: 4px 7px;
+    background: $link;
+    color: white;
+  }
+
+  .table-remove-address {
+    color: $error;
+    cursor: pointer;
+  }
 }

@@ -52,6 +52,17 @@ export interface FormFields {
   currentPassword: string;
 }
 
+export interface FormAddress {
+  country: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  apartment: string;
+  postcode: string;
+  defaultBilling: boolean;
+  defaultShiping: boolean;
+}
+
 export interface CheckboxProps {
   id: string;
   label: string;
