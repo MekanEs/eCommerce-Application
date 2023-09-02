@@ -1,21 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootRegis } from '../../services/ClientBuilder';
-import { categorytype, producttype } from '../../types/catalogTypes';
+import { categoryType, productType } from '../../types/catalogTypes';
 import {
   IProductFilter,
   createQuery,
 } from '../productFilter/productFilter.slice';
 
 const initialState: {
-  categories: categorytype[] | undefined;
+  categories: categoryType[] | undefined;
   childCategory: {
     name: string;
     id: string | undefined;
     ancestor: { id: string; name: string };
   }[];
 
-  products: producttype[] | undefined;
+  products: productType[] | undefined;
   total: number | undefined;
 } = {
   categories: [],

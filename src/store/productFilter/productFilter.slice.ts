@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { categorytype } from '../../types/catalogTypes';
+import { categoryType } from '../../types/catalogTypes';
 
 export type materialtype = {
   Aluminum: boolean;
@@ -17,7 +17,7 @@ export type wheelSizeType = {
 
 export interface IProductFilter {
   sort: { name: string; order: string };
-  category: categorytype;
+  category: categoryType;
   priceRange: { from: number; to: number };
   stockRange: { from: number; to: number };
   materials: materialtype;

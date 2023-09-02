@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './productCard.module.scss';
 
-import { producttype } from '../../../types/catalogTypes';
+import { productType } from '../../../types/catalogTypes';
 import { NavLink } from 'react-router-dom';
 import Price from './price';
 
-type productTypeProps = { product: producttype };
+type productTypeProps = { product: productType };
 
 const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const attributes = ['Frame material', 'Wheel size', 'Stock'];

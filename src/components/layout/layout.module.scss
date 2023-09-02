@@ -5,14 +5,14 @@
   flex-direction: column;
   min-height: 100%;
   margin: 0 auto;
+  align-items: center;
 }
 
 main {
-  margin: 0 auto;
   max-width: 1216px;
   flex: 1 1 auto;
   padding: 0 20px 50px 20px;
-  min-width: 90%;
+  width: 100%;
 }
 
 .gray_bg {
