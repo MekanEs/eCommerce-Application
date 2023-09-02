@@ -74,6 +74,7 @@ export const catalogSlice = createSlice({
               name: Object.values(el.name)[0],
               id: el.id,
               atributes: el.masterVariant.attributes,
+              key: el.masterVariant.key,
               categories: el.categories.map((category) => {
                 if (category.obj) {
                   return { id: category.id, name: category.obj?.name['en-US'] };

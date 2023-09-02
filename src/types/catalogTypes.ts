@@ -20,4 +20,5 @@ export type productType = {
   images: string[] | undefined;
   categories: categoryType[] | undefined;
   atributes: attribute[] | undefined;
+  key: string | undefined;
 };
