@@ -16,6 +16,8 @@ import formatPrice from '../../utils/helpers/formatPrice';
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
+  console.log(key);
+
   const products = useAppSelector((state) => state.catalog.products);
   const product = products?.filter((el) => el.key === key)[0];
   const id = product && product.id;

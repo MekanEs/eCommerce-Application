@@ -26,48 +26,54 @@ const FilterModal: React.FC<FilterModalPropsType> = ({ child }) => {
     }
   }, [isModal]);
 
+  const handleOpen = (): void => {
+    setIsModal(!isModal);
+    setTimeout(() => {
+      setIsModalContainer(!isModalContainer);
+    }, 300);
+  };
+
+  const handleClose = (): void => {
+    setIsModalContainer(!isModalContainer);
+    setTimeout(() => {
+      setIsModal(!isModal);
+    }, 300);
+  };
   return (
     <div className={styles.filterPanelTablet}>
+      <div
+        onClick={handleClose}
+        className={cx(styles.burger_bg, isModal ? styles.activeBurger : '')}
+      >
+        <div
+          onClick={(e): void => {
+            e.stopPropagation();
+          }}
+          className={cx(
+            styles.burgerContainer,
+            isModalContainer ? styles.burgerContainerActive : '',
+          )}
+        >
+          <SideBar
+            modal={isModal}
+            close={handleClose}
+            child={
+              <div className={styles.filterBlock}>
+                <span>Filter</span>
+                <img src={filterIcon} alt="filter icon" />
+              </div>
+            }
+          />
+        </div>
+      </div>
+
       <div className={styles.right}>
         <div className={styles.upperPanelTablet}>
           <div className={styles.sort_filter}>
             <Sort />
-            <div
-              className={styles.filterBlock}
-              onClick={(): void => {
-                setIsModal(!isModal);
-                setTimeout(() => {
-                  setIsModalContainer(!isModalContainer);
-                }, 300);
-              }}
-            >
+            <div className={styles.filterBlock} onClick={handleOpen}>
               <span>Filter</span>
               <img src={filterIcon} alt="filter icon" />
-            </div>
-
-            <div
-              onClick={(): void => {
-                setIsModalContainer(!isModalContainer);
-                setTimeout(() => {
-                  setIsModal(!isModal);
-                }, 300);
-              }}
-              className={cx(
-                styles.burger_bg,
-                isModal ? styles.activeBurger : '',
-              )}
-            >
-              <div
-                onClick={(e): void => {
-                  e.stopPropagation();
-                }}
-                className={cx(
-                  styles.burgerContainer,
-                  isModalContainer ? styles.burgerContainerActive : '',
-                )}
-              >
-                <SideBar />
-              </div>
             </div>
           </div>
 

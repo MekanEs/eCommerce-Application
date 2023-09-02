@@ -23,7 +23,7 @@ export const router = createBrowserRouter(
       <Route index element={<Main />} />
       <Route path="about" element={<About />} />
       <Route path="catalog" element={<Catalog />} />
-      <Route path="catalog/:id" element={<Product />} />
+      <Route path="catalog/:key" element={<Product />} />
       <Route element={<RequireAuth />}>
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />

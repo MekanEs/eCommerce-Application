@@ -7,7 +7,6 @@ body,
 }
 
 body {
-  overflow-x: hidden;
   margin: 0;
   font-family:
     system-ui,
@@ -24,6 +23,7 @@ body {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 $border: 1px solid #cfcfcf;

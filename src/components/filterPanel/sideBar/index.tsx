@@ -7,7 +7,12 @@ import WheelSize from '../../wheelSizeCheckbox';
 import { resetState } from '../../../store/productFilter/productFilter.slice';
 import { useDispatch } from 'react-redux';
 
-const SideBar: React.FC = () => {
+type sideBarPropsType = {
+  modal: boolean;
+  close?: () => void;
+  child?: JSX.Element;
+};
+const SideBar: React.FC<sideBarPropsType> = ({ modal, close, child }) => {
   const dispatch = useDispatch();
   const handleClick = (): void => {
     dispatch(resetState());
@@ -15,6 +20,16 @@ const SideBar: React.FC = () => {
 
   return (
     <div className={styles.sideBar}>
+      {modal && close ? (
+        <div className={styles.upper}>
+          <button className={styles.closeButton} onClick={(): void => close()}>
+            X
+          </button>
+          {child}
+        </div>
+      ) : (
+        ''
+      )}
       <PriceSlider />
       <StockSlider />
       <Materials />

@@ -28,7 +28,7 @@ const FilterPanel: React.FC<FilterPanelPropsType> = ({ child }) => {
             <div className={styles.total}>
               <span>Total: {catalog.total}</span>
             </div>
-            <SideBar />
+            <SideBar modal={false} />
           </div>
 
           <div className={styles.right}>

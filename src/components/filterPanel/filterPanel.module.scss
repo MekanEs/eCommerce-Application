@@ -10,6 +10,7 @@
   @include header(46px);
   margin: 20px auto;
   text-align: center;
+
   @media (max-width: 1250px) {
     font-size: 32px;
   }
@@ -117,22 +118,24 @@
 
 .burger_bg {
   background-color: rgba(#000000, 0.5);
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  height: 180vh;
-  left: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
   z-index: 1;
+  display: none;
 }
 
 .activeBurger {
-  left: 0;
+  display: block;
 }
 
 .burgerContainer {
   position: absolute;
   width: 300px;
   right: -500px;
-  top: 50%;
+  top: 20vh;
   transition: all 0.3s ease;
 }
 
