@@ -1,3 +1,4 @@
+@import '../../../scss/allVariables.scss';
 @import '../../../components/button/button.module.scss';
 
 .table-button {
@@ -11,4 +12,5 @@
   color: $defaultLabel;
   background: $while;
   cursor: pointer;
+  @include font(15px, 21px, 400);
 }

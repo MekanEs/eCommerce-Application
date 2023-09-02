@@ -16,13 +16,13 @@ const CreateUserAddress: React.FC = (): React.JSX.Element => {
     console.log(data);
   };
   const state = store.getState().user;
-  const [countAddress, setcountAddress] = useState(
-    state.address ? state.address.length : 0,
+  const [addressState, setAddressState] = useState(
+    state.address ? state.address : [{ country: '' }],
   );
   return (
     <>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        {state.address?.map((elem, index): ReactNode => {
+        {addressState?.map((elem, index): ReactNode => {
           const [isShow, setisShow] = useState(true);
           const title =
             elem.id === state.defaultBillingAddressId
@@ -51,24 +51,10 @@ const CreateUserAddress: React.FC = (): React.JSX.Element => {
         </div>
         <div
           className={styles['table-adding']}
-          onClick={(): React.JSX.Element => {
-            const [isShow, setisShow] = useState(true);
-            setcountAddress(countAddress + 1);
-            return (
-              <div key={countAddress}>
-                {isShow ? (
-                  <CreateTableAddress
-                    address={{ country: '' }}
-                    form={form}
-                    index={countAddress}
-                    title={''}
-                    setisShow={setisShow}
-                  />
-                ) : (
-                  ''
-                )}
-              </div>
-            );
+          onClick={(): void => {
+            const newAddress = Object.assign([], addressState);
+            newAddress.push({ country: '' });
+            setAddressState(newAddress);
           }}
         >
           + add new address
