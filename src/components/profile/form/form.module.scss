@@ -1,0 +1,51 @@
+@import '../../../scss/allVariables.scss';
+@import '../personalInfo/createTable.module.scss';
+
+.fieldProfile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .select {
+    background-image: none !important;
+  }
+}
+
+.input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15px;
+
+  &:focus {
+    background: $footer;
+    color: $link;
+  }
+}
+
+.errors {
+  color: $error;
+  font-size: 12px;
+}
+
+.warning {
+  color: $warning;
+  font-size: 12px;
+}
+
+.input[type='date'] {
+  padding: 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.password-toggle-icon {
+  margin-top: 5px;
+  cursor: pointer;
+}

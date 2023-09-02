@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
-import createButton from './createButton';
+import { CreateButton } from './createButton';
 
-describe('createButton', () => {
+describe('CreateButton', () => {
   test('renders a button with the provided label', () => {
     const label = 'Submit';
-    const { getByText } = render(createButton(label));
+    const { getByText } = render(<CreateButton label={label} />);
     const button = getByText(label);
     expect(button).toBeInTheDocument();
   });

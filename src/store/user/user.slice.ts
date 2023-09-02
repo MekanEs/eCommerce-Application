@@ -1,12 +1,13 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootToken } from '../../services/ClientBuilder';
 import { store } from '../store';
 
 export const getUserData = createAsyncThunk(
-  'auth/getUserData',
+  'user/getUserData',
   async function (_, { rejectWithValue }) {
     try {
       const result: ClientResponse<Customer> = await getApiRootToken()
@@ -22,8 +23,8 @@ export const getUserData = createAsyncThunk(
 );
 
 export const getNewPassword = createAsyncThunk(
-  'auth/getNewPassword',
-  async function (_, { rejectWithValue }) {
+  'user/getNewPassword',
+  async function (data: FormFields, { rejectWithValue }) {
     try {
       const state: ISliceUser = store.getState().user;
       const result: ClientResponse<Customer> = await getApiRootToken()
@@ -33,8 +34,47 @@ export const getNewPassword = createAsyncThunk(
         .post({
           body: {
             version: state.version ? state.version : 1,
-            currentPassword: '1234Qwer',
-            newPassword: '1234qweR',
+            currentPassword: data.password,
+            newPassword: data.newPassword,
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getNewDataUser = createAsyncThunk(
+  'user/getNewDataUser',
+  async function (data: FormFields, { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: [
+              {
+                action: 'setLastName',
+                lastName: data.lastName,
+              },
+              {
+                action: 'setFirstName',
+                firstName: data.firstName,
+              },
+              {
+                action: 'setDateOfBirth',
+                dateOfBirth: data.dateOfBirth,
+              },
+              {
+                action: 'changeEmail',
+                email: data.email,
+              },
+            ],
           },
         })
         .execute();
@@ -54,6 +94,8 @@ const initialState: ISliceUser = {
   address: undefined,
   defaultBillingAddressId: undefined,
   defaultShippingAddressId: undefined,
+  billingAddressIds: undefined,
+  shippingAddressIds: undefined,
   message: null,
   version: undefined,
 };
@@ -61,8 +103,20 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getUser(state) {
-      return state;
+    getUser(state, action) {
+      const body: Customer | undefined = action.payload?.body;
+      state.status = 'ok';
+      state.firstName = body?.firstName;
+      state.lastName = body?.lastName;
+      state.email = body?.email;
+      state.dateBirth = body?.dateOfBirth;
+      state.address = body?.addresses;
+      state.defaultBillingAddressId = body?.defaultBillingAddressId;
+      state.defaultShippingAddressId = body?.defaultShippingAddressId;
+      state.billingAddressIds = body?.billingAddressIds;
+      state.shippingAddressIds = body?.shippingAddressIds;
+      state.message = 'successfully';
+      state.version = body?.version;
     },
     removeUser(state) {
       state.status = null;
@@ -73,6 +127,8 @@ export const userSlice = createSlice({
       state.address = undefined;
       state.defaultBillingAddressId = undefined;
       state.defaultShippingAddressId = undefined;
+      state.billingAddressIds = undefined;
+      state.shippingAddressIds = undefined;
       state.message = null;
       state.version = undefined;
     },
@@ -83,17 +139,7 @@ export const userSlice = createSlice({
         userSlice.caseReducers.removeUser(state);
       })
       .addCase(getUserData.fulfilled, (state, action) => {
-        const body: Customer | undefined = action.payload?.body;
-        state.status = 'ok';
-        state.firstName = body?.firstName;
-        state.lastName = body?.lastName;
-        state.email = body?.email;
-        state.dateBirth = body?.dateOfBirth;
-        state.address = body?.addresses;
-        state.defaultBillingAddressId = body?.defaultBillingAddressId;
-        state.defaultShippingAddressId = body?.defaultShippingAddressId;
-        state.message = 'successfully';
-        state.version = body?.version;
+        userSlice.caseReducers.getUser(state, action);
       })
       .addCase(getUserData.rejected, (state, action) => {
         state.status = 'error';
@@ -109,6 +155,13 @@ export const userSlice = createSlice({
         state.version = action.payload?.body.version;
       })
       .addCase(getNewPassword.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
+      })
+      .addCase(getNewDataUser.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getNewDataUser.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
       });

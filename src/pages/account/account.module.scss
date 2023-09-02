@@ -1,18 +1,39 @@
 @import '../../scss/allVariables.scss';
-
-.registration-form {
-  padding: 0 50px 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+@import '../../components/button/button.module.scss';
 
 .container {
   @include form_container;
   max-width: 768px;
 }
 
+.info-container {
+  @include form_container;
+  flex-direction: row;
+  max-width: 768px;
+  margin: 0;
+  > * {
+    color: $title;
+    background: $footer;
+  }
+
+  :first-child {
+    position: relative;
+    left: 7px;
+  }
+
+  .info-container_title {
+    margin-top: 50px;
+    @include profile-title;
+    @include font(17px, 23.8px, 500);
+  }
+}
+
 .page-title {
   @include forms_page_title;
+}
+
+.active {
+  background: $while;
+  color: $link;
+  z-index: 1;
 }

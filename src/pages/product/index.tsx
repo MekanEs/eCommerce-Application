@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './product.module.scss';
-import createButton from '../../components/form/createButton/createButton';
+import { CreateButton } from '../../components/form/createButton/createButton';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -110,9 +110,15 @@ const Product: React.FC = (): JSX.Element => {
         <p className={styles['subtitle']}>Description</p>
         <p>{productDescription}</p>
       </div>
-      {stock < 1
-        ? createButton('add to cart', styles['button'], true)
-        : createButton('add to cart', styles['button'])}
+      {stock < 1 ? (
+        <CreateButton
+          label={'add to cart'}
+          className={styles['button']}
+          disabled={true}
+        />
+      ) : (
+        <CreateButton label={'add to cart'} className={styles['button']} />
+      )}
     </div>
   );
 };
