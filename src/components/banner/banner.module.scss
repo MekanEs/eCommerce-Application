@@ -21,6 +21,8 @@
 
   img {
     margin-top: -80px;
+    object-fit: cover;
+    overflow: visible;
   }
 }
 @media (max-width: 1220px) {
