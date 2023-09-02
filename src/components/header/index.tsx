@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
 import logo from '../../assets/img/svg/veros_logo.svg';
+import profile from '../../assets/img/svg/profile_user.svg';
 import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
@@ -27,7 +28,12 @@ const Header: React.FC = () => {
         {path === '/registration' || path === '/login' ? (
           ''
         ) : isAuth ? (
-          <Logout />
+          <div className={styles.profile}>
+            <NavLink to="/account">
+              <img src={profile} alt="profile" />
+            </NavLink>
+            <Logout />
+          </div>
         ) : (
           <div className={styles.auth}>
             <NavLink className={isActive} to="registration">

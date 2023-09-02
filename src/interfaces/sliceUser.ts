@@ -9,6 +9,8 @@ export interface ISliceUser {
   address: undefined | Address[];
   defaultBillingAddressId: undefined | string;
   defaultShippingAddressId: undefined | string;
+  billingAddressIds: undefined | string[];
+  shippingAddressIds: undefined | string[];
   message: null | string | unknown;
   version: undefined | number;
 }

@@ -171,12 +171,14 @@
 
 @mixin swiper_button_next {
   @include swiper_button;
+  width: 45px;
+  height: 45px;
 
   &::after {
     content: '→';
     position: absolute;
-    top: 10%;
-    left: 22%;
+    top: 20%;
+    left: 30%;
     font-size: 28px;
     color: $accent;
     font-weight: 300;
@@ -185,12 +187,14 @@
 
 @mixin swiper_button_prev {
   @include swiper_button;
+  width: 45px;
+  height: 45px;
 
   &::after {
     content: '←';
     position: absolute;
-    top: 10%;
-    left: 22%;
+    top: 20%;
+    left: 30%;
     font-size: 28px;
     color: $accent;
     font-weight: 300;
@@ -240,4 +244,49 @@
   background: white;
   padding: 0 5px;
   z-index: 1;
+}
+
+@mixin swiper_button {
+  position: relative;
+  width: 45px !important;
+  background: $footer;
+  outline: 1px solid $defaultOutline;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &::after {
+    top: 0;
+    left: 0;
+    font-size: 16px !important;
+    color: black;
+  }
+
+  &:hover {
+    background: $accent;
+
+    &::after {
+      color: white;
+    }
+  }
+
+  &:active {
+    background: $active;
+  }
+}
+@mixin profile-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 384px;
+  height: 36px;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+}
+
+@mixin font($size, $height, $weight, $style: normal) {
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
 }

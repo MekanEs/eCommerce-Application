@@ -3,7 +3,7 @@ import styles from './registration.module.scss';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { FormFields } from '../../interfaces/formInputs';
-import createButton from '../../components/form/createButton/createButton';
+import { CreateButton } from '../../components/form/createButton/createButton';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
@@ -70,7 +70,7 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
           {createBillingAddressColumn(form, styles)}
           {createShippingAddressColumn(form, form.watch('sameAddress'), styles)}
         </div>
-        {createButton('registration', styles.button)}
+        <CreateButton label={'registration'} className={styles.button} />
       </form>
       {errorMessage && createErrorMessage(errorMessage)}
       {succesMessage && createSuccessMessage(succesMessage)}

@@ -48,6 +48,19 @@ export interface FormFields {
   sameAddress: boolean;
   defaultBilling: boolean;
   defaultShipping: boolean;
+  newPassword: string;
+  currentPassword: string;
+}
+
+export interface FormAddress {
+  country: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  apartment: string;
+  postcode: string;
+  defaultBilling: boolean;
+  defaultShiping: boolean;
 }
 
 export interface CheckboxProps {

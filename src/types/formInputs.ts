@@ -18,4 +18,6 @@ export type Fields =
   | 'billingPostcode'
   | 'sameAddress'
   | 'defaultBilling'
+  | 'newPassword'
+  | 'currentPassword'
   | 'defaultShipping';

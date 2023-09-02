@@ -1,10 +1,16 @@
 import Button from '../../button';
 
-export default function createButton(
-  label: string,
-  className?: string,
-  disabled?: boolean,
-): JSX.Element {
+type CreateButton = {
+  label: string;
+  className?: string;
+  disabled?: boolean;
+};
+
+export const CreateButton: React.FC<CreateButton> = ({
+  label,
+  className,
+  disabled,
+}): JSX.Element => {
   return (
     <Button
       label={label}
@@ -16,4 +22,4 @@ export default function createButton(
       }}
     />
   );
-}
+};
