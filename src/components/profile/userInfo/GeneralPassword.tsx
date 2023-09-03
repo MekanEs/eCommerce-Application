@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
-import { CreateButton } from '../../../components/form/createButton/createButton';
+import { CreateButton } from '../../form/createButton/createButton';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { FormFields } from '../../../interfaces/formInputs';
 import { ISliceUser } from '../../../interfaces/sliceUser';
 import styles from './userInfo.module.scss';
 import { store } from '../../../store/store';
-import CreateMessage from '../../../components/profile/message/getMessage';
+import CreateMessage from '../message/getMessage';
 import { getNewPassword } from '../../../store/user/user.slice';
-import { CreateTablePassword } from '../../../components/profile/personalInfo/createTable';
+import { CreateTablePassword } from '../personalInfo/createTable';
 
 const CreateGeneralPassword: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({

@@ -8,6 +8,9 @@
 
   .select {
     background-image: none !important;
+    &:disabled {
+      color: $defaultInput;
+    }
   }
 }
 
@@ -22,6 +25,10 @@
     background: $footer;
     color: $accent;
   }
+}
+
+.default-input {
+  color: $defaultInput;
 }
 
 .errors {

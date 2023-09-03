@@ -144,7 +144,11 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
         <tr>
           <td className={styles['table-title-name']}>Address №{index + 1}</td>
           <td className={styles['table-header']}>
-            <div className={styles['table-default-address']}>{title}</div>
+            {title ? (
+              <div className={styles['table-default-address']}>{title}</div>
+            ) : (
+              <div></div>
+            )}
             <div
               className={styles['table-remove-address']}
               onClick={(): void => {

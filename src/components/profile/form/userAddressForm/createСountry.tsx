@@ -26,8 +26,12 @@ const CreateCountryInputAddress: React.FC<CreateCountryInputAddress> = ({
       <div>
         <select
           defaultValue={values}
-          id="contry"
-          className={classNames(styles['input'], styles['select'])}
+          id="country"
+          placeholder="Country"
+          className={classNames(styles['input'], styles['select'], {
+            [styles['default-input']]:
+              form.getValues(`${index}.country`) === undefined,
+          })}
           {...register(`${index}.country`, {
             required: 'The field is required',
           })}
@@ -66,15 +70,7 @@ export const CreateContryRow: React.FC<CreateContryRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Counry</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateCountryInputAddress
-              form={form}
-              values={value}
-              index={index}
-            />
-          ) : (
-            ''
-          )}
+          <CreateCountryInputAddress form={form} values={value} index={index} />
         </td>
       </tr>
     </>

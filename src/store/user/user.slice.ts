@@ -1,5 +1,5 @@
-import { ClientResponse, Customer } from '@commercetools/platform-sdk';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Address, ClientResponse, Customer } from '@commercetools/platform-sdk';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
@@ -132,6 +132,10 @@ export const userSlice = createSlice({
       state.message = null;
       state.version = undefined;
     },
+    addAddress(state, action: PayloadAction<Address>) {
+      const address = action.payload;
+      state.address?.push(address);
+    },
   },
   extraReducers: (build) => {
     build
@@ -168,5 +172,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUser, removeUser } = userSlice.actions;
+export const { getUser, removeUser, addAddress } = userSlice.actions;
 export default userSlice.reducer;

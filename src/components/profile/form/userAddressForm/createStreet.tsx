@@ -59,11 +59,7 @@ export const CreateStreetRow: React.FC<CreateStreetRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Street</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateStreetInputAddress form={form} value={value} index={index} />
-          ) : (
-            ''
-          )}
+          <CreateStreetInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>

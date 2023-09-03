@@ -59,11 +59,7 @@ export const CreateCityRow: React.FC<CreateCityRow> = ({
       <tr>
         <td className={styles['table-title-name']}>City</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateCityInputAddress form={form} value={value} index={index} />
-          ) : (
-            ''
-          )}
+          <CreateCityInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>

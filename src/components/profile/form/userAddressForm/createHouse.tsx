@@ -59,11 +59,7 @@ export const CreateHouseRow: React.FC<CreateHouseRow> = ({
       <tr>
         <td className={styles['table-title-name']}>House number</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateHouseInputAddress form={form} value={value} index={index} />
-          ) : (
-            ''
-          )}
+          <CreateHouseInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>

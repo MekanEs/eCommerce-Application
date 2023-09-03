@@ -63,15 +63,7 @@ export const CreatePostcodeRow: React.FC<CreatePostcodeRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Postcode</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreatePostcodeInputAddress
-              form={form}
-              value={value}
-              index={index}
-            />
-          ) : (
-            ''
-          )}
+          <CreatePostcodeInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>
