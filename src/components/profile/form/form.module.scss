@@ -8,9 +8,7 @@
 
   .select {
     background-image: none !important;
-    &:disabled {
-      color: $defaultInput;
-    }
+    appearance: none;
   }
 }
 

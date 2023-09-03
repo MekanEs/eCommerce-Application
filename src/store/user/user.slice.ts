@@ -1,6 +1,6 @@
 import { Address, ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { FormFields } from '../../interfaces/formInputs';
+import { FormAddress, FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootToken } from '../../services/ClientBuilder';
@@ -73,6 +73,33 @@ export const getNewDataUser = createAsyncThunk(
               {
                 action: 'changeEmail',
                 email: data.email,
+              },
+            ],
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getUpdateAddress = createAsyncThunk(
+  'user/getUpdateAddress',
+  async function (data: FormAddress, { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: [
+              {
+                action: 'addAddress',
+                address: data,
               },
             ],
           },
@@ -166,6 +193,13 @@ export const userSlice = createSlice({
         userSlice.caseReducers.getUser(state, action);
       })
       .addCase(getNewDataUser.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
+      })
+      .addCase(getUpdateAddress.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getUpdateAddress.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
       });

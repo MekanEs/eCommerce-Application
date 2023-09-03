@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from '../form.module.scss';
 import { FormAddress } from '../../../../interfaces/formInputs';
@@ -18,8 +18,17 @@ const CreateCountryInputAddress: React.FC<CreateCountryInputAddress> = ({
 }): React.JSX.Element => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields },
+    watch,
   } = form;
+
+  const Country = watch(`${index}.country`);
+
+  useEffect(() => {
+    if (Country && dirtyFields[index]?.postcode) {
+      form.trigger(`${index}.postcode`);
+    }
+  }, [Country]);
 
   return (
     <div className={styles.fieldProfile}>
@@ -30,7 +39,9 @@ const CreateCountryInputAddress: React.FC<CreateCountryInputAddress> = ({
           placeholder="Country"
           className={classNames(styles['input'], styles['select'], {
             [styles['default-input']]:
-              form.getValues(`${index}.country`) === undefined,
+              !errors[index]?.country &&
+              values === '' &&
+              dirtyFields[index]?.country === undefined,
           })}
           {...register(`${index}.country`, {
             required: 'The field is required',
