@@ -146,7 +146,7 @@
 
 // swiper
 
-@mixin swiper_button {
+@mixin swiper_button($direction, $symbol) {
   position: relative;
   width: 45px;
   height: 45px;
@@ -167,38 +167,32 @@
   &:active {
     background: $active;
   }
-}
-
-@mixin swiper_button_next {
-  @include swiper_button;
-  width: 45px;
-  height: 45px;
 
   &::after {
-    content: '→';
+    content: $symbol;
     position: absolute;
-    top: 20%;
-    left: 30%;
+    top: 12%;
+
+    @if $direction =='next' {
+      left: 22%;
+    }
+
+    @else {
+      left: 24%;
+    }
+
     font-size: 28px;
     color: $accent;
     font-weight: 300;
   }
 }
 
-@mixin swiper_button_prev {
-  @include swiper_button;
-  width: 45px;
-  height: 45px;
+@mixin swiper-button-next {
+  @include swiper_button('next', '→');
+}
 
-  &::after {
-    content: '←';
-    position: absolute;
-    top: 20%;
-    left: 30%;
-    font-size: 28px;
-    color: $accent;
-    font-weight: 300;
-  }
+@mixin swiper-button-prev {
+  @include swiper_button('prev', '←');
 }
 
 @mixin swiper_navigation($left: 30px, $width: 94.5%) {
@@ -246,34 +240,6 @@
   z-index: 1;
 }
 
-@mixin swiper_button {
-  position: relative;
-  width: 45px !important;
-  background: $footer;
-  outline: 1px solid $defaultOutline;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  cursor: pointer;
-
-  &::after {
-    top: 0;
-    left: 0;
-    font-size: 16px !important;
-    color: black;
-  }
-
-  &:hover {
-    background: $accent;
-
-    &::after {
-      color: white;
-    }
-  }
-
-  &:active {
-    background: $active;
-  }
-}
 @mixin profile-title {
   display: flex;
   align-items: center;
