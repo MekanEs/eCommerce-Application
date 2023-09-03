@@ -1,10 +1,16 @@
-import { Address, ClientResponse, Customer } from '@commercetools/platform-sdk';
+import {
+  Address,
+  ClientResponse,
+  Customer,
+  MyCustomerUpdateAction,
+} from '@commercetools/platform-sdk';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { FormAddress, FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootToken } from '../../services/ClientBuilder';
 import { store } from '../store';
+import { getBodyUpdateAddress } from '../../utils/services/updateAddress';
 
 export const getUserData = createAsyncThunk(
   'user/getUserData',
@@ -87,21 +93,21 @@ export const getNewDataUser = createAsyncThunk(
 
 export const getUpdateAddress = createAsyncThunk(
   'user/getUpdateAddress',
-  async function (data: FormAddress, { rejectWithValue }) {
+  async function (data: FormAddress[], { rejectWithValue }) {
     try {
       const state = store.getState().user;
+      const response: MyCustomerUpdateAction[] = getBodyUpdateAddress(
+        data,
+        state,
+      );
+      console.log(response);
       const result = await getApiRootToken()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .me()
         .post({
           body: {
             version: state.version ? state.version : 1,
-            actions: [
-              {
-                action: 'addAddress',
-                address: data,
-              },
-            ],
+            actions: response,
           },
         })
         .execute();
@@ -126,6 +132,7 @@ const initialState: ISliceUser = {
   message: null,
   version: undefined,
 };
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,

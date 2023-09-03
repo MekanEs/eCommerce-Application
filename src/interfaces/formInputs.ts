@@ -55,10 +55,10 @@ export interface FormFields {
 export interface FormAddress {
   country: string;
   city: string;
-  street: string;
-  houseNumber: string;
+  streetName: string;
+  building: string;
   apartment: string;
-  postcode: string;
+  postalCode: string;
   defaultBilling: boolean;
   defaultShiping: boolean;
 }

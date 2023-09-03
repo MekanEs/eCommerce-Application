@@ -25,8 +25,8 @@ const CreateCountryInputAddress: React.FC<CreateCountryInputAddress> = ({
   const Country = watch(`${index}.country`);
 
   useEffect(() => {
-    if (Country && dirtyFields[index]?.postcode) {
-      form.trigger(`${index}.postcode`);
+    if (Country && dirtyFields[index]?.postalCode) {
+      form.trigger(`${index}.postalCode`);
     }
   }, [Country]);
 

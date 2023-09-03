@@ -28,14 +28,16 @@ const CreateStreetInputAddress: React.FC<CreateStreetInputAddress> = ({
           type="text"
           id="street"
           placeholder="Street"
-          {...register(`${index}.street`, {
+          {...register(`${index}.streetName`, {
             required: 'The field is required',
             validate: validateStreet,
           })}
           className={styles['input']}
         />
-        {errors[index]?.street && (
-          <div className={styles.errors}>{errors[index]?.street?.message}</div>
+        {errors[index]?.streetName && (
+          <div className={styles.errors}>
+            {errors[index]?.streetName?.message}
+          </div>
         )}
       </div>
       <span></span>

@@ -6,7 +6,7 @@ import styles from '../userInfo/userInfo.module.scss';
 import { FormAddress } from '../../../interfaces/formInputs';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { ISliceUser } from '../../../interfaces/sliceUser';
-import { addAddress } from '../../../store/user/user.slice';
+import { addAddress, getUpdateAddress } from '../../../store/user/user.slice';
 import { Address } from '@commercetools/platform-sdk';
 import { getDefaultAddress } from '../../../utils/helpers/profile/gefaultAddress';
 
@@ -14,12 +14,12 @@ const CreateUserAddress: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormAddress[]> = useForm<FormAddress[]>({
     mode: 'onChange',
   });
+  const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<FormAddress[]> = (
     data: FormAddress[],
   ): void => {
-    console.log(data);
+    dispatch(getUpdateAddress(data));
   };
-  const dispatch = useAppDispatch();
   const user: ISliceUser = useAppSelector((state) => state.user);
   const [selectBilling, setSelectBilling] = useState(
     getDefaultAddress(user, user.defaultBillingAddressId),

@@ -27,14 +27,14 @@ const CreateHouseInputAddress: React.FC<CreateHouseInputAddress> = ({
           type="text"
           id="house-number"
           placeholder="№"
-          {...register(`${index}.houseNumber`, {
+          {...register(`${index}.building`, {
             required: 'The field is required',
           })}
           className={styles['input']}
         />
-        {errors[index]?.houseNumber && (
+        {errors[index]?.building && (
           <div className={styles.errors}>
-            {errors[index]?.houseNumber?.message}
+            {errors[index]?.building?.message}
           </div>
         )}
       </div>
