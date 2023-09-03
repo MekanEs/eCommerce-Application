@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
-import { CreateButton } from '../../form/createButton/createButton';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { FormFields } from '../../../interfaces/formInputs';
-import { ISliceUser } from '../../../interfaces/sliceUser';
-import { getNewDataUser } from '../../../store/user/user.slice';
-import styles from './userInfo.module.scss';
-import { CreateTableInfo } from '../personalInfo/tableInfo';
-import { store } from '../../../store/store';
-import CreateMessage from '../message/getMessage';
+import { CreateButton } from '../../../form/createButton/createButton';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
+import { FormFields } from '../../../../interfaces/formInputs';
+import { ISliceUser } from '../../../../interfaces/sliceUser';
+import { getNewDataUser } from '../../../../store/user/user.slice';
+import styles from '../userInfo.module.scss';
+import { CreateTableInfo } from '../../personalInfo/tableInfo';
+import { store } from '../../../../store/store';
+import CreateMessage from '../../message/getMessage';
 
 const CreateGeneralInfo: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({

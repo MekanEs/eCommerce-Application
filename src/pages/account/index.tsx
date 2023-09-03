@@ -3,8 +3,8 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { getUserData } from '../../store/user/user.slice';
 import styles from './account.module.scss';
 import classNames from 'classnames';
-import CreateGeneralInfo from '../../components/profile/userInfo/GeneralInfo';
-import CreateGeneralPassword from '../../components/profile/userInfo/GeneralPassword';
+import CreateGeneralInfo from '../../components/profile/userInfo/info/GeneralInfo';
+import CreateGeneralPassword from '../../components/profile/userInfo/password/GeneralPassword';
 import CreateUserAddress from '../../components/profile/userAddress/UserAddress';
 
 const Account: React.FC = (): React.JSX.Element => {
