@@ -1,10 +1,10 @@
 @import '../../scss/allVariables.scss';
 
 .container {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
+  padding: 10px 0;
 }
 
 .categories {
@@ -12,7 +12,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: baseline;
-  padding: 5px 0;
 }
 
 .category {
