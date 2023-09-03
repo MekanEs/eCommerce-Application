@@ -17,7 +17,10 @@ const Categories: React.FC = () => {
     null,
   );
   useEffect(() => {
-    if (hasChildren(activeCategory, childCategory).length > 0) {
+    if (
+      hasChildren(activeCategory, childCategory).length > 0 ||
+      activeCategory.name === 'All'
+    ) {
       setActiveAncestor(activeCategory);
     }
   });
