@@ -20,11 +20,23 @@ const Sort: React.FC = () => {
   };
   return (
     <div className={styles.container}>
-      <select value={name} onChange={handleSort} name="name" id="sort-value">
+      <select
+        className={styles.select}
+        value={name}
+        onChange={handleSort}
+        name="name"
+        id="sort-value"
+      >
         <option value="price">Price</option>
         <option value="name.en-US">Name</option>
       </select>
-      <select value={order} onChange={handleOrder} name="value" id="sort-value">
+      <select
+        className={styles.select}
+        value={order}
+        onChange={handleOrder}
+        name="value"
+        id="sort-value"
+      >
         <option value="asc">
           {name === 'price' ? 'low to high' : 'from a to z'}
         </option>

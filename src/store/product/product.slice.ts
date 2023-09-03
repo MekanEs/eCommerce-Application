@@ -16,7 +16,7 @@ export const fetchProductData = createAsyncThunk(
     const result = await getApiRootRegis()
       .withProjectKey({ projectKey: CTP_PROJECT_KEY })
       .products()
-      .withId({ ID: id })
+      .withKey({ key: id })
       .get({ queryArgs: { expand: 'masterData.current.categories[*]' } })
       .execute();
     return result.body;

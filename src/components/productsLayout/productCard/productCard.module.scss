@@ -1,14 +1,6 @@
 @import '../../../scss/allVariables.scss';
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 25px;
-  row-gap: 30px;
-}
-
 .product_cart {
-  padding: 10px;
   width: 290px;
   height: 500px;
   display: flex;
@@ -27,7 +19,7 @@
   &:hover {
     transform: translateY(-5px);
     border: 1px solid $active;
-    box-shadow: 4px 4px 0px 0px $link;
+    box-shadow: 4px 4px 0px 0px $accent;
   }
 
   .productName {

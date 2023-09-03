@@ -1,6 +1,7 @@
-export type categorytype = {
+export type categoryType = {
   name: string;
   id: string | undefined;
+  key?: string;
   ancestor?: { id: string; name: string };
 };
 
@@ -11,11 +12,13 @@ export type price = {
 };
 
 type attribute = { name: string; value: string | number };
-export type producttype = {
+
+export type productType = {
   name: string;
   id: string;
   price: price | undefined;
   images: string[] | undefined;
-  categories: categorytype[] | undefined;
+  categories: categoryType[] | undefined;
   atributes: attribute[] | undefined;
+  key: string | undefined;
 };

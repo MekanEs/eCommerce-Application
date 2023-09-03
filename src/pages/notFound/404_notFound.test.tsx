@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PageNotFound from './';
+import PageNotFound from '.';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('when rendered PageNotFound', () => {

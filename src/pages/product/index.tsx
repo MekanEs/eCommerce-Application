@@ -7,7 +7,7 @@ import {
   fetchProductData,
   selectProductData,
 } from '../../store/product/product.slice';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Slider from './slider';
 import createTagPrice from '../../components/product/tagPrice';
@@ -15,25 +15,29 @@ import formatPrice from '../../utils/helpers/formatPrice';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
-  const { id } = useParams();
+  const { key } = useParams();
   const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.catalog.products);
+  const product = products?.filter((el) => el.key === key)[0];
+
+  const id = product && product.id;
   const navigate: NavigateFunction = useNavigate();
   const language = 'en-US';
   let productData = useSelector(selectProductData);
 
-  if (productData && id !== productData.id && id) {
+  if (productData && key !== productData.key && key) {
     productData = null;
   }
 
   useEffect(() => {
-    if (!productData && id) {
-      dispatch(fetchProductData(id)).then((action) => {
+    if (!productData && key) {
+      dispatch(fetchProductData(key)).then((action) => {
         if (fetchProductData.rejected.match(action)) {
           navigate('/404');
         }
       });
     }
-  });
+  }, [id, products]);
 
   if (
     !productData ||

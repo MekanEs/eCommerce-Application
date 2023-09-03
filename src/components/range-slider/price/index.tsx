@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import styles from './range-slider.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
@@ -21,8 +21,15 @@ const PriceSlider: React.FC = () => {
       setMax(10000);
     }
   }
-
-  const handleMouseUp: React.MouseEventHandler<HTMLInputElement> = (): void => {
+  useEffect(() => {
+    if (min !== initialMin) {
+      setMin(initialMin);
+    }
+    if (max !== initialMax) {
+      setMax(initialMax);
+    }
+  }, [initialMax, initialMin]);
+  const handleMouseUp = (): void => {
     appDispatch(setPriceMin(min));
     appDispatch(setPriceMax(max));
   };
@@ -45,6 +52,7 @@ const PriceSlider: React.FC = () => {
           id="min"
           type="range"
           onMouseUp={handleMouseUp}
+          onTouchEnd={handleMouseUp}
           onChange={handleChange}
           className={styles.min}
           value={min}
@@ -52,10 +60,12 @@ const PriceSlider: React.FC = () => {
           max="10000"
           step="100"
         />
+
         <input
           id="max"
           type="range"
           onMouseUp={handleMouseUp}
+          onTouchEnd={handleMouseUp}
           onChange={handleChange}
           className={styles.max}
           value={max}
@@ -64,6 +74,7 @@ const PriceSlider: React.FC = () => {
           step="100"
         />
       </div>
+
       <div className={styles.price}>
         <p id="min-value">${min}</p>
         <p id="max-value">${max}</p>

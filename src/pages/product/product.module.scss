@@ -2,7 +2,7 @@
 
 .container {
   max-width: 90vw;
-  margin: 30px 0 160px;
+  margin: 30px auto 160px auto;
   padding: 30px;
   border-radius: 5px;
   outline: 1px solid $defaultOutline;
@@ -127,7 +127,7 @@
 @media (max-width: 1000px) {
   .container {
     max-width: 74vw;
-    margin: 30px 0 60px;
+    margin: 30px auto 60px auto;
   }
 
   .container,

@@ -1,27 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { categorytype } from '../../types/catalogTypes';
+import { categoryType } from '../../types/catalogTypes';
+
 export type materialtype = {
   Aluminum: boolean;
   Carbon: boolean;
   Steel: boolean;
 };
-export type wheelSizetype = {
+
+export type wheelSizeType = {
   '16\\"': boolean;
   '20\\"': boolean;
   '24\\"': boolean;
   '26\\"': boolean;
   '29\\"': boolean;
 };
-export type IProductFilter = {
+
+export interface IProductFilter {
   sort: { name: string; order: string };
-  category: categorytype;
+  category: categoryType;
   priceRange: { from: number; to: number };
   stockRange: { from: number; to: number };
   materials: materialtype;
-  wheelsize: wheelSizetype;
+  wheelsize: wheelSizeType;
   offset: number;
-  text: string | undefined;
-};
+  text: string;
+}
+
 const initialState: IProductFilter = {
   sort: { name: 'price', order: 'asc' },
   category: { name: 'All', id: undefined },
@@ -38,7 +42,7 @@ const initialState: IProductFilter = {
   offset: 0,
   text: '',
 };
-type querytype = {
+type queryType = {
   queryArgs: {
     fuzzy: boolean;
     fuzzyLevel?: number;
@@ -52,7 +56,7 @@ type querytype = {
 };
 
 // eslint-disable-next-line max-lines-per-function
-export function createQuery(state: IProductFilter): querytype {
+export function createQuery(state: IProductFilter): queryType {
   const createFilter = (): string[] => {
     const res = [];
     state.category.id && res.push(`categories.id:"${state.category.id}"`);
@@ -64,7 +68,7 @@ export function createQuery(state: IProductFilter): querytype {
     res.push(
       `variants.attributes.stock:range (${state.stockRange.from} to ${state.stockRange.to})`,
     );
-    const attributes = (obj: materialtype | wheelSizetype): string[] => {
+    const attributes = (obj: materialtype | wheelSizeType): string[] => {
       const res = [];
       for (const key in obj) {
         if (obj[key as keyof typeof obj] === true) {
@@ -87,7 +91,7 @@ export function createQuery(state: IProductFilter): querytype {
       );
     return res;
   };
-  const query: querytype = {
+  const query: queryType = {
     queryArgs: {
       fuzzy: true,
       filter: createFilter(),

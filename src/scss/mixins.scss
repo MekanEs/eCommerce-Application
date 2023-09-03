@@ -36,8 +36,8 @@
   color: #706c68;
   background-color: inherit;
   &:hover {
-    border: 1px solid $link;
-    color: $link;
+    border: 1px solid $accent;
+    color: $accent;
   }
   &:active {
     border: 1px solid $active;
@@ -55,7 +55,7 @@
   border-radius: 3px;
   border: none;
   color: #fff;
-  background-color: $link;
+  background-color: $accent;
   &:hover {
     background-color: $hover;
   }
@@ -81,7 +81,7 @@
 
   a {
     margin-left: 10px;
-    color: $link;
+    color: $accent;
     font-weight: 500;
     text-decoration: underline;
 
@@ -103,7 +103,7 @@
   border: none;
   border-radius: 5px;
   color: white;
-  background: $link;
+  background: $accent;
   margin: 25px 0;
 
   &:hover {
@@ -157,7 +157,7 @@
   cursor: pointer;
 
   &:hover {
-    background: $link;
+    background: $accent;
 
     &::after {
       color: white;
@@ -171,28 +171,32 @@
 
 @mixin swiper_button_next {
   @include swiper_button;
+  width: 45px;
+  height: 45px;
 
   &::after {
     content: '→';
     position: absolute;
-    top: 10%;
-    left: 22%;
+    top: 20%;
+    left: 30%;
     font-size: 28px;
-    color: $link;
+    color: $accent;
     font-weight: 300;
   }
 }
 
 @mixin swiper_button_prev {
   @include swiper_button;
+  width: 45px;
+  height: 45px;
 
   &::after {
     content: '←';
     position: absolute;
-    top: 10%;
-    left: 22%;
+    top: 20%;
+    left: 30%;
     font-size: 28px;
-    color: $link;
+    color: $accent;
     font-weight: 300;
   }
 }
@@ -217,7 +221,7 @@
   span {
     width: 16px;
     height: 16px;
-    background: $link;
+    background: $accent;
   }
 }
 
@@ -259,7 +263,7 @@
   }
 
   &:hover {
-    background: $link;
+    background: $accent;
 
     &::after {
       color: white;
