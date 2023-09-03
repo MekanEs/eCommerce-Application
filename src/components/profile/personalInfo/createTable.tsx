@@ -15,7 +15,6 @@ import { CreateApartmentRow } from '../form/userAddressForm/createApartment';
 import { CreateHouseRow } from '../form/userAddressForm/createHouse';
 import { CreateStreetRow } from '../form/userAddressForm/createStreet';
 import { CreatePostcodeRow } from '../form/userAddressForm/createPostcode';
-import Checkbox from '../../checkbox';
 
 type CreateTableInfo = {
   state: ISliceUser;
@@ -129,6 +128,10 @@ type CreateTableAddress = {
   index: number;
   title: string;
   setisShow: React.Dispatch<React.SetStateAction<boolean>>;
+  selectBilling: number;
+  selectShiping: number;
+  setSelectBilling: React.Dispatch<React.SetStateAction<number>>;
+  setSelectShiping: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const CreateTableAddress: React.FC<CreateTableAddress> = ({
@@ -137,6 +140,10 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
   index,
   title,
   setisShow,
+  selectBilling,
+  selectShiping,
+  setSelectBilling,
+  setSelectShiping,
 }): React.JSX.Element => {
   return (
     <table className={styles['table-container']}>
@@ -189,16 +196,36 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
         <tr>
           <td className={styles['table-title-name']}></td>
           <td className={styles['table-checkbox']}>
-            <Checkbox
-              id={'set-default-billing'}
-              label={'Use as default billing address'}
-              hookData={form.register(`${index}.defaultBilling`, {})}
-            />
-            <Checkbox
-              id={'set-default-billing'}
-              label={'Use as default shipping address'}
-              hookData={form.register(`${index}.defaultShiping`, {})}
-            />
+            <div className={styles['checkbox-container']}>
+              <input
+                id={`billing-${index}`}
+                type="checkbox"
+                checked={selectBilling === index}
+                onClick={(): void => setSelectBilling(index)}
+                {...form.register(`${index}.defaultBilling`, {})}
+              />
+              <label
+                className={styles['checkbox-label']}
+                htmlFor={`billing-${index}`}
+              >
+                Use as default Billing
+              </label>
+            </div>
+            <div className={styles['checkbox-container']}>
+              <input
+                id={`shipping-${index}`}
+                type="checkbox"
+                checked={selectShiping === index}
+                onClick={(): void => setSelectShiping(index)}
+                {...form.register(`${index}.defaultShiping`, {})}
+              />
+              <label
+                className={styles['checkbox-label']}
+                htmlFor={`shipping-${index}`}
+              >
+                Use as default Shipping
+              </label>
+            </div>
           </td>
         </tr>
       </tbody>

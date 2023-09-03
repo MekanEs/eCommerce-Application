@@ -1,5 +1,6 @@
 @import '../../../scss/allVariables.scss';
 @import '../../../components/button/button.module.scss';
+@import '../../../components/checkbox/checkbox.module.scss';
 
 .table-container {
   position: relative;
@@ -64,6 +65,10 @@
   padding: 0 15px 0 30px;
   height: 40px;
   @include font(11px, 15.4px, 400);
+
+  .checkbox-container input {
+    background: $link;
+  }
 }
 
 .table-header {
