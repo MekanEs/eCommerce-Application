@@ -211,12 +211,12 @@
   z-index: 10;
 }
 
-@mixin swiper_pagination($marginBottom: 35px) {
-  position: absolute;
+@mixin swiper_pagination($paddingTop: 15px) {
   display: flex;
   justify-content: center;
   z-index: 12;
-  margin-bottom: $marginBottom;
+  max-height: 16px;
+  padding-top: $paddingTop;
 
   span {
     width: 16px;

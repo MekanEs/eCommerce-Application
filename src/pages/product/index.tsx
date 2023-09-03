@@ -52,6 +52,8 @@ const Product: React.FC = (): JSX.Element => {
   const productName = productData.masterData.current.name[language];
   const productCategory =
     productData.masterData.current.categories[0].obj?.name[language];
+  const productBrand =
+    productData.masterData.current.categories[1]?.obj?.name[language];
   const frameMaterial =
     productData.masterData.current.masterVariant.attributes[0].value;
   const wheelSize =
@@ -91,6 +93,12 @@ const Product: React.FC = (): JSX.Element => {
                 <p className={styles['item-title']}>Category:</p>
                 <p className={styles['item-info']}>{productCategory}</p>
               </li>
+              {productBrand !== undefined && (
+                <li className={styles['list-item']}>
+                  <p className={styles['item-title']}>Brand:</p>
+                  <p className={styles['item-info']}>{productBrand}</p>
+                </li>
+              )}
               <li className={styles['list-item']}>
                 <p className={styles['item-title']}>Frame material:</p>
                 <p className={styles['item-info']}>{frameMaterial}</p>
