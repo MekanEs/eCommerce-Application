@@ -239,6 +239,13 @@ export const userSlice = createSlice({
       .addCase(getUpdateAddress.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
+      })
+      .addCase(getUpdateDefaultAddress.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getUpdateDefaultAddress.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
       });
   },
 });

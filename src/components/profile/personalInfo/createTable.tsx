@@ -1,11 +1,5 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { CreateDateInputProfile } from '../form/userInfoForm/createDateInput';
-import { CreateEmailInputProfile } from '../form/userInfoForm/createEmailInput';
-import { CreateTextInputProfile } from '../form/userInfoForm/createTextInput';
-import { CreatePasswordInputProfile } from '../form/userInfoForm/createPasswordInput';
-import { FormFields } from '../../../interfaces/formInputs';
-import { ISliceUser } from '../../../interfaces/sliceUser';
 import styles from './createTable.module.scss';
 import { BaseAddress } from '@commercetools/platform-sdk';
 import { FormAddress } from '../../../interfaces/formInputs';
@@ -15,112 +9,6 @@ import { CreateApartmentRow } from '../form/userAddressForm/createApartment';
 import { CreateHouseRow } from '../form/userAddressForm/createHouse';
 import { CreateStreetRow } from '../form/userAddressForm/createStreet';
 import { CreatePostcodeRow } from '../form/userAddressForm/createPostcode';
-
-type CreateTableInfo = {
-  state: ISliceUser;
-  form: UseFormReturn<FormFields>;
-};
-
-export const CreateTableInfo: React.FC<CreateTableInfo> = ({
-  state,
-  form,
-}): React.JSX.Element => {
-  return (
-    <table className={styles['table-container']}>
-      <tbody>
-        <tr>
-          <td className={styles['table-title-name']}>Personal info</td>
-          <td className={styles['table-input']}></td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>First name</td>
-          <td className={styles['table-input']}>
-            {state.firstName ? (
-              <CreateTextInputProfile
-                form={form}
-                value={state.firstName}
-                id={'firstName'}
-              />
-            ) : (
-              ''
-            )}
-          </td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>Last name</td>
-          <td className={styles['table-input']}>
-            {state.lastName ? (
-              <CreateTextInputProfile
-                form={form}
-                value={state.lastName}
-                id={'lastName'}
-              />
-            ) : (
-              ''
-            )}
-          </td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>Date of Birth</td>
-          <td className={styles['table-input']}>
-            {state.dateBirth ? (
-              <CreateDateInputProfile form={form} value={state.dateBirth} />
-            ) : (
-              ''
-            )}
-          </td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>Email</td>
-          <td className={styles['table-input']}>
-            {state.email ? (
-              <CreateEmailInputProfile form={form} value={state.email} />
-            ) : (
-              ''
-            )}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
-};
-
-type CreateTablePassword = {
-  form: UseFormReturn<FormFields>;
-};
-
-export const CreateTablePassword: React.FC<CreateTablePassword> = ({
-  form,
-}): React.JSX.Element => {
-  return (
-    <table className={styles['table-container']}>
-      <tbody>
-        <tr>
-          <td className={styles['table-title-name']}>Password</td>
-          <td className={styles['table-input']}></td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>Current password</td>
-          <td className={styles['table-input']}>
-            <CreatePasswordInputProfile form={form} id={'password'} />
-          </td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>New password</td>
-          <td className={styles['table-input']}>
-            <CreatePasswordInputProfile form={form} id={'newPassword'} />
-          </td>
-        </tr>
-        <tr>
-          <td className={styles['table-title-name']}>Confirm new password</td>
-          <td className={styles['table-input']}>
-            <CreatePasswordInputProfile form={form} id={'currentPassword'} />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
-};
 
 type CreateTitle = {
   index: number;
@@ -153,6 +41,43 @@ const CreateTitle: React.FC<CreateTitle> = ({
         <></>
       )}
     </div>
+  );
+};
+
+type CreateCheckbox = {
+  select: number;
+  setSelect: React.Dispatch<React.SetStateAction<number>>;
+  title: string;
+  id: string;
+  index: number;
+  form: UseFormReturn<FormAddress[]>;
+};
+
+const CreateCheckbox: React.FC<CreateCheckbox> = ({
+  select,
+  setSelect,
+  title,
+  id,
+  index,
+  form,
+}): React.JSX.Element => {
+  return (
+    <>
+      <div className={styles['checkbox-container']}>
+        <input
+          id={`${id}-${index}`}
+          type="checkbox"
+          checked={select === index}
+          onClick={(): void => {
+            index === select ? setSelect(-1) : setSelect(index);
+          }}
+          {...form.register(`${index}.defaultBilling`, {})}
+        />
+        <label className={styles['checkbox-label']} htmlFor={`${id}-${index}`}>
+          {title}
+        </label>
+      </div>
+    </>
   );
 };
 
@@ -228,44 +153,22 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
         <tr>
           <td className={styles['table-title-name']}></td>
           <td className={styles['table-checkbox']}>
-            <div className={styles['checkbox-container']}>
-              <input
-                id={`billing-${index}`}
-                type="checkbox"
-                checked={selectBilling === index}
-                onClick={(): void => {
-                  index === selectBilling
-                    ? setSelectBilling(-1)
-                    : setSelectBilling(index);
-                }}
-                {...form.register(`${index}.defaultBilling`, {})}
-              />
-              <label
-                className={styles['checkbox-label']}
-                htmlFor={`billing-${index}`}
-              >
-                Use as default Billing
-              </label>
-            </div>
-            <div className={styles['checkbox-container']}>
-              <input
-                id={`shipping-${index}`}
-                type="checkbox"
-                checked={selectShipping === index}
-                onClick={(): void => {
-                  index === selectShipping
-                    ? setSelectShipping(-1)
-                    : setSelectShipping(index);
-                }}
-                {...form.register(`${index}.defaultShiping`, {})}
-              />
-              <label
-                className={styles['checkbox-label']}
-                htmlFor={`shipping-${index}`}
-              >
-                Use as default Shipping
-              </label>
-            </div>
+            <CreateCheckbox
+              form={form}
+              index={index}
+              select={selectBilling}
+              setSelect={setSelectBilling}
+              title={'Use as default Billing'}
+              id={'billing'}
+            />
+            <CreateCheckbox
+              form={form}
+              index={index}
+              select={selectShipping}
+              setSelect={setSelectShipping}
+              title={'Use as default Shipping'}
+              id={'shipping'}
+            />
           </td>
         </tr>
       </tbody>

@@ -6,7 +6,7 @@ import { FormFields } from '../../../interfaces/formInputs';
 import { ISliceUser } from '../../../interfaces/sliceUser';
 import { getNewDataUser } from '../../../store/user/user.slice';
 import styles from './userInfo.module.scss';
-import { CreateTableInfo } from '../personalInfo/createTable';
+import { CreateTableInfo } from '../personalInfo/tableInfo';
 import { store } from '../../../store/store';
 import CreateMessage from '../message/getMessage';
 

@@ -8,7 +8,7 @@ import styles from './userInfo.module.scss';
 import { store } from '../../../store/store';
 import CreateMessage from '../message/getMessage';
 import { getNewPassword } from '../../../store/user/user.slice';
-import { CreateTablePassword } from '../personalInfo/createTable';
+import { CreateTablePassword } from '../personalInfo/tablePassword';
 
 const CreateGeneralPassword: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({
