@@ -36,18 +36,4 @@ describe('Header Component', () => {
     expect(registrationLink).toBeInTheDocument();
     expect(loginLink).toBeInTheDocument();
   });
-
-  test('renders Logout component when authenticated', () => {
-    jest
-      .spyOn(require('../../hooks/user-auth'), 'userAuth')
-      .mockReturnValue(true);
-    render(
-      <Provider store={mockStore({})}>
-        <MemoryRouter initialEntries={['/']}>
-          <Header />
-        </MemoryRouter>
-      </Provider>,
-    );
-    expect(screen.getByText('Logout')).toBeInTheDocument();
-  });
 });

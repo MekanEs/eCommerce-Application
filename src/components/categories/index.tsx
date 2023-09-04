@@ -9,7 +9,6 @@ import SubCategories from './subCategories';
 import CategoryButton from './categoryButton';
 import BreadCrumbs from './breadCrumbs';
 
-// eslint-disable-next-line max-lines-per-function
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
