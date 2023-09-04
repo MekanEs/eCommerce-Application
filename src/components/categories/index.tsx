@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import cx from 'classnames';
 import styles from './categories.module.scss';
 import { useDispatch } from 'react-redux';
 import { categoryType } from '../../types/catalogTypes';
@@ -7,7 +6,10 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 import { hasChildren } from '../../utils/helpers/catalogPage/hasChildrenCategory';
 import SubCategories from './subCategories';
+import CategoryButton from './categoryButton';
+import BreadCrumbs from './breadCrumbs';
 
+// eslint-disable-next-line max-lines-per-function
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
@@ -34,19 +36,13 @@ const Categories: React.FC = () => {
         {categories &&
           categories.map((el, index) => (
             <div key={index}>
-              <div
-                onClick={(): void => handleClick(el)}
-                className={cx(
-                  styles.category,
-                  el.name === activeCategory.name ||
-                    el.name === (activeAncestor && activeAncestor.name)
-                    ? styles.activeCategory
-                    : '',
-                )}
-                data-id={el.id}
-              >
-                {el.name}
-              </div>
+              <CategoryButton
+                el={el}
+                styles={styles}
+                activeCategory={activeCategory}
+                activeAncestor={activeAncestor}
+                callback={handleClick}
+              />
             </div>
           ))}
       </div>
@@ -69,6 +65,13 @@ const Categories: React.FC = () => {
               />
             )}
       </div>
+      <BreadCrumbs
+        handleClick={handleClick}
+        activeAncestor={activeAncestor}
+        activeCategory={activeCategory}
+        categories={categories}
+        styles={styles}
+      />
     </div>
   );
 };
