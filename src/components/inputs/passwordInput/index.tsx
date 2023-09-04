@@ -3,8 +3,8 @@ import eyeHide from '../../../assets/img/svg/eye-hide.svg';
 import eyeShow from '../../../assets/img/svg/eye-show.svg';
 import styles from './passwordInput.module.scss';
 import { InputProps } from '../../../interfaces/formInputs';
-import getLabelClasses from '../../../utils/helpers/getLabelClasses/getLabelClasses';
-import getInputClasses from '../../../utils/helpers/getInputClasses/getInputClasses';
+import getLabelClasses from '../../../utils/helpers/labelClasses/getLabelClasses';
+import getInputClasses from '../../../utils/helpers/inputClasses/getInputClasses';
 
 const PasswordInput: React.FC<InputProps> = ({
   label,

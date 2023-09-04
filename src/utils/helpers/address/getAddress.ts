@@ -1,5 +1,5 @@
 import { BaseAddress } from '@commercetools/platform-sdk';
-import { regUser } from '../../types/auth';
+import { regUser } from '../../../types/auth';
 
 export const getAddress = (options: regUser): BaseAddress[] => {
   const address = [
