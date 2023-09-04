@@ -18,13 +18,9 @@ const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.catalog.products);
-  const product = products?.filter((el) => el.key === key)[0];
-
-  const id = product && product.id;
   const navigate: NavigateFunction = useNavigate();
   const language = 'en-US';
   let productData = useSelector(selectProductData);
-
   if (productData && key !== productData.key && key) {
     productData = null;
   }
@@ -37,46 +33,40 @@ const Product: React.FC = (): JSX.Element => {
         }
       });
     }
-  }, [id, products]);
-
+  }, [key, products]);
+  const masterData = productData && productData.masterData.current;
   if (
-    !productData ||
-    !productData.masterData.current.masterVariant.attributes ||
-    !productData.masterData.current.description ||
-    !productData.masterData.current.masterVariant.prices ||
-    !productData.masterData.current.masterVariant.images
+    !masterData ||
+    !masterData.masterVariant.attributes ||
+    !masterData.description ||
+    !masterData.masterVariant.prices ||
+    !masterData.masterVariant.images
   ) {
     return <></>;
   }
 
-  const productName = productData.masterData.current.name[language];
-  const productCategory =
-    productData.masterData.current.categories[0].obj?.name[language];
-  const productBrand =
-    productData.masterData.current.categories[1]?.obj?.name[language];
-  const frameMaterial =
-    productData.masterData.current.masterVariant.attributes[0].value;
-  const wheelSize =
-    productData.masterData.current.masterVariant.attributes[1].value;
-  const stock =
-    productData.masterData.current.masterVariant.attributes[2].value;
-  const productDescription =
-    productData.masterData.current.description[language];
-  const productImages = productData.masterData.current.masterVariant.images.map(
+  const productName = masterData.name[language];
+  const productCategory = masterData.categories[0].obj?.name[language];
+  const [frameMaterial, wheelSize, stock] = masterData.masterVariant.attributes;
+  const productDescription = masterData.description[language];
+  const productImages = masterData.masterVariant.images.map(
     (image: { url: string }) => image.url,
   );
-  const productPrice =
-    productData.masterData.current.masterVariant.prices[0].value.centAmount;
+  const productPrice = masterData.masterVariant.prices[0].value.centAmount;
   const productDiscountPrice =
-    productData.masterData.current.masterVariant.prices[0].discounted?.value
-      .centAmount;
+    masterData.masterVariant.prices[0].discounted?.value.centAmount;
   const formattedPrice = formatPrice(productPrice, language);
 
-  let formattedDiscountPrice;
-  if (productDiscountPrice) {
-    formattedDiscountPrice = formatPrice(productDiscountPrice, language);
-  }
-
+  const formattedDiscountPrice: string | undefined = productDiscountPrice
+    ? formatPrice(productDiscountPrice, language)
+    : undefined;
+  const attributes = ['Category:', 'Frame material:', 'Wheel size:', 'Stock:'];
+  const values = [
+    productCategory,
+    frameMaterial.value,
+    wheelSize.value,
+    stock.value,
+  ];
   return (
     <div className={styles.container}>
       <div className={styles.general}>
@@ -89,28 +79,14 @@ const Product: React.FC = (): JSX.Element => {
           <div className={styles.info}>
             <p className={styles['subtitle']}>Info</p>
             <ul>
-              <li className={styles['list-item']}>
-                <p className={styles['item-title']}>Category:</p>
-                <p className={styles['item-info']}>{productCategory}</p>
-              </li>
-              {productBrand !== undefined && (
-                <li className={styles['list-item']}>
-                  <p className={styles['item-title']}>Brand:</p>
-                  <p className={styles['item-info']}>{productBrand}</p>
-                </li>
-              )}
-              <li className={styles['list-item']}>
-                <p className={styles['item-title']}>Frame material:</p>
-                <p className={styles['item-info']}>{frameMaterial}</p>
-              </li>
-              <li className={styles['list-item']}>
-                <p className={styles['item-title']}>Wheel size:</p>
-                <p className={styles['item-info']}>{wheelSize}</p>
-              </li>
-              <li className={styles['list-item']}>
-                <p className={styles['item-title']}>Stock:</p>
-                <p className={styles['item-info']}>{stock}</p>
-              </li>
+              {attributes.map((el, index) => {
+                return (
+                  <li key={index} className={styles['list-item']}>
+                    <p className={styles['item-title']}>{el}</p>
+                    <p className={styles['item-info']}>{values[index]}</p>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -122,7 +98,7 @@ const Product: React.FC = (): JSX.Element => {
         <p className={styles['subtitle']}>Description</p>
         <p>{productDescription}</p>
       </div>
-      {stock < 1 ? (
+      {stock.value < 1 ? (
         <CreateButton
           label={'add to cart'}
           className={styles['button']}

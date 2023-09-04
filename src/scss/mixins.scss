@@ -173,11 +173,9 @@
     position: absolute;
     top: 12%;
 
-    @if $direction =='next' {
+    @if $direction == 'next' {
       left: 22%;
-    }
-
-    @else {
+    } @else {
       left: 24%;
     }
 

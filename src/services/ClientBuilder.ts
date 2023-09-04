@@ -37,7 +37,7 @@ export const getApiRootRegis = (): ApiRoot => {
 export const getApiRootToken = (): ApiRoot => {
   const client = new ClientBuilder()
     .withProjectKey(CTP_PROJECT_KEY)
-    .withExistingTokenFlow(authorization, options)
+    .withExistingTokenFlow(authorization(), options)
     .withHttpMiddleware(httpMiddlewareOptions)
     .withLoggerMiddleware()
     .build();

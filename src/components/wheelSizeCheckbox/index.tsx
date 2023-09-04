@@ -5,6 +5,7 @@ import {
   wheelSizeType,
 } from '../../store/productFilter/productFilter.slice';
 import { useDispatch } from 'react-redux';
+import { isKey } from '../../utils/helpers/isKeyOfObj';
 
 const WheelSize: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,25 +13,31 @@ const WheelSize: React.FC = () => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newObj = structuredClone(wheelSize);
-    newObj[event.target.id as keyof wheelSizeType] = event.target.checked;
-    dispatch(setWheelSize(newObj));
+    if (isKey<wheelSizeType>(event.target.id)) {
+      const id = event.target.id;
+      newObj[id] = event.target.checked;
+      dispatch(setWheelSize(newObj));
+    }
   };
+
   return (
     <div>
       <h3>Wheel size</h3>
       {Object.keys(wheelSize).map((el, i) => {
-        return (
-          <div key={i}>
-            <input
-              onChange={handleChange}
-              type="checkbox"
-              name={el}
-              id={el}
-              checked={wheelSize[el as keyof wheelSizeType]}
-            />
-            <label htmlFor={el}>{el}</label>
-          </div>
-        );
+        if (isKey<wheelSizeType>(el)) {
+          return (
+            <div key={i}>
+              <input
+                onChange={handleChange}
+                type="checkbox"
+                name={el}
+                id={el}
+                checked={wheelSize[el]}
+              />
+              <label htmlFor={el}>{el}</label>
+            </div>
+          );
+        }
       })}
     </div>
   );

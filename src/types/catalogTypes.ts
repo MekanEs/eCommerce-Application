@@ -5,7 +5,13 @@ export type categoryType = {
   ancestor?: { id: string; name: string };
 };
 
-export type price = {
+export type childCategoryType = {
+  name: string;
+  id: string | undefined;
+  ancestor: { id: string; name: string };
+}[];
+
+export type priceType = {
   value: number;
   currencyCode: string;
   discount: { value: number; id: string } | undefined;
@@ -16,7 +22,7 @@ type attribute = { name: string; value: string | number };
 export type productType = {
   name: string;
   id: string;
-  price: price | undefined;
+  price: priceType | undefined;
   images: string[] | undefined;
   categories: categoryType[] | undefined;
   atributes: attribute[] | undefined;

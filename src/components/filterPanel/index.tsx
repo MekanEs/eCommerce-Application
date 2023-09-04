@@ -12,7 +12,7 @@ import FilterModal from './filterTablet';
 type FilterPanelPropsType = {
   child: JSX.Element;
 };
-// eslint-disable-next-line max-lines-per-function
+
 const FilterPanel: React.FC<FilterPanelPropsType> = ({ child }) => {
   const state = useAppSelector((state) => state.filter);
   const catalog = useAppSelector((state) => state.catalog);
