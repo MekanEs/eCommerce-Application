@@ -18,4 +18,5 @@ module.exports = {
     '\\.(jpg|ico|jpeg|png|gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  transformIgnorePatterns: ['node_modules/(?!swiper|ssr-window|dom7).*/'],
 };
