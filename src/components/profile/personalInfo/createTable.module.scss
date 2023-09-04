@@ -1,9 +1,10 @@
 @import '../../../scss/allVariables.scss';
 @import '../../../components/button/button.module.scss';
+@import '../../../components/checkbox/checkbox.module.scss';
 
 .table-container {
   position: relative;
-  width: 768px;
+  width: 100%;
   left: 7px;
   height: 230px;
   border-radius: 5px;
@@ -15,9 +16,17 @@
     :nth-child(1) td {
       color: $table-title;
       @include font(14px, 19.6px, 500);
+
+      @media (max-width: 600px) {
+        @include font(8px, 10.4px, 500);
+      }
     }
     > * {
       height: 40px;
+
+      @media (max-width: 600px) {
+        height: 20px;
+      }
     }
   }
   td {
@@ -27,6 +36,12 @@
     width: 17px;
     height: 17px;
     background-image: url('../../../assets/img/svg/edit.svg');
+
+    @media (max-width: 600px) {
+      width: 10px;
+      height: 10px;
+      background-image: url('../../../assets/img/svg/edit-2.svg');
+    }
   }
   tr:not(:first-child):focus-within {
     background: $footer;
@@ -34,6 +49,12 @@
       width: 40px;
       height: 40px;
       background-image: url('../../../assets/img/svg/arrow.svg');
+
+      @media (max-width: 600px) {
+        width: 20px;
+        height: 20px;
+        background-image: url('../../../assets/img/svg/arrow-2.svg');
+      }
     }
   }
 }
@@ -55,6 +76,11 @@
   padding: 0 15px 0 30px;
   color: $table-title;
   @include font(14px, 19.6px, 500);
+
+  @media (max-width: 600px) {
+    text-align: center;
+    padding: 0 8px 3px 15px;
+  }
 }
 
 .table-checkbox {
@@ -64,6 +90,10 @@
   padding: 0 15px 0 30px;
   height: 40px;
   @include font(11px, 15.4px, 400);
+
+  .checkbox-container input {
+    background: $accent;
+  }
 }
 
 .table-header {
@@ -72,17 +102,80 @@
   justify-content: space-between;
   padding: 0 15px 0 30px;
   height: 40px;
-  @include font(11px, 15.4px, 400);
 
-  .table-default-address {
-    border-radius: 5px;
-    padding: 4px 7px;
-    background: $accent;
-    color: white;
+  @media (max-width: 600px) {
+    padding: 0 7px 0 15px;
+  }
+
+  .table-header-title {
+    display: flex;
+    align-items: center;
+
+    > :nth-child(2) {
+      margin-left: 10px;
+    }
+
+    .table-default-address {
+      @include font(11px, 15.4px, 400);
+      border-radius: 5px;
+      padding: 4px 7px;
+      background: $accent;
+      color: white;
+
+      @media (max-width: 900px) {
+        @include font(8px, 12.4px, 400);
+        border-radius: 4px;
+        padding: 2px 5px;
+      }
+
+      @media (max-width: 600px) {
+        @include font(5px, 7px, 400);
+        border-radius: 3px;
+        padding: 2px 2px;
+      }
+    }
   }
 
   .table-remove-address {
+    @include font(11px, 15.4px, 400);
     color: $error;
     cursor: pointer;
+
+    @media (max-width: 900px) {
+      @include font(8px, 12.4px, 400);
+    }
+
+    @media (max-width: 600px) {
+      @include font(5px, 7px, 400);
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .table-container {
+    height: 150px;
+  }
+
+  .table-title-name {
+    @include font(12px, 17.6px, 400);
+  }
+
+  .checkbox-label {
+    @include font(8px, 12.4px, 400);
+  }
+}
+
+@media (max-width: 600px) {
+  .table-container {
+    height: 100px;
+  }
+
+  .table-title-name {
+    @include font(7px, 8px, 400);
+    padding-right: 10px;
+  }
+
+  .checkbox-label {
+    @include font(5px, 7px, 400);
   }
 }

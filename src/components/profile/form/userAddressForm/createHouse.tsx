@@ -27,14 +27,14 @@ const CreateHouseInputAddress: React.FC<CreateHouseInputAddress> = ({
           type="text"
           id="house-number"
           placeholder="№"
-          {...register(`${index}.houseNumber`, {
+          {...register(`${index}.building`, {
             required: 'The field is required',
           })}
           className={styles['input']}
         />
-        {errors[index]?.houseNumber && (
+        {errors[index]?.building && (
           <div className={styles.errors}>
-            {errors[index]?.houseNumber?.message}
+            {errors[index]?.building?.message}
           </div>
         )}
       </div>
@@ -59,11 +59,7 @@ export const CreateHouseRow: React.FC<CreateHouseRow> = ({
       <tr>
         <td className={styles['table-title-name']}>House number</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateHouseInputAddress form={form} value={value} index={index} />
-          ) : (
-            ''
-          )}
+          <CreateHouseInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>

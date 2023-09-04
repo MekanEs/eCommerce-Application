@@ -59,15 +59,11 @@ export const CreateApartmentRow: React.FC<CreateApartmentRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Apartment</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateApartmentInputAddress
-              form={form}
-              value={value}
-              index={index}
-            />
-          ) : (
-            ''
-          )}
+          <CreateApartmentInputAddress
+            form={form}
+            value={value}
+            index={index}
+          />
         </td>
       </tr>
     </>

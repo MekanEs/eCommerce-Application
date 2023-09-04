@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from '../form.module.scss';
 import { FormAddress } from '../../../../interfaces/formInputs';
@@ -18,16 +18,31 @@ const CreateCountryInputAddress: React.FC<CreateCountryInputAddress> = ({
 }): React.JSX.Element => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields },
+    watch,
   } = form;
+
+  const Country = watch(`${index}.country`);
+
+  useEffect(() => {
+    if (Country && dirtyFields[index]?.postalCode) {
+      form.trigger(`${index}.postalCode`);
+    }
+  }, [Country]);
 
   return (
     <div className={styles.fieldProfile}>
       <div>
         <select
           defaultValue={values}
-          id="contry"
-          className={classNames(styles['input'], styles['select'])}
+          id="country"
+          placeholder="Country"
+          className={classNames(styles['input'], styles['select'], {
+            [styles['default-input']]:
+              !errors[index]?.country &&
+              values === '' &&
+              dirtyFields[index]?.country === undefined,
+          })}
           {...register(`${index}.country`, {
             required: 'The field is required',
           })}
@@ -66,15 +81,7 @@ export const CreateContryRow: React.FC<CreateContryRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Counry</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateCountryInputAddress
-              form={form}
-              values={value}
-              index={index}
-            />
-          ) : (
-            ''
-          )}
+          <CreateCountryInputAddress form={form} values={value} index={index} />
         </td>
       </tr>
     </>
