@@ -7,20 +7,34 @@ export const getBodyUpdateAddress = (
   state: ISliceUser,
 ): MyCustomerUpdateAction[] => {
   const response: MyCustomerUpdateAction[] = [];
-  data.map((address, index) => {
-    if (address === undefined && state.address?.[index] !== undefined)
+  const length = Object.keys(data).length;
+  for (let index = 0; index <= length; index++) {
+    if (
+      data[index] === undefined &&
+      state.address?.[index] !== undefined &&
+      state.address?.[index].country !== ''
+    )
       response.push({
         action: 'removeAddress',
         addressId: state.address?.[index].id,
       });
-    if (address !== undefined && state.address?.[index] !== undefined)
+    if (
+      data[index] !== undefined &&
+      state.address?.[index] !== undefined &&
+      state.address?.[index].country !== ''
+    )
       response.push({
         action: 'changeAddress',
-        address: address,
+        address: data[index],
         addressId: state.address?.[index].id,
       });
-    if (address !== undefined && state.address?.[index] === undefined)
-      response.push({ action: 'addAddress', address: address });
-  });
+    if (
+      data[index] !== undefined &&
+      state.address?.[index] !== undefined &&
+      state.address?.[index].country === ''
+    )
+      response.push({ action: 'addAddress', address: data[index] });
+  }
+  console.log(response);
   return response;
 };

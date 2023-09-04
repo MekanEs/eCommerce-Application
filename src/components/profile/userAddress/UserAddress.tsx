@@ -9,16 +9,31 @@ import { ISliceUser } from '../../../interfaces/sliceUser';
 import { addAddress, getUpdateAddress } from '../../../store/user/user.slice';
 import { Address } from '@commercetools/platform-sdk';
 import { getDefaultAddress } from '../../../utils/helpers/profile/gefaultAddress';
+import { store } from '../../../store/store';
+import CreateMessage from '../message/getMessage';
 
 const CreateUserAddress: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormAddress[]> = useForm<FormAddress[]>({
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const onSubmit: SubmitHandler<FormAddress[]> = (
     data: FormAddress[],
   ): void => {
-    dispatch(getUpdateAddress(data));
+    setSuccessMessage('');
+    setErrorMessage('');
+    dispatch(getUpdateAddress(data)).then(() => {
+      const state: ISliceUser = store.getState().user;
+      if (state.status === 'ok') {
+        setSuccessMessage(
+          typeof state.message === 'string' ? state.message : '',
+        );
+      } else {
+        setErrorMessage(typeof state.message === 'string' ? state.message : '');
+      }
+    });
   };
   const user: ISliceUser = useAppSelector((state) => state.user);
   const [selectBilling, setSelectBilling] = useState(
@@ -52,6 +67,12 @@ const CreateUserAddress: React.FC = (): React.JSX.Element => {
             />
           );
         })}
+        {errorMessage && (
+          <CreateMessage Message={errorMessage} className={'error'} />
+        )}
+        {successMessage && (
+          <CreateMessage Message={successMessage} className={'success'} />
+        )}
         <div className={styles['table-button']}>
           <CreateButton label={'save changes'} className={styles.button} />
         </div>

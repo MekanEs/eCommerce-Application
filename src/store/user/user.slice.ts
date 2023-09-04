@@ -100,7 +100,6 @@ export const getUpdateAddress = createAsyncThunk(
         data,
         state,
       );
-      console.log(response);
       const result = await getApiRootToken()
         .withProjectKey({ projectKey: CTP_PROJECT_KEY })
         .me()
