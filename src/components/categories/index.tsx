@@ -6,8 +6,8 @@ import { categoryType } from '../../types/catalogTypes';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 import { hasChildren } from '../../utils/helpers/catalogPage/hasChildrenCategory';
+import SubCategories from './subCategories';
 
-// eslint-disable-next-line max-lines-per-function
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
@@ -26,31 +26,6 @@ const Categories: React.FC = () => {
   });
   const handleClick = (el: categoryType): void => {
     dispatch(setActiveCategory(el));
-  };
-
-  const childrenCategories = (
-    array: categoryType[],
-    cb: (el: categoryType) => void,
-  ): JSX.Element[] => {
-    return array.map((child, index) => {
-      return (
-        <div
-          onClick={(e): void => {
-            e.stopPropagation();
-            cb(child);
-          }}
-          className={cx(
-            styles.category,
-            styles.subCategory,
-            child.name === activeCategory.name ? styles.activeCategory : '',
-          )}
-          key={index}
-          data-id={child.id}
-        >
-          {child.name}
-        </div>
-      );
-    });
   };
 
   return (
@@ -77,15 +52,21 @@ const Categories: React.FC = () => {
       </div>
       <div className={styles.categories}>
         {activeAncestor
-          ? hasChildren(activeAncestor, childCategory) &&
-            childrenCategories(
-              hasChildren(activeAncestor, childCategory),
-              handleClick,
+          ? hasChildren(activeAncestor, childCategory) && (
+              <SubCategories
+                array={hasChildren(activeAncestor, childCategory)}
+                cb={handleClick}
+                styles={styles}
+                activeCategory={activeCategory}
+              />
             )
-          : hasChildren(activeCategory, childCategory) &&
-            childrenCategories(
-              hasChildren(activeCategory, childCategory),
-              handleClick,
+          : hasChildren(activeCategory, childCategory) && (
+              <SubCategories
+                array={hasChildren(activeCategory, childCategory)}
+                cb={handleClick}
+                styles={styles}
+                activeCategory={activeCategory}
+              />
             )}
       </div>
     </div>

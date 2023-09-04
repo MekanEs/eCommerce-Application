@@ -1,20 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootRegis } from '../../services/ClientBuilder';
-import { categoryType, productType } from '../../types/catalogTypes';
 import {
-  IProductFilter,
-  createQuery,
-} from '../productFilter/productFilter.slice';
+  categoryType,
+  childCategoryType,
+  productType,
+} from '../../types/catalogTypes';
+import { IProductFilter } from '../productFilter/productFilter.slice';
+import { getProduct } from '../../utils/helpers/catalogSlice/getProduct';
+import { getChildCategories } from '../../utils/helpers/catalogSlice/getChildCategories';
+import { createQuery } from '../../utils/helpers/filterSlice/createQuery';
 
 const initialState: {
   categories: categoryType[] | undefined;
-  childCategory: {
-    name: string;
-    id: string | undefined;
-    ancestor: { id: string; name: string };
-  }[];
-
+  childCategory: childCategoryType;
   products: productType[] | undefined;
   total: number | undefined;
 } = {
@@ -62,40 +61,15 @@ export const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
   reducers: {},
-  // eslint-disable-next-line max-lines-per-function
   extraReducers: (build) => {
     build
-
       .addCase(getProducts.fulfilled, (state, action) => {
         if (action.payload) {
           state.total = action.payload.total;
-          state.products = action.payload.results.map((el) => {
-            return {
-              name: Object.values(el.name)[0],
-              id: el.id,
-              atributes: el.masterVariant.attributes,
-              key: el.masterVariant.key,
-              categories: el.categories.map((category) => {
-                if (category.obj) {
-                  return { id: category.id, name: category.obj?.name['en-US'] };
-                }
-                return { id: category.id, name: 'name' };
-              }),
-              images: el.masterVariant.images?.map((el) => el.url),
-              price: el.masterVariant.prices?.map((el) => {
-                return {
-                  value: el.value.centAmount,
-                  currencyCode: el.value.currencyCode,
-                  discount: el?.discounted && {
-                    value: el.discounted.value.centAmount,
-                    id: el.discounted.discount.id,
-                  },
-                };
-              })[0],
-            };
-          });
+          state.products = getProduct(action.payload.results);
         }
       })
+
       .addCase(getProducts.rejected, (state) => {
         state.products = [];
       })
@@ -110,23 +84,10 @@ export const catalogSlice = createSlice({
             .map((el) => {
               return { name: Object.values(el.name)[0], id: el.id };
             });
-          state.childCategory = action.payload
-
-            .filter((category) => category.ancestors.length > 0)
-            .map((el) => {
-              return {
-                name: Object.values(el.name)[0],
-                id: el.id,
-                ancestor: {
-                  id: el.ancestors[0].id,
-                  name: el.ancestors[0].obj
-                    ? el.ancestors[0].obj.name['en-US']
-                    : '',
-                },
-              };
-            });
+          state.childCategory = getChildCategories(action.payload);
         }
       })
+
       .addCase(getCategories.rejected, (state) => {
         state.categories = [];
       });

@@ -25,7 +25,6 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
 
         <div className={styles.attributes}>
           <span>
-            {' '}
             {product.categories &&
               product.categories.map((el) => el.name).join('>')}
           </span>
@@ -37,6 +36,9 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
         </div>
         <Price price={product.price} />
         <button
+          onClick={(e): void => {
+            e.stopPropagation();
+          }}
           disabled={
             product.atributes && product.atributes[2].value === 0 ? true : false
           }

@@ -42,68 +42,6 @@ const initialState: IProductFilter = {
   offset: 0,
   text: '',
 };
-type queryType = {
-  queryArgs: {
-    fuzzy: boolean;
-    fuzzyLevel?: number;
-    filter?: string | string[] | undefined;
-    sort?: string | string[] | undefined;
-    offset: number;
-    limit: number;
-    'text.en-US': string | undefined;
-    expand?: string;
-  };
-};
-
-// eslint-disable-next-line max-lines-per-function
-export function createQuery(state: IProductFilter): queryType {
-  const createFilter = (): string[] => {
-    const res = [];
-    state.category.id && res.push(`categories.id:"${state.category.id}"`);
-    res.push(
-      `variants.price.centAmount:range (${state.priceRange.from * 100} to ${
-        state.priceRange.to * 100
-      })`,
-    );
-    res.push(
-      `variants.attributes.stock:range (${state.stockRange.from} to ${state.stockRange.to})`,
-    );
-    const attributes = (obj: materialtype | wheelSizeType): string[] => {
-      const res = [];
-      for (const key in obj) {
-        if (obj[key as keyof typeof obj] === true) {
-          res.push(key);
-        }
-      }
-      return res;
-    };
-    attributes(state.materials).length > 0 &&
-      res.push(
-        `variants.attributes.frameMaterial:"${attributes(state.materials).join(
-          '","',
-        )}"`,
-      );
-    attributes(state.wheelsize).length > 0 &&
-      res.push(
-        `variants.attributes.wheelSize:"${attributes(state.wheelsize).join(
-          '","',
-        )}"`,
-      );
-    return res;
-  };
-  const query: queryType = {
-    queryArgs: {
-      fuzzy: true,
-      filter: createFilter(),
-      sort: `${state.sort.name} ${state.sort.order}`,
-      offset: state.offset,
-      limit: 9,
-      'text.en-US': state.text ? `"${state.text}"` : undefined,
-      expand: 'categories[*]',
-    },
-  };
-  return query;
-}
 
 export const productFilterSlice = createSlice({
   name: 'productFilter',
@@ -118,6 +56,7 @@ export const productFilterSlice = createSlice({
       state.stockRange = initialState.stockRange;
       state.text = initialState.text;
       state.wheelsize = initialState.wheelsize;
+      state.offset = 0;
     },
     setActiveCategory(state, action) {
       state.category = action.payload;
