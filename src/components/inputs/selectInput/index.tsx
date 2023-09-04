@@ -1,5 +1,5 @@
 import { InputProps } from '../../../interfaces/formInputs';
-import getLabelClasses from '../../../utils/helpers/getLabelClasses/getLabelClasses';
+import getLabelClasses from '../../../utils/helpers/labelClasses/getLabelClasses';
 import styles from './selectInput.module.scss';
 import React from 'react';
 
