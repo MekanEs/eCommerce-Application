@@ -3,9 +3,9 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { getUserData } from '../../store/user/user.slice';
 import styles from './account.module.scss';
 import classNames from 'classnames';
-import CreateGeneralInfo from './userInfo/createGeneralInfo';
-import CreateGeneralPassword from './userInfo/createGeneralPassword';
-import CreateUserAddress from './userAddress/createUserAddress';
+import CreateGeneralInfo from '../../components/profile/userInfo/GeneralInfo';
+import CreateGeneralPassword from '../../components/profile/userInfo/GeneralPassword';
+import CreateUserAddress from '../../components/profile/userAddress/UserAddress';
 
 const Account: React.FC = (): React.JSX.Element => {
   const [activeType, setActiveType] = useState(0);

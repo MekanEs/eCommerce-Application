@@ -1,10 +1,16 @@
-import { ClientResponse, Customer } from '@commercetools/platform-sdk';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { FormFields } from '../../interfaces/formInputs';
+import {
+  Address,
+  ClientResponse,
+  Customer,
+  MyCustomerUpdateAction,
+} from '@commercetools/platform-sdk';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { FormAddress, FormFields } from '../../interfaces/formInputs';
 import { ISliceUser } from '../../interfaces/sliceUser';
 import { CTP_PROJECT_KEY } from '../../services';
 import { getApiRootToken } from '../../services/ClientBuilder';
 import { store } from '../store';
+import { getBodyUpdateAddress } from '../../utils/services/updateAddress';
 
 export const getUserData = createAsyncThunk(
   'user/getUserData',
@@ -85,6 +91,63 @@ export const getNewDataUser = createAsyncThunk(
   },
 );
 
+export const getUpdateAddress = createAsyncThunk(
+  'user/getUpdateAddress',
+  async function (data: FormAddress[], { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const response: MyCustomerUpdateAction[] = getBodyUpdateAddress(
+        data,
+        state,
+      );
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: response,
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getUpdateDefaultAddress = createAsyncThunk(
+  'user/getUpdateDefaultAddress',
+  async function (data: number[], { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: [
+              {
+                action: 'setDefaultBillingAddress',
+                addressId: state.address?.[data[0]].id,
+              },
+              {
+                action: 'setDefaultShippingAddress',
+                addressId: state.address?.[data[1]].id,
+              },
+            ],
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
 const initialState: ISliceUser = {
   status: null,
   firstName: undefined,
@@ -99,6 +162,7 @@ const initialState: ISliceUser = {
   message: null,
   version: undefined,
 };
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -132,6 +196,10 @@ export const userSlice = createSlice({
       state.message = null;
       state.version = undefined;
     },
+    addAddress(state, action: PayloadAction<Address>) {
+      const address = action.payload;
+      state.address?.push(address);
+    },
   },
   extraReducers: (build) => {
     build
@@ -164,9 +232,23 @@ export const userSlice = createSlice({
       .addCase(getNewDataUser.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
+      })
+      .addCase(getUpdateAddress.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getUpdateAddress.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
+      })
+      .addCase(getUpdateDefaultAddress.fulfilled, (state, action) => {
+        userSlice.caseReducers.getUser(state, action);
+      })
+      .addCase(getUpdateDefaultAddress.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
       });
   },
 });
 
-export const { getUser, removeUser } = userSlice.actions;
+export const { getUser, removeUser, addAddress } = userSlice.actions;
 export default userSlice.reducer;

@@ -29,16 +29,16 @@ const CreatePostcodeInputAddress: React.FC<CreatePostcodeInputAddress> = ({
           type="text"
           id="postcode"
           placeholder="№"
-          {...register(`${index}.postcode`, {
+          {...register(`${index}.postalCode`, {
             required: 'The field is required',
             validate: (values) =>
               validatePostcode(values, getValues(`${index}.country`)),
           })}
           className={styles['input']}
         />
-        {errors[index]?.postcode && (
+        {errors[index]?.postalCode && (
           <div className={styles.errors}>
-            {errors[index]?.postcode?.message}
+            {errors[index]?.postalCode?.message}
           </div>
         )}
       </div>
@@ -63,15 +63,7 @@ export const CreatePostcodeRow: React.FC<CreatePostcodeRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Postcode</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreatePostcodeInputAddress
-              form={form}
-              value={value}
-              index={index}
-            />
-          ) : (
-            ''
-          )}
+          <CreatePostcodeInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>

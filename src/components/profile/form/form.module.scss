@@ -8,6 +8,14 @@
 
   .select {
     background-image: none !important;
+    appearance: none;
+  }
+
+  @media (max-width: 600px) {
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 
@@ -18,10 +26,18 @@
   box-sizing: border-box;
   font-size: 15px;
 
+  @media (max-width: 600px) {
+    font-size: 10px;
+  }
+
   &:focus {
     background: $footer;
     color: $accent;
   }
+}
+
+.default-input {
+  color: $defaultInput;
 }
 
 .errors {

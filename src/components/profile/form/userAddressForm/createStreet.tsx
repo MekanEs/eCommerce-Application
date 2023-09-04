@@ -28,14 +28,16 @@ const CreateStreetInputAddress: React.FC<CreateStreetInputAddress> = ({
           type="text"
           id="street"
           placeholder="Street"
-          {...register(`${index}.street`, {
+          {...register(`${index}.streetName`, {
             required: 'The field is required',
             validate: validateStreet,
           })}
           className={styles['input']}
         />
-        {errors[index]?.street && (
-          <div className={styles.errors}>{errors[index]?.street?.message}</div>
+        {errors[index]?.streetName && (
+          <div className={styles.errors}>
+            {errors[index]?.streetName?.message}
+          </div>
         )}
       </div>
       <span></span>
@@ -59,11 +61,7 @@ export const CreateStreetRow: React.FC<CreateStreetRow> = ({
       <tr>
         <td className={styles['table-title-name']}>Street</td>
         <td className={styles['table-input']}>
-          {value ? (
-            <CreateStreetInputAddress form={form} value={value} index={index} />
-          ) : (
-            ''
-          )}
+          <CreateStreetInputAddress form={form} value={value} index={index} />
         </td>
       </tr>
     </>
