@@ -3,7 +3,9 @@
 
 .container {
   @include form_container;
-  max-width: 768px;
+  > * {
+    width: 768px;
+  }
 }
 
 .info-container {
@@ -36,4 +38,41 @@
   background: $while;
   color: $accent;
   z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .container {
+    > * {
+      width: 500px;
+    }
+
+    .page-title {
+      font-size: 30px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    > * {
+      width: 300px;
+    }
+
+    .page-title {
+      font-size: 20px;
+    }
+
+    .info-container_title {
+      margin-top: 25px;
+      @include font(12px, 18.8px, 500);
+      height: 30px;
+    }
+
+    button {
+      width: 150px;
+      height: 30px;
+      margin-top: 10px;
+      @include font(12px, 18.8px, 500);
+    }
+  }
 }

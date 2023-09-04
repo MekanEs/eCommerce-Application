@@ -35,6 +35,5 @@ export const getBodyUpdateAddress = (
     )
       response.push({ action: 'addAddress', address: data[index] });
   }
-  console.log(response);
   return response;
 };

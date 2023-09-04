@@ -117,6 +117,37 @@ export const getUpdateAddress = createAsyncThunk(
   },
 );
 
+export const getUpdateDefaultAddress = createAsyncThunk(
+  'user/getUpdateDefaultAddress',
+  async function (data: number[], { rejectWithValue }) {
+    try {
+      const state = store.getState().user;
+      const result = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .me()
+        .post({
+          body: {
+            version: state.version ? state.version : 1,
+            actions: [
+              {
+                action: 'setDefaultBillingAddress',
+                addressId: state.address?.[data[0]].id,
+              },
+              {
+                action: 'setDefaultShippingAddress',
+                addressId: state.address?.[data[1]].id,
+              },
+            ],
+          },
+        })
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
 const initialState: ISliceUser = {
   status: null,
   firstName: undefined,

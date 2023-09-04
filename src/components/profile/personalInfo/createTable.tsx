@@ -122,28 +122,60 @@ export const CreateTablePassword: React.FC<CreateTablePassword> = ({
   );
 };
 
+type CreateTitle = {
+  index: number;
+  selectBilling: number;
+  selectShipping: number;
+};
+
+const CreateTitle: React.FC<CreateTitle> = ({
+  index,
+  selectBilling,
+  selectShipping,
+}): React.JSX.Element => {
+  return (
+    <div className={styles['table-header-title']}>
+      {index === selectBilling ? (
+        <div key={'defaultBilling'} className={styles['table-default-address']}>
+          {'Default billing address'}
+        </div>
+      ) : (
+        <></>
+      )}
+      {index === selectShipping ? (
+        <div
+          key={'defaultShipping'}
+          className={styles['table-default-address']}
+        >
+          {'Default shipping address'}
+        </div>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
+
 type CreateTableAddress = {
   address: BaseAddress;
   form: UseFormReturn<FormAddress[]>;
   index: number;
-  title: string;
   setisShow: React.Dispatch<React.SetStateAction<boolean>>;
   selectBilling: number;
-  selectShiping: number;
+  selectShipping: number;
   setSelectBilling: React.Dispatch<React.SetStateAction<number>>;
-  setSelectShiping: React.Dispatch<React.SetStateAction<number>>;
+  setSelectShipping: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const CreateTableAddress: React.FC<CreateTableAddress> = ({
   address,
   form,
   index,
-  title,
   setisShow,
   selectBilling,
-  selectShiping,
+  selectShipping,
   setSelectBilling,
-  setSelectShiping,
+  setSelectShipping,
 }): React.JSX.Element => {
   return (
     <table className={styles['table-container']}>
@@ -151,11 +183,11 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
         <tr>
           <td className={styles['table-title-name']}>Address №{index + 1}</td>
           <td className={styles['table-header']}>
-            {title ? (
-              <div className={styles['table-default-address']}>{title}</div>
-            ) : (
-              <div></div>
-            )}
+            <CreateTitle
+              index={index}
+              selectBilling={selectBilling}
+              selectShipping={selectShipping}
+            />
             <div
               className={styles['table-remove-address']}
               onClick={(): void => {
@@ -201,7 +233,11 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
                 id={`billing-${index}`}
                 type="checkbox"
                 checked={selectBilling === index}
-                onClick={(): void => setSelectBilling(index)}
+                onClick={(): void => {
+                  index === selectBilling
+                    ? setSelectBilling(-1)
+                    : setSelectBilling(index);
+                }}
                 {...form.register(`${index}.defaultBilling`, {})}
               />
               <label
@@ -215,8 +251,12 @@ export const CreateTableAddress: React.FC<CreateTableAddress> = ({
               <input
                 id={`shipping-${index}`}
                 type="checkbox"
-                checked={selectShiping === index}
-                onClick={(): void => setSelectShiping(index)}
+                checked={selectShipping === index}
+                onClick={(): void => {
+                  index === selectShipping
+                    ? setSelectShipping(-1)
+                    : setSelectShipping(index);
+                }}
                 {...form.register(`${index}.defaultShiping`, {})}
               />
               <label
