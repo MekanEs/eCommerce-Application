@@ -1,0 +1,66 @@
+@import '../../scss/allVariables.scss';
+
+.page-title {
+  @include forms_page_title;
+}
+
+.general-info {
+  margin-top: 40px;
+  padding: 0 30px 30px;
+  border-radius: 5px;
+  outline: 1px solid $accent;
+}
+
+.collaboration {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collaboration-info {
+  max-width: 770px;
+
+  h3 {
+    @include page_subtitle;
+  }
+
+  p {
+    @include text_def(15px);
+    padding: 10px 0;
+  }
+}
+
+.collaboration-image {
+  margin-right: -30px
+}
+
+.educational-program {
+  h3 {
+    @include page_subtitle;
+  }
+
+  p {
+    @include text_def(15px);
+    padding: 10px 0;
+  }
+
+  img {
+    margin-top: 20px;
+  }
+}
+
+.educational-image {
+  position: relative;
+  margin: 20px 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 225px;
+    height: 86px;
+    background: url('../../assets/img/png/tape.png') no-repeat;
+    top: -15px;
+    left: 16px;
+    z-index: -1;
+  }
+}
