@@ -1,19 +1,24 @@
 import {
   ClientResponse,
   CustomerSignInResult,
+  Project,
 } from '@commercetools/platform-sdk';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ISliceUser } from '../../interfaces/sliceUser';
+import { ISliceAuth } from '../../interfaces/sliceAuth';
 import { CTP_PROJECT_KEY } from '../../services';
-import { getApiRootLogin, getApiRootRegis } from '../../services/ClientBuilder';
+import {
+  getApiRootLogin,
+  getApiRootRegis,
+  getApiRootToken,
+} from '../../services/ClientBuilder';
 import { logUser, regUser } from '../../types/auth';
-import { getAddress } from '../../utils/helpers/functions/getAddress';
+import { getAddress } from '../../utils/helpers/address/getAddress';
 
-const initialState: ISliceUser = {
+const initialState: ISliceAuth = {
   status: null,
   message: null,
-  id: null,
-  isAuth: !!localStorage.getItem('token') || null,
+  id: localStorage.getItem('id') || null,
+  isAuth: !!localStorage.getItem('token'),
 };
 
 export const loginUser = createAsyncThunk(
@@ -70,33 +75,46 @@ export const registrationUser = createAsyncThunk(
   },
 );
 
-export const userSlice = createSlice({
+export const checkToken = createAsyncThunk(
+  'auth/checkToken',
+  async function (_, { rejectWithValue }) {
+    try {
+      const result: ClientResponse<Project> = await getApiRootToken()
+        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+        .get()
+        .execute();
+      return result;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getUser(state) {
+    getAuth(state) {
       return state;
     },
-    removeUser(state) {
+    removeAuth(state) {
       state.status = null;
       state.message = null;
       state.id = null;
-      state.isAuth = null;
+      state.isAuth = false;
     },
   },
   extraReducers: (build) => {
     build
       .addCase(loginUser.pending, (state) => {
-        state.status = null;
-        state.message = null;
-        state.id = null;
-        state.isAuth = null;
+        authSlice.caseReducers.removeAuth(state);
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'ok';
         state.message = 'successfully';
         if (action.payload) {
           state.id = action.payload.body.customer.id;
+          localStorage.setItem('id', state.id);
           state.isAuth = true;
         }
       })
@@ -116,9 +134,16 @@ export const userSlice = createSlice({
       .addCase(registrationUser.rejected, (state, action) => {
         state.status = 'error';
         state.message = action.payload;
+      })
+      .addCase(checkToken.fulfilled, (state) => {
+        state.isAuth = true;
+      })
+      .addCase(checkToken.rejected, (state) => {
+        authSlice.caseReducers.removeAuth(state);
+        localStorage.removeItem('token');
       });
   },
 });
 
-export const { getUser, removeUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { getAuth, removeAuth } = authSlice.actions;
+export default authSlice.reducer;

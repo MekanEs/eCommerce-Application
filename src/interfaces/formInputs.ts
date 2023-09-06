@@ -22,6 +22,8 @@ export interface SelectOptions {
 export interface ButtonProps {
   label: string;
   type: string;
+  className?: string;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -46,6 +48,19 @@ export interface FormFields {
   sameAddress: boolean;
   defaultBilling: boolean;
   defaultShipping: boolean;
+  newPassword: string;
+  currentPassword: string;
+}
+
+export interface FormAddress {
+  country: string;
+  city: string;
+  streetName: string;
+  building: string;
+  apartment: string;
+  postalCode: string;
+  defaultBilling: boolean;
+  defaultShiping: boolean;
 }
 
 export interface CheckboxProps {

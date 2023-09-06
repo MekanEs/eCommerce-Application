@@ -11,4 +11,5 @@ const RequireAuth: React.FC = () => {
 
   return <Outlet />;
 };
+
 export default RequireAuth;

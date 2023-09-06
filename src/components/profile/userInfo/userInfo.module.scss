@@ -1,0 +1,16 @@
+@import '../../../scss/allVariables.scss';
+@import '../../../components/button/button.module.scss';
+
+.table-button {
+  display: flex;
+  justify-content: center;
+}
+
+.table-adding {
+  display: flex;
+  justify-content: center;
+  color: $defaultLabel;
+  background: $while;
+  cursor: pointer;
+  @include font(15px, 21px, 400);
+}

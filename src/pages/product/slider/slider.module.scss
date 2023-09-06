@@ -1,0 +1,41 @@
+@import '../../../scss/allVariables.scss';
+
+.container {
+  max-width: 64vw;
+
+  img {
+    width: 100%;
+    cursor: pointer;
+  }
+}
+
+.swiper-navigation {
+  @include swiper_navigation(30px, 94.5%);
+}
+
+.swiper-button-prev {
+  margin-left: 5px;
+  @include swiper_button_prev;
+}
+
+.swiper-button-next {
+  margin-right: 5px;
+  @include swiper_button_next;
+}
+
+.swiper-pagination {
+  @include swiper_pagination;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    max-width: 75vw;
+  }
+}
+
+@media (max-width: 750px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+}

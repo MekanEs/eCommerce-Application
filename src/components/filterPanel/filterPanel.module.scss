@@ -1,0 +1,155 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  @include header(46px);
+  margin: 20px auto;
+  text-align: center;
+
+  @media (max-width: 1250px) {
+    font-size: 32px;
+  }
+
+  @media (max-width: 580px) {
+    font-size: 24px;
+  }
+}
+
+.filterPanel {
+  padding: 5px;
+
+  @media (max-width: 1250px) {
+    display: none;
+  }
+}
+.filterPanelTablet {
+  padding: 5px;
+  display: none;
+
+  @media (max-width: 1250px) {
+    display: block;
+  }
+}
+
+.sort_filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.upperPanel {
+  display: flex;
+  border: 1px solid #cfcfcf;
+  border-left: none;
+  background: #f4f4f4;
+  height: 40px;
+}
+
+.total {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: pre;
+  background: #f4f4f4;
+  padding: 0 10px;
+  border-bottom: 1px solid #cfcfcf;
+  height: 40px;
+
+  @media (max-width: 1250px) {
+    background-color: inherit;
+  }
+}
+
+.sides {
+  display: flex;
+  justify-content: center;
+}
+
+.left {
+  width: 20%;
+  max-width: 300px;
+  min-width: 200px;
+  border: 1px solid $defaultOutline;
+  height: fit-content;
+
+  @media (max-width: 1250px) {
+    display: none;
+  }
+}
+
+.right {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.filterBurgerBtn {
+  display: none;
+
+  @media (max-width: 1250px) {
+    display: block;
+  }
+}
+
+.filterBurger {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  position: absolute;
+  .sideBar {
+    position: absolute;
+    display: flex;
+    right: 0;
+  }
+}
+
+.upperPanelTablet {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.burger_bg {
+  background-color: rgba(#000000, 0.5);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+}
+
+.activeBurger {
+  display: block;
+}
+
+.burgerContainer {
+  position: absolute;
+  width: 300px;
+  right: -500px;
+  top: 20vh;
+  transition: all 0.3s ease;
+}
+
+.burgerContainerActive {
+  right: 0;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.filterBlock {
+  @include text_def(16px);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

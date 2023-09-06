@@ -1,6 +1,6 @@
 import { InputProps } from '../../../interfaces/formInputs';
+import getLabelClasses from '../../../utils/helpers/labelClasses/getLabelClasses';
 import styles from './selectInput.module.scss';
-import getLabelClasses from '../../../utils/helpers/functions/getLabelClasses';
 import React from 'react';
 
 const SelectInput: React.FC<InputProps> = ({

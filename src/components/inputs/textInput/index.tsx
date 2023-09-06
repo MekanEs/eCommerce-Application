@@ -1,8 +1,8 @@
 import React from 'react';
 import { InputProps } from '../../../interfaces/formInputs';
 import styles from './textInput.module.scss';
-import getLabelClasses from '../../../utils/helpers/functions/getLabelClasses';
-import getInputClasses from '../../../utils/helpers/functions/getInputClasses';
+import getLabelClasses from '../../../utils/helpers/labelClasses/getLabelClasses';
+import getInputClasses from '../../../utils/helpers/inputClasses/getInputClasses';
 
 const TextInput: React.FC<InputProps> = ({
   label,

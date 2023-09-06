@@ -7,6 +7,7 @@ import {
 import { CTP_API_URL, CTP_PROJECT_KEY } from '.';
 import { getOptions } from './passwordFlow';
 import { authMiddlewareOptions } from './authMiddleware';
+import { authorization, options } from './withExistingTokenFlow';
 
 const httpMiddlewareOptions = {
   host: CTP_API_URL,
@@ -27,6 +28,16 @@ export const getApiRootRegis = (): ApiRoot => {
   const client = new ClientBuilder()
     .withProjectKey(CTP_PROJECT_KEY)
     .withClientCredentialsFlow(authMiddlewareOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .withLoggerMiddleware()
+    .build();
+  return createApiBuilderFromCtpClient(client);
+};
+
+export const getApiRootToken = (): ApiRoot => {
+  const client = new ClientBuilder()
+    .withProjectKey(CTP_PROJECT_KEY)
+    .withExistingTokenFlow(authorization(), options)
     .withHttpMiddleware(httpMiddlewareOptions)
     .withLoggerMiddleware()
     .build();

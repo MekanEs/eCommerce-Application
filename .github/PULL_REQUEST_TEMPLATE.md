@@ -1,5 +1,6 @@
 ### `Type of change:`
-*Please delete options that are not relevant and this message*
+
+_Please delete options that are not relevant and this message_
 
 - [x] **Refactor** (code improvement without changing functionality)
 - [x] **Optimization** (performance improvement without changing functionality)
@@ -9,12 +10,15 @@
 - [x] **Documentation update** (this change requires a documentation update)
 
 ### `Task:`
-**Sprint 1:** [Set up ESLint  + Script](https://mekanes1997.atlassian.net/browse/KAN-9)
+
+**Sprint 1:** [Set up ESLint + Script](https://mekanes1997.atlassian.net/browse/KAN-9)
 
 ### `Description:`
+
 Automate the process of code review, identify problems early in development, and maintain a consistent coding style across a project with ESLint
 
 ### `Execution steps:`
+
 1. Installed ESLint, required plugins and their dependencies into the project using npm.
 2. Tweaked the ESLint configuration to match our team's development standards.
 3. Let's add a script to the "scripts" section of the package.json file to easily run code review with ESLint.
@@ -22,10 +26,13 @@ Automate the process of code review, identify problems early in development, and
 5. Fixed bugs reported by ESLint.
 
 ### `Screenshot (optional):`
-*If there are changes to the user interface*
+
+_If there are changes to the user interface_
 
 ### `Reviewer's guide (optional):`
-*What reviewers should pay attention to / where should they start the review / what is the main change*
+
+_What reviewers should pay attention to / where should they start the review / what is the main change_
 
 ### `About PR (optional):`
-*Add a picture that best describes the task or how you feel about the task*
+
+_Add a picture that best describes the task or how you feel about the task_

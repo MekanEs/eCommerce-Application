@@ -6,6 +6,7 @@ const Banner: React.FC = () => {
   return (
     <div className={styles.container}>
       <h2>bicycle for every road</h2>
+
       <img src={banner} alt="banner" draggable="false" />
     </div>
   );
