@@ -1,3 +1,9 @@
+@import "../../scss/mixins.scss";
+
 .container {
   max-width: 1216px;
+}
+
+.page-title {
+  @include forms_page_title;
 }
