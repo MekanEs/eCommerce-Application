@@ -19,7 +19,6 @@ export const getApiRootLogin = (email: string, password: string): ApiRoot => {
     .withProjectKey(CTP_PROJECT_KEY)
     .withPasswordFlow(getOptions(email, password))
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware()
     .build();
   return createApiBuilderFromCtpClient(client);
 };
@@ -29,7 +28,6 @@ export const getApiRootRegis = (): ApiRoot => {
     .withProjectKey(CTP_PROJECT_KEY)
     .withClientCredentialsFlow(authMiddlewareOptions)
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware()
     .build();
   return createApiBuilderFromCtpClient(client);
 };
@@ -39,7 +37,6 @@ export const getApiRootToken = (): ApiRoot => {
     .withProjectKey(CTP_PROJECT_KEY)
     .withExistingTokenFlow(authorization(), options)
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware()
     .build();
   return createApiBuilderFromCtpClient(client);
 };
