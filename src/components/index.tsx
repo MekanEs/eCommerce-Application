@@ -6,6 +6,7 @@ import ProductsLayout from './productsLayout';
 import FilterPanel from './filterPanel';
 import Materials from './materialCheckbox';
 import Pagination from './pagination';
+import DiscountBanner from './discountBanner';
 export {
   Header,
   Footer,
@@ -15,4 +16,5 @@ export {
   FilterPanel,
   Materials,
   Pagination,
+  DiscountBanner,
 };

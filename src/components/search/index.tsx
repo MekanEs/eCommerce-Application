@@ -1,14 +1,13 @@
 import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import styles from './search.module.scss';
-import { useDispatch } from 'react-redux';
 import { setText } from '../../store/productFilter/productFilter.slice';
 import debounce from 'lodash.debounce';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
 const Search: React.FC = () => {
   const text = useAppSelector((state) => state.filter.text);
   const [textValue, setTextValue] = useState<string>(text);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (text !== textValue) {
       setTextValue(text);

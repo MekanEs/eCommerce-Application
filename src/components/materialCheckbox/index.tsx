@@ -1,14 +1,13 @@
 import React, { ChangeEventHandler } from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   materialtype,
   setMaterial,
 } from '../../store/productFilter/productFilter.slice';
-import { useDispatch } from 'react-redux';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
 
 const Material: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const materials = useAppSelector((state) => state.filter.materials);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {

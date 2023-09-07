@@ -1,13 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { setOffset } from '../../store/productFilter/productFilter.slice';
 import styles from './paginaiton.module.scss';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 
 type paginationPropsType = { offset: number; total: number | undefined };
 const Pagination: React.FC<paginationPropsType> = ({ offset, total }) => {
   const pages = total && Math.ceil(total / 9);
   const currentPage = offset / 9 + 1;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleNext = (): void => {
     dispatch(setOffset(currentPage * 9));
   };

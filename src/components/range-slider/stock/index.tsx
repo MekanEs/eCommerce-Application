@@ -11,8 +11,8 @@ const StockSlider: React.FC = () => {
   const state = useAppSelector((state) => state.filter);
   const initialMin = state.stockRange.from;
   const initialMax = state.stockRange.to;
-  const [min, setMin] = useState(initialMin);
-  const [max, setMax] = useState(initialMax);
+  const [min, setMin] = useState<number>(initialMin);
+  const [max, setMax] = useState<number>(initialMax);
 
   useEffect(() => {
     if (min !== initialMin) {

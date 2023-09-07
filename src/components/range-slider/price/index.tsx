@@ -11,8 +11,8 @@ const PriceSlider: React.FC = () => {
   const state = useAppSelector((state) => state.filter);
   const initialMin = state.priceRange.from;
   const initialMax = state.priceRange.to;
-  const [min, setMin] = useState(initialMin);
-  const [max, setMax] = useState(initialMax);
+  const [min, setMin] = useState<number>(initialMin);
+  const [max, setMax] = useState<number>(initialMax);
 
   function validateRange(): void {
     if (min > max) {

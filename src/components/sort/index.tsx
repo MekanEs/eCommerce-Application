@@ -1,6 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   setOrder,
   setSorting,
@@ -10,7 +9,7 @@ import styles from './sort.module.scss';
 const Sort: React.FC = () => {
   const name = useAppSelector((state) => state.filter.sort.name);
   const order = useAppSelector((state) => state.filter.sort.order);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleOrder: ChangeEventHandler<HTMLSelectElement> = (event): void => {
     dispatch(setOrder(event.target.value));

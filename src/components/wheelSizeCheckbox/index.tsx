@@ -1,14 +1,13 @@
 import React, { ChangeEventHandler } from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   setWheelSize,
   wheelSizeType,
 } from '../../store/productFilter/productFilter.slice';
-import { useDispatch } from 'react-redux';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
 
 const WheelSize: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wheelSize = useAppSelector((state) => state.filter.wheelsize);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {

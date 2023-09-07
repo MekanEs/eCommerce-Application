@@ -47,9 +47,9 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
       navigator,
     );
   };
-  const [warningMessage, setWarningMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [succesMessage, setSuccesMessage] = useState('');
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [succesMessage, setSuccesMessage] = useState<string>('');
 
   createUseEffect(form, errorMessage, setErrorMessage);
   createUseEffect(form, succesMessage, setSuccesMessage);
