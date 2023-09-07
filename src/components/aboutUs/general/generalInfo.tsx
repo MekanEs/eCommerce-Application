@@ -1,6 +1,6 @@
 import styles from './generalInfo.module.scss';
-import collaboration from '../../assets/img/svg/collaboration.svg';
-import rssLogo from '../../assets/img/svg/rss_logo.svg';
+import collaboration from '../../../assets/img/svg/collaboration.svg';
+import rssLogo from '../../../assets/img/svg/rss_logo.svg';
 
 const AboutGeneralInfo = (): JSX.Element => {
   return (
@@ -51,8 +51,8 @@ const AboutGeneralInfo = (): JSX.Element => {
             development.
           </p>
           <p>
-            The principle of RS School is "Openness and Passing Knowledge
-            Forward." All educational materials and the program's platform are
+            The principle of RS School is «Openness and Passing Knowledge
+            Forward». All educational materials and the program's platform are
             publicly available on GitHub and YouTube. What's particularly
             important is that RS School students who have received free
             education are invited to return in the future as mentors to pass on

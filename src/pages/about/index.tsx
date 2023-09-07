@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './about.module.scss';
-import AboutGeneralInfo from '../../components/aboutUs/generalInfo';
-import DeveloperNovikova from '../../components/aboutUs/developers/novikova';
+import AboutGeneralInfo from '../../components/aboutUs/general/generalInfo';
+import DeveloperNovikova from '../../components/aboutUs/developers/novikova/novikova';
 
 const About: React.FC = () => {
   return (

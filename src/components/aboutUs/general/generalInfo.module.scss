@@ -1,4 +1,4 @@
-@import '../../scss/allVariables.scss';
+@import '../../../scss/allVariables.scss';
 
 .general-info {
   margin-top: 40px;
@@ -55,7 +55,7 @@
     position: absolute;
     width: 225px;
     height: 86px;
-    background: url('../../assets/img/png/tape.png') no-repeat;
+    background: url('../../../assets/img/png/tape.png') no-repeat;
     top: -15px;
     left: 16px;
     z-index: -1;

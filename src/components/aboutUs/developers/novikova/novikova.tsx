@@ -1,5 +1,5 @@
-import styles from './developer.module.scss';
-import developerPhoto from '../../../assets/img/png/novikova.png';
+import styles from '../developer.module.scss';
+import developerPhoto from '../../../../assets/img/png/novikova.png';
 
 const DeveloperNovikova = (): JSX.Element => {
   return (
