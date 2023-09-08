@@ -1,5 +1,5 @@
 import React from 'react';
-import { priceType } from '../../../../types/catalogTypes';
+import { priceType } from '../../../../../types/catalogTypes';
 import cx from 'classnames';
 import styles from './price.module.scss';
 

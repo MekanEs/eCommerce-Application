@@ -1,7 +1,7 @@
 import React from 'react';
-import { setOffset } from '../../store/productFilter/productFilter.slice';
+import { setOffset } from '../../../store/productFilter/productFilter.slice';
 import styles from './paginaiton.module.scss';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch } from '../../../hooks/redux-hooks';
 
 type paginationPropsType = { offset: number; total: number | undefined };
 const Pagination: React.FC<paginationPropsType> = ({ offset, total }) => {

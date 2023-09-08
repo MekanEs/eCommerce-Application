@@ -1,10 +1,10 @@
 import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import styles from './range-slider.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
 import {
   setStockMax,
   setStockMin,
-} from '../../../store/productFilter/productFilter.slice';
+} from '../../../../store/productFilter/productFilter.slice';
 
 const StockSlider: React.FC = () => {
   const appDispatch = useAppDispatch();

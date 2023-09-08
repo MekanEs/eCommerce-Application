@@ -1,9 +1,9 @@
 import React, { ChangeEventHandler } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
   setOrder,
   setSorting,
-} from '../../store/productFilter/productFilter.slice';
+} from '../../../store/productFilter/productFilter.slice';
 import styles from './sort.module.scss';
 
 const Sort: React.FC = () => {

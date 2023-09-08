@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './sideBar.module.scss';
-import PriceSlider from '../../range-slider/price';
-import StockSlider from '../../range-slider/stock';
-import { Materials } from '../..';
+import PriceSlider from '../range-slider/price';
+import StockSlider from '../range-slider/stock';
+import Materials from '../materialCheckbox';
 import WheelSize from '../../wheelSizeCheckbox';
 import { resetState } from '../../../store/productFilter/productFilter.slice';
 

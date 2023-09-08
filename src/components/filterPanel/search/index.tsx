@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import styles from './search.module.scss';
-import { setText } from '../../store/productFilter/productFilter.slice';
+import { setText } from '../../../store/productFilter/productFilter.slice';
 import debounce from 'lodash.debounce';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 
 const Search: React.FC = () => {
   const text = useAppSelector((state) => state.filter.text);

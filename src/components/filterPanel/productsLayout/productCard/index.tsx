@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './productCard.module.scss';
 
-import { productType } from '../../../types/catalogTypes';
+import { productType } from '../../../../types/catalogTypes';
 import { useNavigate } from 'react-router-dom';
 import Price from './price';
 

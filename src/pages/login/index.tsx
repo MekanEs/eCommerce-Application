@@ -38,8 +38,8 @@ const Login: React.FC = (): JSX.Element => {
     });
     setWarningMessage('');
   };
-  const [warningMessage, setWarningMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   createUseEffect(form, errorMessage, setErrorMessage);
 

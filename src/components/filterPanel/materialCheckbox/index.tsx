@@ -1,10 +1,10 @@
 import React, { ChangeEventHandler } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import {
   materialtype,
   setMaterial,
-} from '../../store/productFilter/productFilter.slice';
-import { isKey } from '../../utils/helpers/isKeyOfObj';
+} from '../../../store/productFilter/productFilter.slice';
+import { isKey } from '../../../utils/helpers/isKeyOfObj';
 
 const Material: React.FC = () => {
   const dispatch = useAppDispatch();

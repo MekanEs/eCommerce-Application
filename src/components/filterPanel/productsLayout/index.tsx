@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import styles from './products.module.scss';
 import ProductCard from './productCard';
-import { getProducts } from '../../store/catalog/catalog.slice';
+import { getProducts } from '../../../store/catalog/catalog.slice';
 
 const ProductsLayout: React.FC = () => {
   const products = useAppSelector((state) => state.catalog.products);
