@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './header.module.scss';
 import Navigation from './nav';
 import logo from '../../assets/img/svg/veros_logo.svg';
@@ -7,16 +7,11 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
 import Logout from '../logout';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { checkToken } from '../../store/auth/auth.slice';
 
 const Header: React.FC = () => {
   const path = useLocation().pathname;
-  const dispatch = useAppDispatch();
+
   const isAuth = userAuth();
-  useEffect(() => {
-    if (isAuth) dispatch(checkToken());
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -29,13 +24,16 @@ const Header: React.FC = () => {
           ''
         ) : isAuth ? (
           <div className={styles.profile}>
+            <NavLink to="/cart">Cart</NavLink>
             <NavLink to="/account">
               <img src={profile} alt="profile" />
             </NavLink>
+
             <Logout />
           </div>
         ) : (
           <div className={styles.auth}>
+            <NavLink to="/cart">Cart</NavLink>
             <NavLink className={isActive} to="registration">
               registration
             </NavLink>

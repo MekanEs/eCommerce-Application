@@ -57,7 +57,7 @@ export const getCategories = createAsyncThunk(
   },
 );
 
-export const catalogSlice = createSlice({
+const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
   reducers: {},

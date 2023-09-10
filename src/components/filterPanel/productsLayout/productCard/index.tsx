@@ -4,13 +4,17 @@ import styles from './productCard.module.scss';
 import { productType } from '../../../../types/catalogTypes';
 import { useNavigate } from 'react-router-dom';
 import Price from './price';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
+import { addProduct } from '../../../../store/basket/basketSlice';
 
 type productTypeProps = { product: productType };
 
 const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const attributes = ['Frame material', 'Wheel size', 'Stock'];
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
+  const basket = useAppSelector((state) => state.basket.basket);
+  const basketStatus = useAppSelector((state) => state.basket.status);
   return (
     <div
       onClick={(): void => {
@@ -38,9 +42,23 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
         <button
           onClick={(e): void => {
             e.stopPropagation();
+
+            if (basket) {
+              dispatch(
+                addProduct({
+                  CartId: basket.id,
+                  productID: product.id,
+                  version: basket.version,
+                }),
+              );
+            }
           }}
           disabled={
-            product.atributes && product.atributes[2].value === 0 ? true : false
+            product.atributes &&
+            product.atributes[2].value === 0 &&
+            basketStatus === 'fullfilled'
+              ? true
+              : false
           }
           className={styles.addToCart}
         >

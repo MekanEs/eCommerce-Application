@@ -5,6 +5,8 @@ import userReducer from './user/user.slice';
 import catalogReducer from './catalog/catalog.slice';
 import filterReducer from './productFilter/productFilter.slice';
 import discounts from './discount/discount.slice';
+import basket from './basket/basketSlice';
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,6 +15,7 @@ export const store = configureStore({
     product: productSlice.reducer,
     filter: filterReducer,
     discounts,
+    basket,
   },
 });
 

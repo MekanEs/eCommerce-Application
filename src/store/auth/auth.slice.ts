@@ -26,6 +26,7 @@ export const loginUser = createAsyncThunk(
   async function (options: logUser, { rejectWithValue }) {
     const email = options.email;
     const password = options.password;
+    const anonymId = options.anonymId;
     try {
       const result: ClientResponse<CustomerSignInResult> =
         await getApiRootLogin(email, password)
@@ -35,6 +36,8 @@ export const loginUser = createAsyncThunk(
             body: {
               email: email,
               password: password,
+              anonymousCart: { id: anonymId, typeId: 'cart' },
+              anonymousCartSignInMode: 'UseAsNewActiveCustomerCart',
             },
           })
           .execute();

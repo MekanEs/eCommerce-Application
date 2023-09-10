@@ -161,6 +161,7 @@ const initialState: ISliceUser = {
   shippingAddressIds: undefined,
   message: null,
   version: undefined,
+  id: undefined,
 };
 
 export const userSlice = createSlice({
@@ -181,6 +182,7 @@ export const userSlice = createSlice({
       state.shippingAddressIds = body?.shippingAddressIds;
       state.message = 'successfully';
       state.version = body?.version;
+      state.id = body?.id;
     },
     removeUser(state) {
       state.status = null;
