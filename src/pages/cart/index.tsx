@@ -23,34 +23,41 @@ const Cart: React.FC = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {basket &&
-        basketItems &&
-        basketItems.map((el) => {
-          return (
-            <div className={styles.productCard}>
-              <div>{el.name['en-US']}</div>
-              <div>quantity: {el.quantity}</div>
-              <div>
-                price:{el.price.value.centAmount / 100} -{' '}
-                {el.price.discounted?.value.centAmount &&
-                  el.price.discounted?.value.centAmount / 100}
+      <div className={styles.cardsContainer}>
+        {basket &&
+          basketItems &&
+          basketItems.map((el, index) => {
+            return (
+              <div key={index} className={styles.productCard}>
+                <div>{el.name['en-US']}</div>
+                <div>quantity: {el.quantity}</div>
+                <div>
+                  price:{el.price.value.centAmount / 100} -{' '}
+                  {el.price.discounted?.value.centAmount &&
+                    el.price.discounted?.value.centAmount / 100}
+                </div>
+                <div>
+                  total:{(el.price.value.centAmount * el.quantity) / 100} -{' '}
+                  {el.price.discounted?.value.centAmount &&
+                    (el.price.discounted?.value.centAmount * el.quantity) / 100}
+                </div>
+                <button
+                  onClick={(): void => {
+                    dispatch(
+                      removeProduct({
+                        CartId: basket.id,
+                        productID: el.id,
+                        version: basket.version,
+                      }),
+                    );
+                  }}
+                >
+                  delete from cart
+                </button>
               </div>
-              <button
-                onClick={(): void => {
-                  dispatch(
-                    removeProduct({
-                      CartId: basket.id,
-                      productID: el.id,
-                      version: basket.version,
-                    }),
-                  );
-                }}
-              >
-                delete from cart
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 };
