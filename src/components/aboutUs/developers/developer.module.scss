@@ -56,7 +56,7 @@
 
 .about-developer {
   flex: 1 1 67%;
-  padding: 20px 0 0 20px;
+  padding: 15px 15px 0 15px;
 
   p {
     @include text_def(15px);
@@ -94,6 +94,10 @@
   .body {
     flex-direction: column;
     padding: 20px 15px;
+  }
+
+  .middle-dev {
+    flex-direction: column-reverse;
   }
 
   .developer-photo {
