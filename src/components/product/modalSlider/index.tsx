@@ -38,7 +38,7 @@ export const ModalSlider: React.FC<ModalSliderProps> = ({
     <div className={styles.modal} ref={modalRef} onClick={handleCloseModal}>
       <div className={styles['modal-content']}>
         <span className={styles['close-button']} onClick={closeModal}>
-          X
+          x
         </span>
         <Swiper
           loop={showNavigation}
