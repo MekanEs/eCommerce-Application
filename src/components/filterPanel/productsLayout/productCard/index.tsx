@@ -5,7 +5,10 @@ import { productType } from '../../../../types/catalogTypes';
 import { useNavigate } from 'react-router-dom';
 import Price from './price';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
-import { addProduct } from '../../../../store/basket/basketSlice';
+import {
+  addProductUser,
+  addProductAnonym,
+} from '../../../../store/basket/basketSlice';
 
 type productTypeProps = { product: productType };
 
@@ -15,6 +18,32 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector((state) => state.basket.basket);
   const basketStatus = useAppSelector((state) => state.basket.status);
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const addProduct = (
+    basketId: string,
+    productId: string,
+    version: number,
+  ): void => {
+    if (isAuth) {
+      console.log('user');
+      dispatch(
+        addProductUser({
+          CartId: basketId,
+          productID: productId,
+          version: version,
+        }),
+      );
+    } else {
+      console.log('anonym');
+      dispatch(
+        addProductAnonym({
+          CartId: basketId,
+          productID: productId,
+          version: version,
+        }),
+      );
+    }
+  };
   return (
     <div
       onClick={(): void => {
@@ -44,13 +73,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
             e.stopPropagation();
 
             if (basket) {
-              dispatch(
-                addProduct({
-                  CartId: basket.id,
-                  productID: product.id,
-                  version: basket.version,
-                }),
-              );
+              addProduct(basket.id, product.id, basket.version);
             }
           }}
           disabled={

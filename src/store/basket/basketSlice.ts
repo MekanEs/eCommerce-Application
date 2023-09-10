@@ -23,6 +23,7 @@ const anonymApiRoot = (): ApiRoot => {
     return getApiRootAnonym();
   }
 };
+
 export const getBasket = createAsyncThunk(
   'getBasket/basket',
   async function () {
@@ -59,6 +60,7 @@ export const getBasket = createAsyncThunk(
     }
   },
 );
+
 export const getBasketUser = createAsyncThunk(
   'getBasketUser/basket',
   async function () {
@@ -79,8 +81,8 @@ export const getBasketUser = createAsyncThunk(
   },
 );
 
-export const addProduct = createAsyncThunk(
-  'addProduct/basket',
+export const addProductUser = createAsyncThunk(
+  'addProductUser/basket',
   async function ({
     CartId,
     version,
@@ -92,6 +94,45 @@ export const addProduct = createAsyncThunk(
   }) {
     try {
       const result = await getApiRootToken()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .carts()
+        .withId({ ID: CartId })
+        .post({
+          body: {
+            version: version,
+            actions: [
+              {
+                action: 'addLineItem',
+                productId: productID,
+              },
+            ],
+          },
+        })
+        .execute();
+
+      return result.body;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const addProductAnonym = createAsyncThunk(
+  'addProductAnonym/basket',
+  async function ({
+    CartId,
+    version,
+    productID,
+  }: {
+    CartId: string;
+    version: number;
+    productID: string;
+  }) {
+    try {
+      const result = await anonymApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
@@ -189,11 +230,18 @@ const basketSlice = createSlice({
       .addCase(getBasketUser.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
       })
-      .addCase(addProduct.fulfilled, (state, action) => {
+      .addCase(addProductUser.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       })
-      .addCase(addProduct.pending, (state, action) => {
+      .addCase(addProductUser.pending, (state, action) => {
+        if (action.payload) state.status = 'pending';
+      })
+      .addCase(addProductAnonym.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(addProductAnonym.pending, (state, action) => {
         if (action.payload) state.status = 'pending';
       })
       .addCase(removeProduct.fulfilled, (state, action) => {
