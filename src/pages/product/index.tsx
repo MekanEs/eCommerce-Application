@@ -9,8 +9,8 @@ import {
 } from '../../store/product/product.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import Slider from './slider';
-import createTagPrice from '../../components/product/tagPrice';
+import Slider from '../../components/product/slider';
+import createTagPrice from '../../components/product/price/tagPrice';
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
 
 // eslint-disable-next-line max-lines-per-function

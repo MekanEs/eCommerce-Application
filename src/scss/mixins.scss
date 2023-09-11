@@ -144,6 +144,12 @@
   text-align: center;
 }
 
+@mixin page_subtitle {
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
 // swiper
 
 @mixin swiper_button($direction, $symbol) {
