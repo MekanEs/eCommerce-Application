@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import styles from './cart.module.scss';
 import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
-import BasketProductCard from './basketproductCard';
+import { BasketProductCard, OrderInfo } from '../../components';
 
 const Cart: React.FC = () => {
   const basket = useAppSelector((state) => state.basket.basket);
@@ -18,14 +18,18 @@ const Cart: React.FC = () => {
     }
   }, [dispatch]);
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Cart</h1>
-      <div className={styles.cardsContainer}>
-        {basket &&
-          basketItems &&
-          basketItems.map((el, index) => {
-            return <BasketProductCard el={el} key={index} basket={basket} />;
-          })}
+      <div className={styles.content}>
+        <div className={styles.cardsContainer}>
+          {basket &&
+            basketItems &&
+            basketItems.map((el, index) => {
+              return <BasketProductCard el={el} key={index} basket={basket} />;
+            })}
+        </div>
+
+        <OrderInfo cart={basket} />
       </div>
     </div>
   );

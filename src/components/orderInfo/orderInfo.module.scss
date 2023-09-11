@@ -1,0 +1,13 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding: 35px 50px;
+  outline: 1px solid $defaultOutline;
+}

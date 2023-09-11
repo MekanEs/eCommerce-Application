@@ -13,6 +13,7 @@ import Slider from './slider';
 
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
 import TagPrice from '../../components/product/tagPrice';
+import { isKey } from '../../utils/helpers/isKeyOfObj';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -61,13 +62,14 @@ const Product: React.FC = (): JSX.Element => {
   const formattedDiscountPrice: string | undefined = productDiscountPrice
     ? formatPrice(productDiscountPrice, language)
     : undefined;
-  const attributes = ['Category:', 'Frame material:', 'Wheel size:', 'Stock:'];
-  const values = [
-    productCategory,
-    frameMaterial.value,
-    wheelSize.value,
-    stock.value,
-  ];
+
+  const values = {
+    'Category:': productCategory,
+    'Frame material:': frameMaterial.value,
+    'Wheel size:': wheelSize.value,
+    'Stock:': stock.value,
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.general}>
@@ -84,13 +86,15 @@ const Product: React.FC = (): JSX.Element => {
           <div className={styles.info}>
             <p className={styles['subtitle']}>Info</p>
             <ul>
-              {attributes.map((el, index) => {
-                return (
-                  <li key={index} className={styles['list-item']}>
-                    <p className={styles['item-title']}>{el}</p>
-                    <p className={styles['item-info']}>{values[index]}</p>
-                  </li>
-                );
+              {Object.keys(values).map((el, index) => {
+                if (isKey<typeof values>(el)) {
+                  return (
+                    <li key={index} className={styles['list-item']}>
+                      <p className={styles['item-title']}>{el}</p>
+                      <p className={styles['item-info']}>{values[el]}</p>
+                    </li>
+                  );
+                }
               })}
             </ul>
           </div>

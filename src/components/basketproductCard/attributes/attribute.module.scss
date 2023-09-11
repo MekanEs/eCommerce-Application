@@ -1,0 +1,28 @@
+@import '../../../scss/allVariables.scss';
+
+.attributes {
+  width: fit-content;
+
+  li {
+    list-style: none;
+    display: flex;
+  }
+
+  .item-title {
+    margin-right: 10px;
+    color: black;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    text-wrap: nowrap;
+  }
+
+  .item-info {
+    color: black;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
+}

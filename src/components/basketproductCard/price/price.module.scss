@@ -1,0 +1,37 @@
+@import '../../../scss/allVariables.scss';
+
+.productPrice {
+  display: flex;
+  width: fit-content;
+  column-gap: 20px;
+  flex-direction: row-reverse;
+  font-size: 17px;
+  text-wrap: nowrap;
+}
+
+.totalPrice {
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  width: fit-content;
+
+  .discount {
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 16px;
+
+    .discount {
+      font-size: 16px;
+    }
+  }
+}
+
+.discount {
+  opacity: 0.4;
+  text-decoration: line-through;
+  margin-bottom: 5px;
+}
