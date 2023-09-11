@@ -1,0 +1,40 @@
+@import '../../../scss/allVariables.scss';
+
+.productCard {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+  width: 80%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    outline: 1px solid $accent;
+    transform: translateY(-5px);
+    box-shadow: 4px 4px 0px 0px $accent;
+  }
+}
+
+.price {
+  margin-top: 10px;
+
+  p {
+    &:last-child {
+      color: black;
+      font-family: Ubuntu;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+    }
+  }
+}
+
+.discount {
+  font-size: 17px;
+  opacity: 0.4;
+  text-decoration: line-through;
+  margin-bottom: 5px;
+}

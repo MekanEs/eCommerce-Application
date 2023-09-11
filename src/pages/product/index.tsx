@@ -10,8 +10,9 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Slider from './slider';
-import createTagPrice from '../../components/product/tagPrice';
+
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
+import TagPrice from '../../components/product/tagPrice';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -74,7 +75,11 @@ const Product: React.FC = (): JSX.Element => {
           <h2>{productName}</h2>
           <div className={styles.price}>
             <p className={styles['subtitle']}>Price</p>
-            {createTagPrice(formattedPrice, formattedDiscountPrice, styles)}
+            <TagPrice
+              price={formattedPrice}
+              discountPrice={formattedDiscountPrice}
+              styles={styles}
+            />
           </div>
           <div className={styles.info}>
             <p className={styles['subtitle']}>Info</p>

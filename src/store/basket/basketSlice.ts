@@ -34,7 +34,11 @@ export const getBasket = createAsyncThunk(
         })
         .me()
         .carts()
-        .get()
+        .get({
+          queryArgs: {
+            expand: 'masterData.current.img[*]',
+          },
+        })
         .execute();
 
       if (result.body.results.length === 0) {
@@ -71,7 +75,11 @@ export const getBasketUser = createAsyncThunk(
         })
         .me()
         .activeCart()
-        .get()
+        .get({
+          queryArgs: {
+            expand: 'masterData.current.img[*]',
+          },
+        })
         .execute();
 
       return result.body;

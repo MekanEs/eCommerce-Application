@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import styles from './cart.module.scss';
-import {
-  getBasket,
-  getBasketUser,
-  removeProduct,
-} from '../../store/basket/basketSlice';
+import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
+import BasketProductCard from './basketproductCard';
 
 const Cart: React.FC = () => {
   const basket = useAppSelector((state) => state.basket.basket);
@@ -27,35 +24,7 @@ const Cart: React.FC = () => {
         {basket &&
           basketItems &&
           basketItems.map((el, index) => {
-            return (
-              <div key={index} className={styles.productCard}>
-                <div>{el.name['en-US']}</div>
-                <div>quantity: {el.quantity}</div>
-                <div>
-                  price:{el.price.value.centAmount / 100} -{' '}
-                  {el.price.discounted?.value.centAmount &&
-                    el.price.discounted?.value.centAmount / 100}
-                </div>
-                <div>
-                  total:{(el.price.value.centAmount * el.quantity) / 100} -{' '}
-                  {el.price.discounted?.value.centAmount &&
-                    (el.price.discounted?.value.centAmount * el.quantity) / 100}
-                </div>
-                <button
-                  onClick={(): void => {
-                    dispatch(
-                      removeProduct({
-                        CartId: basket.id,
-                        productID: el.id,
-                        version: basket.version,
-                      }),
-                    );
-                  }}
-                >
-                  delete from cart
-                </button>
-              </div>
-            );
+            return <BasketProductCard el={el} key={index} basket={basket} />;
           })}
       </div>
     </div>

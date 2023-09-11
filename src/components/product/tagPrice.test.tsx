@@ -1,14 +1,16 @@
 import { render } from '@testing-library/react';
-import createTagPrice from './tagPrice';
+import TagPrice from './tagPrice';
 
-describe('createTagPrice', () => {
+describe('TagPrice', () => {
   it('should render price without discount', () => {
     const price = '50.00';
     const styles = {
       discount: 'discount-class',
     };
 
-    const { container } = render(createTagPrice(price, undefined, styles));
+    const { container } = render(
+      <TagPrice price={price} discountPrice={undefined} styles={styles} />,
+    );
 
     expect(container).toHaveTextContent('$ 50.00');
     expect(container.querySelector('.discount-class')).toBeNull();
@@ -21,7 +23,9 @@ describe('createTagPrice', () => {
       discount: 'discount-class',
     };
 
-    const { container } = render(createTagPrice(price, discountPrice, styles));
+    const { container } = render(
+      <TagPrice price={price} discountPrice={discountPrice} styles={styles} />,
+    );
 
     expect(container).toHaveTextContent('$ 50.00');
     expect(container).toHaveTextContent('$ 45.00');
