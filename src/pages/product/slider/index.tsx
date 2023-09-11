@@ -19,8 +19,8 @@ interface SliderProps {
 SwiperCore.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
 const Slider: React.FC<SliderProps> = ({ images }): JSX.Element => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   const openModal = (imageUrl: string): void => {
     setSelectedImage(imageUrl);

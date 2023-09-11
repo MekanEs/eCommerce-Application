@@ -7,17 +7,20 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
 import Logout from '../logout';
+import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { checkToken } from '../../store/auth/auth.slice';
 
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const dispatch = useAppDispatch();
   const isAuth = userAuth();
   useEffect(() => {
-    if (isAuth) dispatch(checkToken());
-  }, []);
-
+    if (isAuth) {
+      dispatch(getBasketUser());
+    } else {
+      dispatch(getBasket());
+    }
+  }, [isAuth]);
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -29,13 +32,16 @@ const Header: React.FC = () => {
           ''
         ) : isAuth ? (
           <div className={styles.profile}>
+            <NavLink to="/cart">Cart</NavLink>
             <NavLink to="/account">
               <img src={profile} alt="profile" />
             </NavLink>
+
             <Logout />
           </div>
         ) : (
           <div className={styles.auth}>
+            <NavLink to="/cart">Cart</NavLink>
             <NavLink className={isActive} to="registration">
               registration
             </NavLink>

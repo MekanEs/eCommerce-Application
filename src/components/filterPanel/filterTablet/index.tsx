@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../filterPanel.module.scss';
-import Sort from '../../sort';
+import Sort from '../sort';
 import SideBar from '../sideBar';
-import Search from '../../search';
+import Search from '../search';
 import { useAppSelector } from '../../../hooks/redux-hooks';
 import cx from 'classnames';
-import Pagination from '../../pagination';
+import Pagination from '../pagination';
 import filterIcon from '../../../assets/img/svg/filter.svg';
 
 type FilterModalPropsType = {

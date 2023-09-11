@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 export type logUser = {
   email: string;
   password: string;
+  anonymId: string | undefined;
 };
 
 export type regUser = {

@@ -4,7 +4,7 @@ import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { FormFields } from '../../interfaces/formInputs';
 import { CreateButton } from '../../components/form/createButton/createButton';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { loginUser, registrationUser } from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
@@ -37,6 +37,9 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
   const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction> = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
+  const anonymCartId = useAppSelector(
+    (state) => state.basket.basket && state.basket.basket.id,
+  );
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
     registration(
       data,
@@ -45,11 +48,12 @@ function createForm(form: UseFormReturn<FormFields>): React.JSX.Element {
       setSuccesMessage,
       dispatch,
       navigator,
+      anonymCartId,
     );
   };
-  const [warningMessage, setWarningMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [succesMessage, setSuccesMessage] = useState('');
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [succesMessage, setSuccesMessage] = useState<string>('');
 
   createUseEffect(form, errorMessage, setErrorMessage);
   createUseEffect(form, succesMessage, setSuccesMessage);
@@ -162,13 +166,20 @@ function registration(
   dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
     Dispatch<AnyAction>,
   navigator: NavigateFunction,
+  anonymCartId: string | undefined,
 ): void {
   dispatch(registrationUser(data)).then(() => {
     const state = store.getState().auth;
     if (state.status === 'ok') {
       setSuccesMessage(typeof state.message === 'string' ? state.message : '');
       setTimeout(() => {
-        dispatch(loginUser(data));
+        dispatch(
+          loginUser({
+            email: data.email,
+            password: data.password,
+            anonymId: anonymCartId,
+          }),
+        );
         form.reset();
         navigator('/');
       }, 500);

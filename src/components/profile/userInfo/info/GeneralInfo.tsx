@@ -15,8 +15,8 @@ const CreateGeneralInfo: React.FC = (): React.JSX.Element => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
     setSuccessMessage('');
     setErrorMessage('');

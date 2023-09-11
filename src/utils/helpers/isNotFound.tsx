@@ -7,6 +7,7 @@ const routes = [
   /\/registration/,
   /\/login/,
   /\/account/,
+  /\/cart/,
   /\/catalog\/\w\d/,
 ];
 

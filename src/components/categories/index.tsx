@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './categories.module.scss';
-import { useDispatch } from 'react-redux';
 import { categoryType } from '../../types/catalogTypes';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 import { hasChildren } from '../../utils/helpers/catalogPage/hasChildrenCategory';
 import SubCategories from './subCategories';
@@ -10,7 +9,7 @@ import CategoryButton from './categoryButton';
 import BreadCrumbs from './breadCrumbs';
 
 const Categories: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
   const childCategory = useAppSelector((state) => state.catalog.childCategory);
   const activeCategory = useAppSelector((state) => state.filter.category);

@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { FormFields } from '../../interfaces/formInputs';
@@ -10,21 +10,27 @@ import {
 } from '../../utils/helpers/formElements';
 import { CreateButton } from '../../components/form/createButton/createButton';
 import { loginUser } from '../../store/auth/auth.slice';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { store } from '../../store/store';
-import { ThunkDispatch } from 'redux-thunk/es/types';
 import { ISliceAuth } from '../../interfaces/sliceAuth';
-import { AnyAction } from '@reduxjs/toolkit';
 
 const Login: React.FC = (): JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({
     mode: 'onChange',
   });
-  const dispatch: ThunkDispatch<{ user: ISliceAuth }, undefined, AnyAction> &
-    Dispatch<AnyAction> = useAppDispatch();
+  const anonymCartID = useAppSelector(
+    (state) => state.basket.basket && state.basket.basket.id,
+  );
+  const dispatch = useAppDispatch();
   const navigator: NavigateFunction = useNavigate();
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
-    dispatch(loginUser(data)).then((): void => {
+    dispatch(
+      loginUser({
+        password: data.password,
+        email: data.email,
+        anonymId: anonymCartID,
+      }),
+    ).then((): void => {
       const state: ISliceAuth = store.getState().auth;
       if (state.status === 'ok') {
         form.reset();
@@ -38,8 +44,8 @@ const Login: React.FC = (): JSX.Element => {
     });
     setWarningMessage('');
   };
-  const [warningMessage, setWarningMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   createUseEffect(form, errorMessage, setErrorMessage);
 

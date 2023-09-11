@@ -21,8 +21,8 @@ export const CreatePasswordInputProfile: React.FC<
     formState: { errors },
   } = form;
 
-  const [warningMessage, setWarningMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [warningMessage, setWarningMessage] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div className={styles.fieldProfile}>

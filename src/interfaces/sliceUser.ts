@@ -13,4 +13,5 @@ export interface ISliceUser {
   shippingAddressIds: undefined | string[];
   message: null | string | unknown;
   version: undefined | number;
+  id: string | undefined;
 }
