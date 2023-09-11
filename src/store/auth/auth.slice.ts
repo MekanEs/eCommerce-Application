@@ -28,25 +28,8 @@ export const loginUser = createAsyncThunk(
     const password = options.password;
     const anonymId = options.anonymId;
     try {
-      let result: ClientResponse<CustomerSignInResult> = await getApiRootLogin(
-        email,
-        password,
-      )
-        .withProjectKey({ projectKey: CTP_PROJECT_KEY })
-        .login()
-        .post({
-          body: {
-            email: email,
-            password: password,
-            anonymousCart: { id: anonymId, typeId: 'cart' },
-            anonymousCartSignInMode: 'UseAsNewActiveCustomerCart',
-          },
-        })
-        .execute();
-      if (result.statusCode !== 200) {
-        console.log('relogin');
-
-        result = await getApiRootLogin(email, password)
+      const result: ClientResponse<CustomerSignInResult> =
+        await getApiRootLogin(email, password)
           .withProjectKey({ projectKey: CTP_PROJECT_KEY })
           .login()
           .post({
@@ -58,7 +41,6 @@ export const loginUser = createAsyncThunk(
             },
           })
           .execute();
-      }
 
       return result;
     } catch (error) {
