@@ -3,6 +3,7 @@ import styles from './about.module.scss';
 import AboutGeneralInfo from '../../components/aboutUs/general/generalInfo';
 import DeveloperNovikova from '../../components/aboutUs/developers/novikova/novikova';
 import DeveloperEsenjanow from '../../components/aboutUs/developers/esenjanow/esenjanow';
+import DeveloperVarapai from '../../components/aboutUs/developers/voropai/voropai';
 
 const About: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const About: React.FC = () => {
       <AboutGeneralInfo />
       <DeveloperNovikova />
       <DeveloperEsenjanow />
+      <DeveloperVarapai />
     </div>
   );
 };
