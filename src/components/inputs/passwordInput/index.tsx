@@ -15,7 +15,7 @@ const PasswordInput: React.FC<InputProps> = ({
   isValid,
   warningMessage,
 }): JSX.Element => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div className={styles['password-input']}>

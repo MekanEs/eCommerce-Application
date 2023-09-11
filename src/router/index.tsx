@@ -10,6 +10,7 @@ import {
   PageNotFound,
   Account,
   Registration,
+  Cart,
 } from '../pages';
 import { Layout } from '../components/index';
 import Catalog from '../pages/catalog';
@@ -23,6 +24,7 @@ export const router = createBrowserRouter(
       <Route index element={<Main />} />
       <Route path="about" element={<About />} />
       <Route path="catalog" element={<Catalog />} />
+      <Route path="cart" element={<Cart />} />
       <Route path="catalog/:key" element={<Product />} />
       <Route element={<RequireAuth />}>
         <Route path="login" element={<Login />} />
