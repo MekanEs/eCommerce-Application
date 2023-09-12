@@ -35,14 +35,17 @@
   border: 1px solid #706c68;
   color: #706c68;
   background-color: inherit;
+
   &:hover {
     border: 1px solid $accent;
     color: $accent;
   }
+
   &:active {
     border: 1px solid $active;
     color: $active;
   }
+
   &:disabled {
     border: 1px solid $disabled;
     background-color: $disabled;
@@ -56,12 +59,15 @@
   border: none;
   color: #fff;
   background-color: $accent;
+
   &:hover {
     background-color: $hover;
   }
+
   &:active {
     background-color: $active;
   }
+
   &:disabled {
     background-color: $disabled;
     color: $disabled;
@@ -125,11 +131,13 @@
 
 @mixin section_header {
   h2 {
-    @include header(46px);
+    @include header(calc(10px + 4vmin));
     text-align: center;
   }
+
   p {
     margin-top: 20px;
+    padding: 0 10px;
     @include text_transparent(16px);
     max-width: 732px;
     text-align: center;
