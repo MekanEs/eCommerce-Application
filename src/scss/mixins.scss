@@ -30,6 +30,7 @@
 // buttons
 
 @mixin button_white {
+  font-size: 13px;
   padding: 9px 19px;
   border-radius: 3px;
   border: 1px solid #706c68;
@@ -54,6 +55,7 @@
 }
 
 @mixin button_blue {
+  font-size: 13px;
   padding: 9px 19px;
   border-radius: 3px;
   border: none;
@@ -102,7 +104,7 @@
 }
 
 @mixin button {
-  font-size: 17px;
+  font-size: 16px;
   text-transform: lowercase;
   width: 320px;
   height: 40px;
@@ -267,4 +269,17 @@
   font-style: $style;
   font-weight: $weight;
   line-height: $height;
+}
+
+
+@mixin link_hover {
+  transition: all 0.1s ease;
+
+  &:hover {
+    color: $accent;
+  }
+
+  &:active {
+    color: $active;
+  }
 }

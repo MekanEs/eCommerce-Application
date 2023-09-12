@@ -6,6 +6,7 @@
   width: 100%;
   max-width: 1216px;
   padding: 0 25px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .header {
@@ -28,8 +29,13 @@ a {
 
   a {
     @include button_white;
+
+    &:last-child {
+      @include button_blue;
+    }
   }
 }
+
 .activeLink {
   color: $accent;
 }
