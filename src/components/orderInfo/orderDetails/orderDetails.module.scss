@@ -21,18 +21,18 @@
 }
 
 .price {
-  color: $disabled;
+  color: $accent;
   display: flex;
   column-gap: 10px;
   line-height: 100%;
   align-items: center;
 
   p {
-    text-decoration: line-through;
+    text-decoration: none;
   }
 
   .discount {
-    color: $accent;
-    text-decoration: none;
+    text-decoration: line-through;
+    color: $disabled;
   }
 }
