@@ -2,6 +2,7 @@ import React from 'react';
 import { Cart } from '@commercetools/platform-sdk';
 import styles from './orderInfo.module.scss';
 import ClearCart from './clearCart';
+import CartDiscount from './discount';
 
 type OrderInfoPropsType = {
   cart: Cart | undefined;
@@ -22,7 +23,7 @@ const OrderInfo: React.FC<OrderInfoPropsType> = ({ cart }) => {
           <p>Amount payable</p>
           <p>{cart.totalPrice.centAmount / 100}</p>
         </div>
-        <div>PromoCodes</div>
+        <CartDiscount cart={cart} />
       </div>
 
       <ClearCart basket={cart} />

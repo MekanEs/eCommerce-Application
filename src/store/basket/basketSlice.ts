@@ -6,7 +6,12 @@ import {
   getApiRootToken,
 } from '../../services/ClientBuilder';
 import { CTP_PROJECT_KEY } from '../../services';
-import { ApiRoot, Cart, LineItem } from '@commercetools/platform-sdk';
+import {
+  ApiRoot,
+  Cart,
+  LineItem,
+  MyCartUpdateAction,
+} from '@commercetools/platform-sdk';
 import { getAnonymToken, getToken } from '../../utils/services/getToken';
 
 const initialState: {
@@ -166,6 +171,43 @@ export const removeLineItem = createAsyncThunk(
             }),
           },
         })
+        .execute();
+
+      return result.body;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const updateDiscount = createAsyncThunk(
+  'updateDiscount/basket',
+  async function ({
+    CartId,
+    version,
+
+    action,
+  }: {
+    CartId: string;
+    version: number;
+
+    action: MyCartUpdateAction;
+  }) {
+    try {
+      const result = await getApiRoot()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .carts()
+        .withId({ ID: CartId })
+        .post({
+          body: {
+            version: version,
+            actions: [action],
+          },
+        })
+
         .execute();
 
       return result.body;
@@ -347,6 +389,10 @@ const basketSlice = createSlice({
         state.status = 'fullfilled';
       })
       .addCase(removeLineItem.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(updateDiscount.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       });
