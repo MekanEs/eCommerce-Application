@@ -2,10 +2,12 @@ import { Cart } from '@commercetools/platform-sdk';
 import React, { ChangeEventHandler, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { updateDiscount } from '../../../store/basket/basketSlice';
+import styles from './discount.module.scss';
 
 type CartDiscountPropsType = {
   cart: Cart;
 };
+
 const CartDiscount: React.FC<CartDiscountPropsType> = ({ cart }) => {
   const discounts = cart.discountCodes;
   const dispatch = useAppDispatch();
@@ -43,11 +45,24 @@ const CartDiscount: React.FC<CartDiscountPropsType> = ({ cart }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Promo codes</h2>
-      <input onChange={handleInputChange} type="text" value={code} />
-      <button onClick={handleInputApply}>apply</button>
-      <ul>
+      <div className={styles.inputContainer}>
+        <input
+          onKeyDown={(e): void => {
+            if (e.code === 'Enter') {
+              handleInputApply();
+            }
+          }}
+          placeholder="Enter your promocode"
+          onChange={handleInputChange}
+          type="text"
+          value={code}
+        />
+        <button onClick={handleInputApply}>apply</button>
+      </div>
+
+      <ul className={styles.discounts}>
         {discounts.map((el, index) => {
           const discountCode =
             AllDiscounts &&

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
 import { CreateButton } from '../../../form/createButton/createButton';
-import { useAppDispatch } from '../../../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
 import { FormFields } from '../../../../interfaces/formInputs';
 import { ISliceUser } from '../../../../interfaces/sliceUser';
 import styles from '../userInfo.module.scss';
@@ -9,12 +9,21 @@ import { store } from '../../../../store/store';
 import CreateMessage from '../../message/getMessage';
 import { getNewPassword } from '../../../../store/user/user.slice';
 import { CreateTablePassword } from '../../personalInfo/tablePassword';
+import { loginUserRegister } from '../../../../store/auth/auth.slice';
+import {
+  resetAnonymToken,
+  resetToken,
+} from '../../../../utils/services/getToken';
+import { useNavigate } from 'react-router-dom';
 
 const CreateGeneralPassword: React.FC = (): React.JSX.Element => {
   const form: UseFormReturn<FormFields> = useForm<FormFields>({
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
+  const navigator = useNavigate();
+  const email = useAppSelector((state) => state.user.email);
+
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
   const onSubmit: SubmitHandler<FormFields> = (data: FormFields): void => {
@@ -27,6 +36,21 @@ const CreateGeneralPassword: React.FC = (): React.JSX.Element => {
           setSuccessMessage(
             typeof state.message === 'string' ? state.message : '',
           );
+          resetAnonymToken();
+          resetToken();
+
+          setTimeout(() => {
+            if (!email) {
+              return;
+            }
+            dispatch(
+              loginUserRegister({
+                email: email,
+                password: data.newPassword,
+              }),
+            );
+            navigator('/');
+          }, 500);
         } else {
           setErrorMessage(
             typeof state.message === 'string' ? state.message : '',

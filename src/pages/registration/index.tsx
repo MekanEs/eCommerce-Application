@@ -5,7 +5,10 @@ import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 import { FormFields } from '../../interfaces/formInputs';
 import { CreateButton } from '../../components/form/createButton/createButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { loginUser, registrationUser } from '../../store/auth/auth.slice';
+import {
+  loginUserRegister,
+  registrationUser,
+} from '../../store/auth/auth.slice';
 import { store } from '../../store/store';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { ISliceAuth } from '../../interfaces/sliceAuth';
@@ -174,7 +177,7 @@ function registration(
       setSuccesMessage(typeof state.message === 'string' ? state.message : '');
       setTimeout(() => {
         dispatch(
-          loginUser({
+          loginUserRegister({
             email: data.email,
             password: data.password,
             anonymId: anonymCartId,

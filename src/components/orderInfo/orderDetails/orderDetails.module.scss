@@ -1,0 +1,38 @@
+@import '../../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 20px;
+}
+
+.info {
+  display: flex;
+  column-gap: 10px;
+
+  p {
+    text-wrap: nowrap;
+  }
+}
+
+.amount {
+  color: $accent;
+}
+
+.price {
+  color: $disabled;
+  display: flex;
+  column-gap: 10px;
+  line-height: 100%;
+  align-items: center;
+
+  p {
+    text-decoration: line-through;
+  }
+
+  .discount {
+    color: $accent;
+    text-decoration: none;
+  }
+}
