@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import styles from './cart.module.scss';
-import {
-  getBasket,
-  getBasketUser,
-  removeProduct,
-} from '../../store/basket/basketSlice';
+import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
+import { BasketProductCard, OrderInfo } from '../../components';
 
 const Cart: React.FC = () => {
   const basket = useAppSelector((state) => state.basket.basket);
@@ -21,43 +18,25 @@ const Cart: React.FC = () => {
     }
   }, [dispatch]);
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Cart</h1>
-      <div className={styles.cardsContainer}>
-        {basket &&
-          basketItems &&
-          basketItems.map((el, index) => {
-            return (
-              <div key={index} className={styles.productCard}>
-                <div>{el.name['en-US']}</div>
-                <div>quantity: {el.quantity}</div>
-                <div>
-                  price:{el.price.value.centAmount / 100} -{' '}
-                  {el.price.discounted?.value.centAmount &&
-                    el.price.discounted?.value.centAmount / 100}
-                </div>
-                <div>
-                  total:{(el.price.value.centAmount * el.quantity) / 100} -{' '}
-                  {el.price.discounted?.value.centAmount &&
-                    (el.price.discounted?.value.centAmount * el.quantity) / 100}
-                </div>
-                <button
-                  onClick={(): void => {
-                    dispatch(
-                      removeProduct({
-                        CartId: basket.id,
-                        productID: el.id,
-                        version: basket.version,
-                      }),
-                    );
-                  }}
-                >
-                  delete from cart
-                </button>
-              </div>
-            );
-          })}
-      </div>
+      {basketItems && basketItems.length > 0 ? (
+        <div className={styles.content}>
+          <div className={styles.cardsContainer}>
+            {basket &&
+              basketItems &&
+              basketItems.map((el, index) => {
+                return (
+                  <BasketProductCard el={el} key={index} basket={basket} />
+                );
+              })}
+          </div>
+
+          <OrderInfo cart={basket} />
+        </div>
+      ) : (
+        'Cart is empty'
+      )}
     </div>
   );
 };

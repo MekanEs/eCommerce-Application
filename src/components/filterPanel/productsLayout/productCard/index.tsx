@@ -9,11 +9,20 @@ import {
   addProductUser,
   addProductAnonym,
 } from '../../../../store/basket/basketSlice';
+import { isKey } from '../../../../utils/helpers/isKeyOfObj';
 
 type productTypeProps = { product: productType };
 
+// eslint-disable-next-line max-lines-per-function
 const ProductCard: React.FC<productTypeProps> = ({ product }) => {
-  const attributes = ['Frame material', 'Wheel size', 'Stock'];
+  const attributes = {
+    'Frame material:': product.atributes?.filter(
+      (el) => el.name === 'frameMaterial',
+    )[0].value,
+    'Wheel size:': product.atributes?.filter((el) => el.name === 'wheelSize')[0]
+      .value,
+    'Stock:': product.atributes?.filter((el) => el.name === 'stock')[0].value,
+  };
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const basket = useAppSelector((state) => state.basket.basket);
@@ -24,25 +33,21 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
     productId: string,
     version: number,
   ): void => {
-    if (isAuth) {
-      console.log('user');
-      dispatch(
-        addProductUser({
-          CartId: basketId,
-          productID: productId,
-          version: version,
-        }),
-      );
-    } else {
-      console.log('anonym');
-      dispatch(
-        addProductAnonym({
-          CartId: basketId,
-          productID: productId,
-          version: version,
-        }),
-      );
-    }
+    isAuth
+      ? dispatch(
+          addProductUser({
+            CartId: basketId,
+            productID: productId,
+            version: version,
+          }),
+        )
+      : dispatch(
+          addProductAnonym({
+            CartId: basketId,
+            productID: productId,
+            version: version,
+          }),
+        );
   };
   return (
     <div
@@ -61,11 +66,18 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
             {product.categories &&
               product.categories.map((el) => el.name).join('>')}
           </span>
-          {product.atributes?.map((attribute, index) => (
-            <div key={index}>
-              <span>{attributes[index]}</span>: <span>{attribute.value}</span>
-            </div>
-          ))}
+          <ul>
+            {Object.keys(attributes).map((el, index) => {
+              if (isKey<typeof attributes>(el)) {
+                return (
+                  <li key={index}>
+                    <p className={styles.name}>{el}</p>
+                    <p>{attributes[el]}</p>
+                  </li>
+                );
+              }
+            })}
+          </ul>
         </div>
         <Price price={product.price} />
         <button

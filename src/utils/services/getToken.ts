@@ -14,3 +14,7 @@ export const getAnonymToken = (): string => {
 export const resetAnonymToken = (): void => {
   localStorage.removeItem('Anonymtoken');
 };
+
+export const resetToken = (): void => {
+  localStorage.removeItem('token');
+};

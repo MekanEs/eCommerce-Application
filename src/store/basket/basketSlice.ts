@@ -6,8 +6,8 @@ import {
   getApiRootToken,
 } from '../../services/ClientBuilder';
 import { CTP_PROJECT_KEY } from '../../services';
-import { ApiRoot, Cart } from '@commercetools/platform-sdk';
-import { getAnonymToken } from '../../utils/services/getToken';
+import { ApiRoot, Cart, LineItem } from '@commercetools/platform-sdk';
+import { getAnonymToken, getToken } from '../../utils/services/getToken';
 
 const initialState: {
   basket: Cart | undefined;
@@ -24,6 +24,14 @@ const anonymApiRoot = (): ApiRoot => {
   }
 };
 
+const getApiRoot = (): ApiRoot => {
+  if (getToken()) {
+    return getApiRootToken();
+  } else {
+    return anonymApiRoot();
+  }
+};
+
 export const getBasket = createAsyncThunk(
   'getBasket/basket',
   async function () {
@@ -34,7 +42,11 @@ export const getBasket = createAsyncThunk(
         })
         .me()
         .carts()
-        .get()
+        .get({
+          queryArgs: {
+            expand: 'masterData.current.img[*]',
+          },
+        })
         .execute();
 
       if (result.body.results.length === 0) {
@@ -65,13 +77,95 @@ export const getBasketUser = createAsyncThunk(
   'getBasketUser/basket',
   async function () {
     try {
-      const result = await getApiRootToken()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
         .me()
         .activeCart()
-        .get()
+        .get({
+          queryArgs: {
+            expand: 'masterData.current.img[*]',
+          },
+        })
+        .execute();
+
+      return result.body;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const updateQuantity = createAsyncThunk(
+  'updateQuantity/basket',
+  async function ({
+    CartId,
+    version,
+    productID,
+    quantity,
+  }: {
+    CartId: string;
+    version: number;
+    productID: string;
+    quantity: number;
+  }) {
+    try {
+      const result = await getApiRootToken()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .carts()
+        .withId({ ID: CartId })
+        .post({
+          body: {
+            version: version,
+            actions: [
+              {
+                action: 'changeLineItemQuantity',
+                lineItemId: productID,
+                quantity: quantity,
+              },
+            ],
+          },
+        })
+        .execute();
+
+      return result.body;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const removeLineItem = createAsyncThunk(
+  'removeLineItem/basket',
+  async function ({
+    CartId,
+    version,
+    lineItemID,
+  }: {
+    CartId: string;
+    version: number;
+    lineItemID: LineItem[];
+  }) {
+    try {
+      const result = await getApiRoot()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .carts()
+        .withId({ ID: CartId })
+        .post({
+          body: {
+            version: version,
+            actions: lineItemID.map((el) => {
+              return { action: 'removeLineItem', lineItemId: el.id };
+            }),
+          },
+        })
         .execute();
 
       return result.body;
@@ -245,6 +339,14 @@ const basketSlice = createSlice({
         if (action.payload) state.status = 'pending';
       })
       .addCase(removeProduct.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(updateQuantity.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(removeLineItem.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       });
