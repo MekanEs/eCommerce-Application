@@ -1,14 +1,18 @@
 @import '../../../../scss/allVariables.scss';
 
+.product_container {
+  width: 31%;
+}
+
 .product_cart {
-  width: 290px;
+  width: 100%;
   height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  border-radius: 5px;
+  border-radius: 0px 0px 5px 0px;
   border: 1px solid #fff;
   border-right: 1px solid $defaultOutline;
   border-bottom: 1px solid $defaultOutline;
@@ -19,6 +23,7 @@
   &:hover {
     transform: translateY(-5px);
     border: 1px solid $active;
+    border-radius: 5px;
     box-shadow: 4px 4px 0px 0px $accent;
   }
 
@@ -58,6 +63,7 @@
 
         .name {
           font-weight: 700;
+          margin-right: 8px;
         }
       }
     }
@@ -66,7 +72,7 @@
 
 .addToCart {
   @include button_blue;
-  padding: 12px 0;
+  padding: 9px 0;
   width: 90%;
   margin-bottom: 15px;
   font-size: 17px;
@@ -76,5 +82,36 @@
   cursor: pointer;
   &:disabled {
     color: #fff;
+  }
+}
+
+@media (max-width: 1050px) {
+  .product_container {
+    width: 48%;
+  }
+
+  .product_cart {
+    width: 100%;
+    height: auto;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+
+@media (max-width: 800px) {
+  .product_container {
+      width: 100%;
+    }
+
+  .product_cart {
+    width: 100%;
+    height: auto;
+
+    img {
+      width: 60%;
+    }
   }
 }

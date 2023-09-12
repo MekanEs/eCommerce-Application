@@ -283,3 +283,58 @@
     color: $active;
   }
 }
+
+@mixin input_range {
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+
+      &::-moz-range-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-moz-range-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+
+    &::-moz-range-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+  }
+}

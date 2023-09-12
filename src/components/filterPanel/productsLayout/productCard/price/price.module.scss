@@ -3,7 +3,7 @@
 .container {
   display: flex;
   flex-wrap: nowrap;
-  padding: 12px 0;
+  padding: 8px 0;
   width: 90%;
   border-radius: 3px;
   justify-content: center;
@@ -13,17 +13,18 @@
   font-size: 17px;
   font-weight: 500;
   line-height: 140%;
-  margin-bottom: 12px;
   letter-spacing: 1px;
 }
 
 .discount {
   background-color: $success;
   color: #fff;
+  margin-bottom: 10px;
 }
 
 .default {
-  background-color: $defaultOutline;
+  background-color: #e7e7e7;
+  margin-bottom: 10px;
 }
 
 .line {
