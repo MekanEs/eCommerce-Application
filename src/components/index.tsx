@@ -8,6 +8,8 @@ import OrderInfo from './orderInfo';
 import BasketProductCard from './basketproductCard';
 import Pagination from './filterPanel/pagination';
 import DiscountBanner from './discountBanner';
+import TagPrice from './product/price/tagPrice';
+import Slider from './product/slider';
 export {
   Header,
   Footer,
@@ -19,4 +21,6 @@ export {
   DiscountBanner,
   OrderInfo,
   BasketProductCard,
+  TagPrice,
+  Slider,
 };

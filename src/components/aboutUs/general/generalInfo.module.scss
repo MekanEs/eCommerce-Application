@@ -1,0 +1,103 @@
+@import '../../../scss/allVariables.scss';
+
+.general-info {
+  margin-top: 40px;
+  padding: 0 30px 30px;
+  border-radius: 5px;
+  outline: 1px solid $accent;
+  overflow: hidden;
+}
+
+.collaboration {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collaboration-info {
+  max-width: 770px;
+
+  h3 {
+    @include page_subtitle;
+  }
+
+  p {
+    @include text_def(15px);
+    padding: 10px 0;
+  }
+}
+
+.collaboration-image {
+  margin-right: -115px;
+}
+
+.educational-program {
+  h3 {
+    @include page_subtitle;
+  }
+
+  p {
+    @include text_def(15px);
+    padding: 10px 0;
+  }
+
+  img {
+    margin-top: 20px;
+  }
+}
+
+.educational-image {
+  position: relative;
+  margin: 20px 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 225px;
+    height: 86px;
+    background: url('../../../assets/img/png/tape.png') no-repeat;
+    top: -15px;
+    left: 16px;
+    z-index: -1;
+  }
+}
+
+@media (max-width: 1050px) {
+  .general-info {
+    padding: 20px 15px 30px;
+  }
+
+  .collaboration {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .collaboration {
+    flex-direction: column;
+  }
+
+  .collaboration-info,
+  .educational-program {
+    max-width: 100%;
+
+    h3,
+    p {
+      text-align: center
+    }
+  }
+
+  .collaboration-image {
+    margin-right: -120px;
+  }
+
+  .educational-program {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .educational-image {
+    margin-right: 150px;
+  }
+}
