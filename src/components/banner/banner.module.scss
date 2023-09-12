@@ -13,16 +13,16 @@
 
   h2 {
     @include header(88px);
-    color: #323032;
+    font-family: 'Ubuntu', sans-serif;
     text-align: start;
-    letter-spacing: 3px;
-    margin-left: 32px;
+    margin: 0 30px 30px 30px;
   }
 
   img {
-    margin-top: -80px;
+    margin: -80px -36px -8px 0;
     object-fit: cover;
     overflow: visible;
+    scale: 0.96;
   }
 }
 @media (max-width: 1220px) {
@@ -34,10 +34,11 @@
 
     h2 {
       max-width: 600px;
+      text-align: center;
     }
 
     img {
-      margin-top: 30px;
+      margin: 30px -36px -8px 0;
       width: 80%;
     }
   }
@@ -46,12 +47,12 @@
 @media (max-width: 850px) {
   .container {
     h2 {
-      font-size: 26px;
-      max-width: 250px;
+      font-size: 40px;
+      max-width: 260px;
     }
 
     img {
-      margin-top: 10px;
+      margin: 10px -36px -1% 0;
     }
   }
 }
