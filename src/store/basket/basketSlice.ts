@@ -151,7 +151,7 @@ export const removeLineItem = createAsyncThunk(
     lineItemID: LineItem[];
   }) {
     try {
-      const result = await getApiRootToken()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
