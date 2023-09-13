@@ -12,10 +12,13 @@ const DiscountBanner: React.FC = () => {
         <div className={styles.dicounts}>
           {discountCodes.map((el, index) => {
             return (
-              <div className={styles.discount} key={index}>
-                <div className={styles.code}>{el.code}</div>
-                <div>{el.description}</div>
-                <button className={styles.applyBtn}>apply</button>
+              <div className={styles['discount-container']} key={index}>
+                <hr className={styles['dash-line']}></hr>
+                <div className={styles.discount}>
+                  <div className={styles.code}>{el.code}</div>
+                  <p>{el.description}</p>
+                  <button className={styles.applyBtn}>apply</button>
+                </div>
               </div>
             );
           })}

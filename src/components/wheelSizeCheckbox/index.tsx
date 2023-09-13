@@ -5,6 +5,7 @@ import {
   wheelSizeType,
 } from '../../store/productFilter/productFilter.slice';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
+import styles from '../filterPanel/filterPanel.module.scss';
 
 const WheelSize: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ const WheelSize: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.filterSection}>
       <h3>Wheel size</h3>
       {Object.keys(wheelSize).map((el, i) => {
         if (isKey<wheelSizeType>(el)) {

@@ -55,6 +55,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
         navigate(`/catalog/${product.key}`);
       }}
       key={product.id}
+      className={styles.product_container}
     >
       <div key={product.id} className={styles.product_cart}>
         <div className={styles.productName}>{product.name}</div>
