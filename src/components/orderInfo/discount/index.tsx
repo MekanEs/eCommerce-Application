@@ -70,13 +70,13 @@ const CartDiscount: React.FC<CartDiscountPropsType> = ({ cart }) => {
               (discount) => discount.discountId === el.discountCode.id,
             )[0];
           return (
-            <li
-              key={index}
-              title={discountCode ? discountCode.description : ''}
-            >
-              {discountCode ? discountCode.code : ''}
+            <li key={index}>
+              <p title={discountCode ? discountCode.description : ''}>
+                {discountCode ? discountCode.code : ''}
+              </p>
 
               <button
+                title="close"
                 onClick={(): void => {
                   if (discountCode && discountCode.discountId)
                     handleClick(discountCode.discountId);

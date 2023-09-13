@@ -5,6 +5,7 @@
   flex-direction: column;
   row-gap: 20px;
   padding: 20px;
+  align-items: baseline;
 }
 
 .inputContainer {
@@ -16,21 +17,32 @@
     outline: 1px solid $defaultOutline;
     max-width: 180px;
   }
+
+  button {
+    margin-left: 10px;
+    @include button_white;
+    padding: 5px 10px;
+  }
 }
 
 .discounts {
   list-style: none;
-
+  width: 90%;
   li {
-    padding: 10px 20px;
+    padding: 10px 10px 10px 0;
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+    border-bottom: 1px solid $defaultOutline;
 
     button {
       border: none;
       background: none;
       cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $accent;
+      }
     }
   }
 }
