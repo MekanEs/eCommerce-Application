@@ -9,7 +9,11 @@ type OrderDetailsPropsType = {
 
 const OrderDetails: React.FC<OrderDetailsPropsType> = ({ cart }) => {
   const price: number = cart.lineItems.reduce(
-    (acc, el) => acc + (el.price.value.centAmount * el.quantity) / 100,
+    (acc, el) =>
+      acc +
+      ((el.price.discounted?.value.centAmount || el.price.value.centAmount) *
+        el.quantity) /
+        100,
     0,
   );
   return (
@@ -24,7 +28,11 @@ const OrderDetails: React.FC<OrderDetailsPropsType> = ({ cart }) => {
         <div className={styles.price}>
           <TagPrice
             price={`${price}`}
-            discountPrice={`${cart.totalPrice.centAmount / 100}`}
+            discountPrice={
+              price === cart.totalPrice.centAmount / 100
+                ? undefined
+                : `${cart.totalPrice.centAmount / 100}`
+            }
             styles={styles}
           />
         </div>

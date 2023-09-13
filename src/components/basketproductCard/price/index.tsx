@@ -20,6 +20,7 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
           discountPrice={discount ? `${discount / 100}` : undefined}
           styles={styles}
         />
+        Price:
       </div>
       {lineItem.quantity > 1 ? (
         <div className={cx(styles.productPrice, styles.totalPrice)}>
