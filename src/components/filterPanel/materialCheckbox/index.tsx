@@ -5,6 +5,7 @@ import {
   setMaterial,
 } from '../../../store/productFilter/productFilter.slice';
 import { isKey } from '../../../utils/helpers/isKeyOfObj';
+import styles from '../filterPanel.module.scss';
 
 const Material: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ const Material: React.FC = () => {
     }
   };
   return (
-    <div>
+    <div className={styles.filterSection}>
       <h3>Frame materials</h3>
       {Object.keys(materials).map((el, i) => {
         if (isKey<materialtype>(el)) {

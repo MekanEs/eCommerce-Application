@@ -2,13 +2,15 @@
 
 .container {
   display: flex;
-  padding: 30px;
+  flex: 1 1 45%;
+  padding: 30px 25px;
+  margin-top: 10px;
   column-gap: 10px;
-  border: 1.5px solid #fff;
+  border: 1.5px solid white;
   align-items: flex-start;
   border-radius: 0 0 5px 0;
-  border-right: 1.5px solid #e5e5e5;
-  border-bottom: 1.5px solid #e5e5e5;
+  border-right: 1.5px solid $defaultOutline;
+  border-bottom: 1.5px solid $defaultOutline;
   transition: all 0.3s ease;
 
   h5 {
@@ -18,7 +20,7 @@
   }
 
   p {
-    margin-top: 14px;
+    margin-top: 16px;
     @include text;
     font-size: 16px;
     max-width: 500px;
@@ -26,20 +28,19 @@
 
   &:hover {
     border-radius: 5px;
-    border: 1.5px solid #3e66fb;
+    border: 1.5px solid $accent;
+    box-shadow: 4px 4px 0px 0px $hover;
+    cursor: default;
   }
 
   img {
     width: 20px;
+    margin-top: 2px;
   }
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 650px) {
   .container {
-    width: 70%;
-
-    p {
-      max-width: 100%;
-    }
+    flex: 1 1 100%;
   }
 }

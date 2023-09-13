@@ -27,19 +27,20 @@ const CartDiscount: React.FC<CartDiscountPropsType> = ({ cart }) => {
   };
 
   const handleInputApply = (): void => {
-    dispatch(
-      updateDiscount({
-        CartId: cart.id,
-        version: cart.version,
-        action: {
-          action: 'addDiscountCode',
-          code: code,
-        },
-      }),
-    );
+    if (code !== '') {
+      dispatch(
+        updateDiscount({
+          CartId: cart.id,
+          version: cart.version,
+          action: {
+            action: 'addDiscountCode',
+            code: code,
+          },
+        }),
+      );
+    }
     setCode('');
   };
-
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e): void => {
     setCode(e.currentTarget.value);
   };
@@ -76,7 +77,7 @@ const CartDiscount: React.FC<CartDiscountPropsType> = ({ cart }) => {
               </p>
 
               <button
-                title="close"
+                title="remove"
                 onClick={(): void => {
                   if (discountCode && discountCode.discountId)
                     handleClick(discountCode.discountId);

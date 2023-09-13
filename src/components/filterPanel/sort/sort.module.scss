@@ -2,12 +2,25 @@
 
 .container {
   display: flex;
+  margin-right: 20px;
 
   .select {
     @include text_def(17px);
-    padding: 10px 20px;
+    padding: 5px 20px;
     background-color: $footer;
     border: none;
+
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30px' height='20px' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z' fill='%233E66FB'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right -9% bottom 45%;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border: none;
+    }
 
     @media (max-width: 1250px) {
       background-color: inherit;
@@ -15,7 +28,6 @@
 
     @media (max-width: 800px) {
       @include text_def(14px);
-      padding: 5px 10px;
 
       option {
         @include text_def(12px);
@@ -34,3 +46,10 @@
     }
   }
 }
+
+@media (max-width: 1250px) {
+  .container {
+    margin-left: -20px;
+  }
+}
+

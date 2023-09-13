@@ -5,10 +5,12 @@ import {
   wheelSizeType,
 } from '../../store/productFilter/productFilter.slice';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
+import styles from '../filterPanel/filterPanel.module.scss';
 
 const WheelSize: React.FC = () => {
   const dispatch = useAppDispatch();
   const wheelSize = useAppSelector((state) => state.filter.wheelsize);
+  console.log(wheelSize);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newObj = structuredClone(wheelSize);
@@ -20,7 +22,7 @@ const WheelSize: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.filterSection}>
       <h3>Wheel size</h3>
       {Object.keys(wheelSize).map((el, i) => {
         if (isKey<wheelSizeType>(el)) {
@@ -33,7 +35,7 @@ const WheelSize: React.FC = () => {
                 id={el}
                 checked={wheelSize[el]}
               />
-              <label htmlFor={el}>{el}</label>
+              <label htmlFor={el}>{el.slice(0, 2)}"</label>
             </div>
           );
         }

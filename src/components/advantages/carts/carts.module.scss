@@ -2,6 +2,7 @@
 
 .cart {
   display: flex;
+  align-items: flex-start;
   column-gap: 18px;
 }
 
@@ -13,6 +14,7 @@
 
   p {
     @include text_def(16px);
+    margin-top: 16px;
   }
 }
 

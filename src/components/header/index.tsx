@@ -46,7 +46,7 @@ const Header: React.FC = () => {
               registration
             </NavLink>
             <NavLink className={isActive} to="login">
-              log in
+              log&nbsp;in
             </NavLink>{' '}
           </div>
         )}
