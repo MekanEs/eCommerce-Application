@@ -2,6 +2,12 @@
 
 .container {
   width: 100%;
+
+  h2 {
+    margin-top: 20px;
+    @include header(40px);
+    text-align: center;
+  }
 }
 
 .content {
@@ -30,4 +36,11 @@
   @media (max-width: 1000px) {
     width: 90%;
   }
+}
+
+.emptyMsg {
+  width: 80%;
+  padding: 50px;
+  text-align: center;
+  @include header(50px);
 }
