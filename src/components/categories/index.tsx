@@ -16,6 +16,7 @@ const Categories: React.FC = () => {
   const [activeAncestor, setActiveAncestor] = useState<categoryType | null>(
     null,
   );
+
   useEffect(() => {
     if (
       hasChildren(activeCategory, childCategory).length > 0 ||

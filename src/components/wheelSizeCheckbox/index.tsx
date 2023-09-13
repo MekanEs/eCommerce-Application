@@ -10,7 +10,6 @@ import styles from '../filterPanel/filterPanel.module.scss';
 const WheelSize: React.FC = () => {
   const dispatch = useAppDispatch();
   const wheelSize = useAppSelector((state) => state.filter.wheelsize);
-  console.log(wheelSize);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newObj = structuredClone(wheelSize);
