@@ -20,6 +20,7 @@
   flex-direction: column;
   padding: 35px 40px;
   outline: 1px solid $defaultOutline;
+  min-width: 385px;
 
   @media (max-width: 1000px) {
     flex-direction: row;
