@@ -8,8 +8,10 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
 import {
   addProductUser,
   addProductAnonym,
+  removeProduct,
 } from '../../../../store/basket/basketSlice';
 import { isKey } from '../../../../utils/helpers/isKeyOfObj';
+import classNames from 'classnames';
 
 type productTypeProps = { product: productType };
 
@@ -28,6 +30,15 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const basket = useAppSelector((state) => state.basket.basket);
   const basketStatus = useAppSelector((state) => state.basket.status);
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+  let idProductItem = '';
+  let flagBasket = false;
+  basket?.lineItems.map((elem) => {
+    if (elem.productId === product.id) {
+      flagBasket = true;
+      idProductItem = elem.id;
+    }
+  });
+
   const addProduct = (
     basketId: string,
     productId: string,
@@ -81,25 +92,46 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
           </ul>
         </div>
         <Price price={product.price} />
-        <button
-          onClick={(e): void => {
-            e.stopPropagation();
+        {flagBasket ? (
+          <button
+            onClick={(e): void => {
+              e.stopPropagation();
 
-            if (basket) {
-              addProduct(basket.id, product.id, basket.version);
+              if (basket) {
+                dispatch(
+                  removeProduct({
+                    CartId: basket.id,
+                    productID: idProductItem,
+                    version: basket.version,
+                  }),
+                );
+              }
+            }}
+            className={classNames(styles['addToCart'], styles['removeToCart'])}
+          >
+            drop from cart
+          </button>
+        ) : (
+          <button
+            onClick={(e): void => {
+              e.stopPropagation();
+
+              if (basket) {
+                addProduct(basket.id, product.id, basket.version);
+              }
+            }}
+            disabled={
+              product.atributes &&
+              product.atributes[2].value === 0 &&
+              basketStatus === 'fullfilled'
+                ? true
+                : false
             }
-          }}
-          disabled={
-            product.atributes &&
-            product.atributes[2].value === 0 &&
-            basketStatus === 'fullfilled'
-              ? true
-              : false
-          }
-          className={styles.addToCart}
-        >
-          add to cart
-        </button>
+            className={styles.addToCart}
+          >
+            add to cart
+          </button>
+        )}
       </div>
     </div>
   );
