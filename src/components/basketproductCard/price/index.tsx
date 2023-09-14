@@ -14,14 +14,6 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
   const discount = lineItem.price.discounted?.value.centAmount;
   return (
     <div>
-      <div className={styles.productPrice}>
-        <TagPrice
-          price={`${price}`}
-          discountPrice={discount ? `${discount / 100}` : undefined}
-          styles={styles}
-        />
-        Price:
-      </div>
       {lineItem.quantity > 1 ? (
         <div className={cx(styles.productPrice, styles.totalPrice)}>
           <TagPrice
@@ -34,7 +26,14 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
           Total:
         </div>
       ) : (
-        ''
+        <div className={cx(styles.productPrice, styles.totalPrice)}>
+          <TagPrice
+            price={`${price}`}
+            discountPrice={discount ? `${discount / 100}` : undefined}
+            styles={styles}
+          />
+          Price:
+        </div>
       )}
     </div>
   );
