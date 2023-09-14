@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: nowrap;
   column-gap: 30px;
-  padding: 0 25px;
+  padding: 5px 25px;
   background-color: #dfe1e3;
   width: fit-content;
   color: #000;
@@ -15,5 +15,6 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 5px 10px;
   }
 }

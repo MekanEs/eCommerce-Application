@@ -7,7 +7,6 @@ export const checkAuth = async (): Promise<
   ClientResponse<Project> | undefined
 > => {
   try {
-    console.log('userTokenCheck');
     const response = await getApiRootToken()
       .withProjectKey({ projectKey: CTP_PROJECT_KEY })
       .get()
@@ -22,8 +21,6 @@ export const checkAnonymToken = async (): Promise<
   ClientResponse<Project> | undefined
 > => {
   try {
-    console.log('anonymTokenCheck');
-
     const response = await getApiRootAnonymToken()
       .withProjectKey({ projectKey: CTP_PROJECT_KEY })
       .get()

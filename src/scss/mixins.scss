@@ -271,7 +271,6 @@
   line-height: $height;
 }
 
-
 @mixin link_hover {
   transition: all 0.1s ease;
 
@@ -285,7 +284,7 @@
 }
 
 @mixin input_range {
-  input[type="range"] {
+  input[type='range'] {
     -webkit-appearance: none;
     appearance: none;
     background: transparent;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Cart } from '@commercetools/platform-sdk';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { removeLineItem } from '../../../store/basket/basketSlice';
+import styles from './clearCart.module.scss';
 
 type ClearCartPropsType = {
   basket: Cart;
@@ -22,8 +23,10 @@ const ClearCart: React.FC<ClearCartPropsType> = ({ basket }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>clear shopping cart</button>
+    <div className={styles.container}>
+      <button className={styles.clearBtn} onClick={handleClick}>
+        clear shopping cart
+      </button>
     </div>
   );
 };

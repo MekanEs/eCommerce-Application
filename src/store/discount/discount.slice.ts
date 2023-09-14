@@ -43,7 +43,7 @@ export const discountSlice = createSlice({
                 name: el.name && el.name['en-US'],
                 code: el.code,
                 description: el.description?.['en-US'],
-                discountId: el.cartDiscounts[0] && el.cartDiscounts[0].id,
+                discountId: el.id,
               };
             });
         }

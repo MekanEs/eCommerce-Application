@@ -34,7 +34,7 @@ const WheelSize: React.FC = () => {
                 id={el}
                 checked={wheelSize[el]}
               />
-              <label htmlFor={el}>{el}</label>
+              <label htmlFor={el}>{el.slice(0, 2)}"</label>
             </div>
           );
         }

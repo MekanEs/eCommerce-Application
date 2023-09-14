@@ -3,11 +3,26 @@
 .container {
   display: flex;
   flex-direction: column;
+  color: $black;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 130%;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 120%;
+  }
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  padding: 35px 50px;
+  padding: 35px 40px;
   outline: 1px solid $defaultOutline;
+  min-width: 385px;
+
+  @media (max-width: 1000px) {
+    flex-direction: row;
+  }
 }

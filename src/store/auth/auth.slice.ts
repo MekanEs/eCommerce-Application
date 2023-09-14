@@ -49,6 +49,50 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const loginUserRegister = createAsyncThunk(
+  'authReg/loginUser',
+  async function (options: logUser, { rejectWithValue }) {
+    const email = options.email;
+    const password = options.password;
+    const anonymId = options.anonymId;
+    try {
+      if (anonymId) {
+        const result: ClientResponse<CustomerSignInResult> =
+          await getApiRootLogin(email, password)
+            .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+            .login()
+            .post({
+              body: {
+                email: email,
+                password: password,
+                anonymousCart: { id: anonymId, typeId: 'cart' },
+                anonymousCartSignInMode: 'UseAsNewActiveCustomerCart',
+              },
+            })
+            .execute();
+
+        return result;
+      } else {
+        const result: ClientResponse<CustomerSignInResult> =
+          await getApiRootLogin(email, password)
+            .withProjectKey({ projectKey: CTP_PROJECT_KEY })
+            .login()
+            .post({
+              body: {
+                email: email,
+                password: password,
+              },
+            })
+            .execute();
+
+        return result;
+      }
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  },
+);
+
 export const registrationUser = createAsyncThunk(
   'auth/registrationUser',
   async function (options: regUser, { rejectWithValue }) {
@@ -113,6 +157,9 @@ export const authSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         authSlice.caseReducers.removeAuth(state);
       })
+      .addCase(loginUserRegister.pending, (state) => {
+        authSlice.caseReducers.removeAuth(state);
+      })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'ok';
         state.message = 'successfully';
@@ -121,6 +168,19 @@ export const authSlice = createSlice({
           localStorage.setItem('id', state.id);
           state.isAuth = true;
         }
+      })
+      .addCase(loginUserRegister.fulfilled, (state, action) => {
+        state.status = 'ok';
+        state.message = 'successfully';
+        if (action.payload) {
+          state.id = action.payload.body.customer.id;
+          localStorage.setItem('id', state.id);
+          state.isAuth = true;
+        }
+      })
+      .addCase(loginUserRegister.rejected, (state, action) => {
+        state.status = 'error';
+        state.message = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'error';

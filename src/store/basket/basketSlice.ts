@@ -6,7 +6,12 @@ import {
   getApiRootToken,
 } from '../../services/ClientBuilder';
 import { CTP_PROJECT_KEY } from '../../services';
-import { ApiRoot, Cart, LineItem } from '@commercetools/platform-sdk';
+import {
+  ApiRoot,
+  Cart,
+  LineItem,
+  MyCartUpdateAction,
+} from '@commercetools/platform-sdk';
 import { getAnonymToken, getToken } from '../../utils/services/getToken';
 
 const initialState: {
@@ -14,7 +19,7 @@ const initialState: {
   status: string;
 } = {
   basket: undefined,
-  status: 'fullfilled',
+  status: 'pending',
 };
 const anonymApiRoot = (): ApiRoot => {
   if (getAnonymToken()) {
@@ -175,6 +180,43 @@ export const removeLineItem = createAsyncThunk(
   },
 );
 
+export const updateDiscount = createAsyncThunk(
+  'updateDiscount/basket',
+  async function ({
+    CartId,
+    version,
+
+    action,
+  }: {
+    CartId: string;
+    version: number;
+
+    action: MyCartUpdateAction;
+  }) {
+    try {
+      const result = await getApiRoot()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .carts()
+        .withId({ ID: CartId })
+        .post({
+          body: {
+            version: version,
+            actions: [action],
+          },
+        })
+
+        .execute();
+
+      return result.body;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
 export const addProductUser = createAsyncThunk(
   'addProductUser/basket',
   async function ({
@@ -320,9 +362,17 @@ const basketSlice = createSlice({
     build
       .addCase(getBasket.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
       })
       .addCase(getBasketUser.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(getBasket.pending, (state, action) => {
+        if (action.payload) state.status = 'pending';
+      })
+      .addCase(getBasketUser.pending, (state, action) => {
+        if (action.payload) state.status = 'pending';
       })
       .addCase(addProductUser.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
@@ -347,6 +397,10 @@ const basketSlice = createSlice({
         state.status = 'fullfilled';
       })
       .addCase(removeLineItem.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
+      .addCase(updateDiscount.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       });

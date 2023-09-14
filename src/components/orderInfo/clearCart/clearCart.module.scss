@@ -1,0 +1,10 @@
+@import '../../../scss/allVariables.scss';
+
+.container {
+  margin: 20px auto 20px;
+}
+
+.clearBtn {
+  @include button_white;
+  width: 300px;
+}

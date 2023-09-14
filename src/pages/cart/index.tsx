@@ -6,6 +6,7 @@ import { BasketProductCard, OrderInfo } from '../../components';
 
 const Cart: React.FC = () => {
   const basket = useAppSelector((state) => state.basket.basket);
+  const basketStatus = useAppSelector((state) => state.basket.status);
   const basketItems = useAppSelector((state) => state.basket.basket?.lineItems);
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const dispatch = useAppDispatch();
@@ -19,23 +20,27 @@ const Cart: React.FC = () => {
   }, [dispatch]);
   return (
     <div className={styles.container}>
-      <h1>Cart</h1>
-      {basketItems && basketItems.length > 0 ? (
+      <h2>Shopping cart</h2>
+      {basketStatus === 'pending' ? (
+        <div className={styles.emptyMsg}>Pending</div>
+      ) : (
         <div className={styles.content}>
-          <div className={styles.cardsContainer}>
-            {basket &&
-              basketItems &&
-              basketItems.map((el, index) => {
-                return (
-                  <BasketProductCard el={el} key={index} basket={basket} />
-                );
-              })}
-          </div>
+          {basketItems && basketItems.length > 0 ? (
+            <div className={styles.cardsContainer}>
+              {basket &&
+                basketItems &&
+                basketItems.map((el, index) => {
+                  return (
+                    <BasketProductCard el={el} key={index} basket={basket} />
+                  );
+                })}
+            </div>
+          ) : (
+            <div className={styles.emptyMsg}>Cart is empty</div>
+          )}
 
           <OrderInfo cart={basket} />
         </div>
-      ) : (
-        'Cart is empty'
       )}
     </div>
   );
