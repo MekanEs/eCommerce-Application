@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import Price from './price';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks';
 import {
-  addProductUser,
-  addProductAnonym,
-  removeProduct,
+  addProduct,
+  removeLineItem,
 } from '../../../../store/basket/basketSlice';
 import { isKey } from '../../../../utils/helpers/isKeyOfObj';
 import classNames from 'classnames';
+import { LineItem } from '@commercetools/platform-sdk';
 
 type productTypeProps = { product: productType };
 
@@ -29,36 +29,27 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector((state) => state.basket.basket);
   const basketStatus = useAppSelector((state) => state.basket.status);
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  let idProductItem = '';
+  let ProductItem: undefined | LineItem;
   let flagBasket = false;
   basket?.lineItems.map((elem) => {
     if (elem.productId === product.id) {
       flagBasket = true;
-      idProductItem = elem.id;
+      ProductItem = elem;
     }
   });
 
-  const addProduct = (
+  const addLineItem = (
     basketId: string,
     productId: string,
     version: number,
   ): void => {
-    isAuth
-      ? dispatch(
-          addProductUser({
-            CartId: basketId,
-            productID: productId,
-            version: version,
-          }),
-        )
-      : dispatch(
-          addProductAnonym({
-            CartId: basketId,
-            productID: productId,
-            version: version,
-          }),
-        );
+    dispatch(
+      addProduct({
+        CartId: basketId,
+        productID: productId,
+        version: version,
+      }),
+    );
   };
   return (
     <div
@@ -98,13 +89,14 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
               e.stopPropagation();
 
               if (basket) {
-                dispatch(
-                  removeProduct({
-                    CartId: basket.id,
-                    productID: idProductItem,
-                    version: basket.version,
-                  }),
-                );
+                if (ProductItem)
+                  dispatch(
+                    removeLineItem({
+                      CartId: basket.id,
+                      lineItemID: [ProductItem],
+                      version: basket.version,
+                    }),
+                  );
               }
             }}
             className={classNames(styles['addToCart'], styles['removeToCart'])}
@@ -117,7 +109,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
               e.stopPropagation();
 
               if (basket) {
-                addProduct(basket.id, product.id, basket.version);
+                addLineItem(basket.id, product.id, basket.version);
               }
             }}
             disabled={

@@ -8,7 +8,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { isActive } from '../../utils';
 import { userAuth } from '../../hooks/user-auth';
 import Logout from '../logout';
-import { getBasket } from '../../store/basket/basketSlice';
+import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
 const Header: React.FC = () => {
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     (state) => state.basket.basket?.lineItems.length,
   );
   useEffect(() => {
-    dispatch(getBasket());
+    isAuth ? dispatch(getBasketUser()) : dispatch(getBasket());
   }, [isAuth]);
   return (
     <div className={styles.container}>

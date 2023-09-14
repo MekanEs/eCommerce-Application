@@ -39,8 +39,10 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
       <div className={styles.info}>
         <p className={styles.productName}>{el.name['en-US']}</p>
         <ProductAttributes product={el} />
-        <Quantity key={key} cart={basket} lineItem={el} />
-        <CartPrice lineItem={el} />
+        <div className={styles.price_quantity}>
+          <CartPrice lineItem={el} />
+          <Quantity key={key} cart={basket} lineItem={el} />
+        </div>
       </div>
       <button className={styles.removeBtn} onClick={handleClick}>
         <img src={closeIcon} alt="close" />

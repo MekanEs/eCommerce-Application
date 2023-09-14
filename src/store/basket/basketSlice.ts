@@ -20,19 +20,16 @@ const initialState: {
   basket: undefined,
   status: 'pending',
 };
-const anonymApiRoot = (): ApiRoot => {
-  if (getAnonymToken()) {
-    return getApiRootAnonymToken();
-  } else {
-    return getApiRootAnonym();
-  }
-};
 
 const getApiRoot = (): ApiRoot => {
   if (getToken()) {
     return getApiRootToken();
   } else {
-    return anonymApiRoot();
+    if (getAnonymToken()) {
+      return getApiRootAnonymToken();
+    } else {
+      return getApiRootAnonym();
+    }
   }
 };
 
@@ -40,7 +37,7 @@ export const getBasket = createAsyncThunk(
   'getBasket/basket',
   async function () {
     try {
-      const result = await anonymApiRoot()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
@@ -54,7 +51,7 @@ export const getBasket = createAsyncThunk(
         .execute();
 
       if (result.body.results.length === 0) {
-        const result = await anonymApiRoot()
+        const result = await getApiRoot()
           .withProjectKey({
             projectKey: CTP_PROJECT_KEY,
           })
@@ -71,6 +68,30 @@ export const getBasket = createAsyncThunk(
         return result.body;
       }
       return result.body.results[0];
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
+
+export const getBasketUser = createAsyncThunk(
+  'getBasketUser/basket',
+  async function () {
+    try {
+      const result = await getApiRoot()
+        .withProjectKey({
+          projectKey: CTP_PROJECT_KEY,
+        })
+        .me()
+        .activeCart()
+        .get({
+          queryArgs: {
+            expand: 'masterData.current.img[*]',
+          },
+        })
+        .execute();
+
+      return result.body;
     } catch (e) {
       console.log(e);
     }
@@ -192,47 +213,8 @@ export const updateDiscount = createAsyncThunk(
   },
 );
 
-export const addProductUser = createAsyncThunk(
-  'addProductUser/basket',
-  async function ({
-    CartId,
-    version,
-    productID,
-  }: {
-    CartId: string;
-    version: number;
-    productID: string;
-  }) {
-    try {
-      const result = await getApiRoot()
-        .withProjectKey({
-          projectKey: CTP_PROJECT_KEY,
-        })
-        .me()
-        .carts()
-        .withId({ ID: CartId })
-        .post({
-          body: {
-            version: version,
-            actions: [
-              {
-                action: 'addLineItem',
-                productId: productID,
-              },
-            ],
-          },
-        })
-        .execute();
-
-      return result.body;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-);
-
-export const addProductAnonym = createAsyncThunk(
-  'addProductAnonym/basket',
+export const addProduct = createAsyncThunk(
+  'addProduct/basket',
   async function ({
     CartId,
     version,
@@ -284,21 +266,23 @@ const basketSlice = createSlice({
       .addCase(getBasket.pending, (state, action) => {
         if (action.payload) state.status = 'pending';
       })
+      .addCase(getBasketUser.fulfilled, (state, action) => {
+        if (action.payload) state.basket = action.payload;
+        state.status = 'fullfilled';
+      })
 
-      .addCase(addProductUser.fulfilled, (state, action) => {
+      .addCase(getBasketUser.pending, (state, action) => {
+        if (action.payload) state.status = 'pending';
+      })
+
+      .addCase(addProduct.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       })
-      .addCase(addProductUser.pending, (state, action) => {
+      .addCase(addProduct.pending, (state, action) => {
         if (action.payload) state.status = 'pending';
       })
-      .addCase(addProductAnonym.fulfilled, (state, action) => {
-        if (action.payload) state.basket = action.payload;
-        state.status = 'fullfilled';
-      })
-      .addCase(addProductAnonym.pending, (state, action) => {
-        if (action.payload) state.status = 'pending';
-      })
+
       .addCase(updateQuantity.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';

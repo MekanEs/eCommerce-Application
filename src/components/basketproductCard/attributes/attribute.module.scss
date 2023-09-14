@@ -2,15 +2,18 @@
 
 .attributes {
   width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  @include text_transparent(14px);
 
   li {
     list-style: none;
     display: flex;
+    margin-right: 10px;
   }
 
   .item-title {
     margin-right: 10px;
-    color: black;
     font-family: Ubuntu;
     font-style: normal;
     font-weight: 600;
@@ -19,7 +22,6 @@
   }
 
   .item-info {
-    color: black;
     font-family: Ubuntu;
     font-style: normal;
     font-weight: 400;

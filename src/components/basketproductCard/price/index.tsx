@@ -13,7 +13,7 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
   const price = lineItem.price.value.centAmount / 100;
   const discount = lineItem.price.discounted?.value.centAmount;
   return (
-    <>
+    <div>
       <div className={styles.productPrice}>
         <TagPrice
           price={`${price}`}
@@ -36,7 +36,7 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
       ) : (
         ''
       )}
-    </>
+    </div>
   );
 };
 
