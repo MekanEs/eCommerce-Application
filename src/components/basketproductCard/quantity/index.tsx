@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useRef, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { updateQuantity } from '../../../store/basket/basketSlice';
@@ -13,6 +13,9 @@ type QuantityPropsType = {
 const Quantity: React.FC<QuantityPropsType> = ({ cart, lineItem }) => {
   const dispatch = useAppDispatch();
   const [itemQuantity, setItemQuantity] = useState<number>(lineItem.quantity);
+  useEffect(() => {
+    setItemQuantity(lineItem.quantity);
+  }, [lineItem]);
 
   const debouncedHandler = useRef(
     debounce(async (val) => {
@@ -27,7 +30,7 @@ const Quantity: React.FC<QuantityPropsType> = ({ cart, lineItem }) => {
       quantity: itemQuantity,
       version: cart.version,
     };
-    if (e.currentTarget.dataset['info'] === 'minus') {
+    if (e.currentTarget.dataset['info'] === 'minus' && itemQuantity > 0) {
       setItemQuantity(itemQuantity - 1);
       action.quantity = itemQuantity - 1;
     } else if (e.currentTarget.dataset['info'] === 'plus') {

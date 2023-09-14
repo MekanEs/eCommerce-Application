@@ -1,22 +1,18 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import styles from './cart.module.scss';
-import { getBasket, getBasketUser } from '../../store/basket/basketSlice';
+import { getBasket } from '../../store/basket/basketSlice';
 import { BasketProductCard, OrderInfo } from '../../components';
 
 const Cart: React.FC = () => {
   const basket = useAppSelector((state) => state.basket.basket);
   const basketStatus = useAppSelector((state) => state.basket.status);
   const basketItems = useAppSelector((state) => state.basket.basket?.lineItems);
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuth) {
-      dispatch(getBasketUser());
-    } else {
-      dispatch(getBasket());
-    }
+    dispatch(getBasket());
   }, [dispatch]);
   return (
     <div className={styles.container}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import styles from './basketProdyuctCard.module.scss';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { removeProduct } from '../../store/basket/basketSlice';
+import { removeLineItem } from '../../store/basket/basketSlice';
 import closeIcon from '../../assets/img/svg/closeIcon.svg';
 import CartPrice from './price';
 import ProductAttributes from './attributes';
@@ -11,24 +11,26 @@ import Quantity from './quantity';
 type basketProductCardTypeProps = {
   el: LineItem;
   basket: Cart;
+  key: number;
 };
 
 const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
   el,
   basket,
+  key,
 }) => {
   const dispatch = useAppDispatch();
   const handleClick = (): void => {
     dispatch(
-      removeProduct({
+      removeLineItem({
         CartId: basket.id,
-        productID: el.id,
+        lineItemID: [el],
         version: basket.version,
       }),
     );
   };
   return (
-    <div className={styles.productCard}>
+    <div key={key} className={styles.productCard}>
       <div className={styles.image}>
         {el.variant.images && (
           <img src={el.variant.images[0].url} alt="product image" />
@@ -37,7 +39,7 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
       <div className={styles.info}>
         <p className={styles.productName}>{el.name['en-US']}</p>
         <ProductAttributes product={el} />
-        <Quantity cart={basket} lineItem={el} />
+        <Quantity key={key} cart={basket} lineItem={el} />
         <CartPrice lineItem={el} />
       </div>
       <button className={styles.removeBtn} onClick={handleClick}>

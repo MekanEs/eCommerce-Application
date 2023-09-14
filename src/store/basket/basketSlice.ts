@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getApiRootAnonym,
   getApiRootAnonymToken,
-  getApiRootRegis,
   getApiRootToken,
 } from '../../services/ClientBuilder';
 import { CTP_PROJECT_KEY } from '../../services';
@@ -78,30 +77,6 @@ export const getBasket = createAsyncThunk(
   },
 );
 
-export const getBasketUser = createAsyncThunk(
-  'getBasketUser/basket',
-  async function () {
-    try {
-      const result = await getApiRoot()
-        .withProjectKey({
-          projectKey: CTP_PROJECT_KEY,
-        })
-        .me()
-        .activeCart()
-        .get({
-          queryArgs: {
-            expand: 'masterData.current.img[*]',
-          },
-        })
-        .execute();
-
-      return result.body;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-);
-
 export const updateQuantity = createAsyncThunk(
   'updateQuantity/basket',
   async function ({
@@ -116,7 +91,7 @@ export const updateQuantity = createAsyncThunk(
     quantity: number;
   }) {
     try {
-      const result = await getApiRootToken()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
@@ -229,7 +204,7 @@ export const addProductUser = createAsyncThunk(
     productID: string;
   }) {
     try {
-      const result = await getApiRootToken()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
@@ -268,7 +243,7 @@ export const addProductAnonym = createAsyncThunk(
     productID: string;
   }) {
     try {
-      const result = await anonymApiRoot()
+      const result = await getApiRoot()
         .withProjectKey({
           projectKey: CTP_PROJECT_KEY,
         })
@@ -295,65 +270,6 @@ export const addProductAnonym = createAsyncThunk(
   },
 );
 
-export const deleteCart = createAsyncThunk(
-  'deleteCart/basket',
-  async function (id: string) {
-    try {
-      const result = await getApiRootRegis()
-        .withProjectKey({
-          projectKey: CTP_PROJECT_KEY,
-        })
-        .carts()
-        .withId({ ID: id })
-        .delete({ queryArgs: { version: 1 } })
-        .execute();
-      return result;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-);
-
-export const removeProduct = createAsyncThunk(
-  'removeProduct/basket',
-
-  async function ({
-    CartId,
-    version,
-    productID,
-  }: {
-    CartId: string;
-    version: number;
-    productID: string;
-  }) {
-    try {
-      const result = await getApiRootToken()
-        .withProjectKey({
-          projectKey: CTP_PROJECT_KEY,
-        })
-        .me()
-        .carts()
-        .withId({ ID: CartId })
-        .post({
-          body: {
-            version: version,
-            actions: [
-              {
-                action: 'removeLineItem',
-                lineItemId: productID,
-              },
-            ],
-          },
-        })
-        .execute();
-
-      return result.body;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-);
-
 const basketSlice = createSlice({
   name: 'basket',
   initialState,
@@ -364,16 +280,11 @@ const basketSlice = createSlice({
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
       })
-      .addCase(getBasketUser.fulfilled, (state, action) => {
-        if (action.payload) state.basket = action.payload;
-        state.status = 'fullfilled';
-      })
+
       .addCase(getBasket.pending, (state, action) => {
         if (action.payload) state.status = 'pending';
       })
-      .addCase(getBasketUser.pending, (state, action) => {
-        if (action.payload) state.status = 'pending';
-      })
+
       .addCase(addProductUser.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
         state.status = 'fullfilled';
@@ -387,10 +298,6 @@ const basketSlice = createSlice({
       })
       .addCase(addProductAnonym.pending, (state, action) => {
         if (action.payload) state.status = 'pending';
-      })
-      .addCase(removeProduct.fulfilled, (state, action) => {
-        if (action.payload) state.basket = action.payload;
-        state.status = 'fullfilled';
       })
       .addCase(updateQuantity.fulfilled, (state, action) => {
         if (action.payload) state.basket = action.payload;
