@@ -12,6 +12,11 @@
   }
 }
 
+.container-skeleton {
+  max-width: 90vw;
+  margin: 30px auto 160px auto;
+}
+
 .general-info {
   display: flex;
   flex-direction: column;
@@ -126,6 +131,11 @@
 
 @media (max-width: 1000px) {
   .container {
+    max-width: 74vw;
+    margin: 30px auto 60px auto;
+  }
+
+  .container-skeleton {
     max-width: 74vw;
     margin: 30px auto 60px auto;
   }

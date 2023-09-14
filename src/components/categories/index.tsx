@@ -7,7 +7,7 @@ import { hasChildren } from '../../utils/helpers/catalogPage/hasChildrenCategory
 import SubCategories from './subCategories';
 import CategoryButton from './categoryButton';
 import BreadCrumbs from './breadCrumbs';
-import { SkeletonHeader } from '../skeleton';
+import { SkeletonHeader } from '../skeleton/catalog';
 
 const Categories: React.FC = () => {
   const dispatch = useAppDispatch();
