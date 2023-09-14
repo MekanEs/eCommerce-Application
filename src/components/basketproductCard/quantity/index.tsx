@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { updateQuantity } from '../../../store/basket/basketSlice';
 import styles from './quantity.module.scss';
 import debounce from 'lodash.debounce';
+import cx from 'classnames';
 
 type QuantityPropsType = {
   cart: Cart;
@@ -23,6 +24,10 @@ const Quantity: React.FC<QuantityPropsType> = ({ cart, lineItem }) => {
     }, 1000),
   ).current;
 
+  const stock = lineItem.variant.attributes?.filter(
+    (attribute) => attribute.name === 'stock',
+  )[0].value;
+
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     const action = {
       CartId: cart.id,
@@ -30,10 +35,11 @@ const Quantity: React.FC<QuantityPropsType> = ({ cart, lineItem }) => {
       quantity: itemQuantity,
       version: cart.version,
     };
-    if (e.currentTarget.dataset['info'] === 'minus' && itemQuantity > 0) {
+    const data = e.currentTarget.dataset['info'];
+    if (data === 'minus' && itemQuantity > 0) {
       setItemQuantity(itemQuantity - 1);
       action.quantity = itemQuantity - 1;
-    } else if (e.currentTarget.dataset['info'] === 'plus') {
+    } else if (data === 'plus' && itemQuantity < stock) {
       setItemQuantity(itemQuantity + 1);
       action.quantity = itemQuantity + 1;
     }
@@ -42,12 +48,22 @@ const Quantity: React.FC<QuantityPropsType> = ({ cart, lineItem }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={cx(
+        styles.container,
+        itemQuantity < stock ? '' : styles.redQuantity,
+      )}
+    >
       <button data-info="minus" onClick={handleClick}>
         -
       </button>
       <p>{itemQuantity}</p>
-      <button data-info="plus" onClick={handleClick}>
+
+      <button
+        disabled={itemQuantity < stock ? false : true}
+        data-info="plus"
+        onClick={handleClick}
+      >
         +
       </button>
     </div>
