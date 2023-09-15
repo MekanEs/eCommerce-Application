@@ -15,12 +15,43 @@ import { TagPrice, Slider } from '../../components';
 import SkeletonProduct, {
   SkeletonProductMini,
 } from '../../components/skeleton/product';
+import CartBtn from '../../components/filterPanel/productsLayout/productCard/buttonCart';
+import {
+  addProductAnonym,
+  addProductUser,
+  removeProduct,
+} from '../../store/basket/basketSlice';
+
+export const addProduct = (
+  basketId: string,
+  productId: string,
+  version: number,
+  isAuth: boolean | null,
+): void => {
+  const dispatch = useAppDispatch();
+  isAuth
+    ? dispatch(
+        addProductUser({
+          CartId: basketId,
+          productID: productId,
+          version: version,
+        }),
+      )
+    : dispatch(
+        addProductAnonym({
+          CartId: basketId,
+          productID: productId,
+          version: version,
+        }),
+      );
+};
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.catalog.products);
+  const basket = useAppSelector((state) => state.basket.basket);
   const navigate: NavigateFunction = useNavigate();
   const sizeWindows = window.innerWidth;
   const language = 'en-US';
@@ -61,6 +92,7 @@ const Product: React.FC = (): JSX.Element => {
   const productCategory = masterData.categories[0].obj?.name[language];
   const [frameMaterial, wheelSize, stock] = masterData.masterVariant.attributes;
   const productDescription = masterData.description[language];
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const productImages = masterData.masterVariant.images.map(
     (image: { url: string }) => image.url,
   );
@@ -68,6 +100,12 @@ const Product: React.FC = (): JSX.Element => {
   const productDiscountPrice =
     masterData.masterVariant.prices[0].discounted?.value.centAmount;
   const formattedPrice = formatPrice(productPrice, language);
+  let flagBasket = false;
+  basket?.lineItems.map((elem) => {
+    if (elem.productId === productData?.id) {
+      flagBasket = true;
+    }
+  });
 
   const formattedDiscountPrice: string | undefined = productDiscountPrice
     ? formatPrice(productDiscountPrice, language)
@@ -123,8 +161,36 @@ const Product: React.FC = (): JSX.Element => {
           className={styles['button']}
           disabled={true}
         />
+      ) : flagBasket ? (
+        <CartBtn
+          label={'add to cart'}
+          className={styles['button']}
+          onClick={(e): void => {
+            e.stopPropagation();
+
+            if (basket && productData) {
+              dispatch(
+                removeProduct({
+                  CartId: basket.id,
+                  productID: productData.id,
+                  version: basket.version,
+                }),
+              );
+            }
+          }}
+        />
       ) : (
-        <CreateButton label={'add to cart'} className={styles['button']} />
+        <CartBtn
+          label={'add to cart'}
+          className={styles['button']}
+          onClick={(e): void => {
+            e.stopPropagation();
+
+            if (basket && productData) {
+              addProduct(basket.id, productData.id, basket.version, isAuth);
+            }
+          }}
+        />
       )}
     </div>
   );
