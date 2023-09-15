@@ -8,4 +8,11 @@
   row-gap: 30px;
   background-color: #fff;
   padding-top: 50px;
+  min-height: 673px;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

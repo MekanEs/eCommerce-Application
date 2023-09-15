@@ -50,7 +50,12 @@ const Header: React.FC = () => {
           </div>
         ) : (
           <div className={styles.auth}>
-            <NavLink to="/cart">Cart</NavLink>
+            <NavLink to="/cart">
+              <div className={styles['cart-container']}>
+                <img src={cart} alt="cart" />
+                <span className={styles['cart-count']}>{count}</span>
+              </div>
+            </NavLink>
             <NavLink className={isActive} to="registration">
               registration
             </NavLink>
