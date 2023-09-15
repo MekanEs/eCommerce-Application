@@ -8,7 +8,7 @@
   outline: 1px solid $defaultOutline;
   width: 100%;
   transition: all 0.3s ease;
-  padding: 20px 30px;
+  padding: 5px 30px 0 20px;
   position: relative;
 
   &:hover {
@@ -37,8 +37,8 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
-  width: 40%;
+  row-gap: 5px;
+  width: 50%;
   font-size: 15px;
 
   @media (max-width: 650px) {
@@ -53,6 +53,13 @@
   }
 }
 
+.price_quantity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .productName {
   color: #030303;
   font-size: 20px;
@@ -65,7 +72,7 @@
 .removeBtn {
   position: absolute;
   transition: all 0.3s ease;
-  top: 22px;
+  top: 7px;
   right: 10px;
   background: none;
   border: none;

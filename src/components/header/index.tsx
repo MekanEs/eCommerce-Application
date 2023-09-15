@@ -19,11 +19,7 @@ const Header: React.FC = () => {
     (state) => state.basket.basket?.lineItems.length,
   );
   useEffect(() => {
-    if (isAuth) {
-      dispatch(getBasketUser());
-    } else {
-      dispatch(getBasket());
-    }
+    isAuth ? dispatch(getBasketUser()) : dispatch(getBasket());
   }, [isAuth]);
   return (
     <div className={styles.container}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import styles from './basketProdyuctCard.module.scss';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { removeProduct } from '../../store/basket/basketSlice';
+import { removeLineItem } from '../../store/basket/basketSlice';
 import closeIcon from '../../assets/img/svg/closeIcon.svg';
 import CartPrice from './price';
 import ProductAttributes from './attributes';
@@ -20,9 +20,9 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
   const dispatch = useAppDispatch();
   const handleClick = (): void => {
     dispatch(
-      removeProduct({
+      removeLineItem({
         CartId: basket.id,
-        productID: el.id,
+        lineItemID: [el],
         version: basket.version,
       }),
     );
@@ -37,8 +37,10 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
       <div className={styles.info}>
         <p className={styles.productName}>{el.name['en-US']}</p>
         <ProductAttributes product={el} />
-        <Quantity cart={basket} lineItem={el} />
-        <CartPrice lineItem={el} />
+        <div className={styles.price_quantity}>
+          <CartPrice lineItem={el} />
+          <Quantity cart={basket} lineItem={el} />
+        </div>
       </div>
       <button className={styles.removeBtn} onClick={handleClick}>
         <img src={closeIcon} alt="close" />

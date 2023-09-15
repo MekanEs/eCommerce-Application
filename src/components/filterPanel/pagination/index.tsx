@@ -37,7 +37,7 @@ const Pagination: React.FC<paginationPropsType> = ({ offset, total }) => {
           />
         </svg>
       </button>
-      {currentPage} / {pages && pages}
+      {currentPage} / {pages && pages > 0 ? pages : 1}
       <button
         className={styles.next}
         onClick={handleNext}
