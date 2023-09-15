@@ -7,11 +7,12 @@
   column-gap: 20px;
   row-gap: 30px;
   background-color: #fff;
-  padding-top: 30px;
-}
+  padding-top: 50px;
+  min-height: 673px;
 
-@media (max-width: 1250px) {
-  .container {
-    justify-content: space-between;
+  h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

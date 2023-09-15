@@ -12,6 +12,9 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
 import { TagPrice, Slider } from '../../components';
+import SkeletonProduct, {
+  SkeletonProductMini,
+} from '../../components/skeleton/product';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
@@ -19,11 +22,16 @@ const Product: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.catalog.products);
   const navigate: NavigateFunction = useNavigate();
+  const sizeWindows = window.innerWidth;
   const language = 'en-US';
   let productData = useSelector(selectProductData);
   if (productData && key !== productData.key && key) {
     productData = null;
   }
+
+  useEffect(() => {
+    sizeWindows;
+  }, []);
 
   useEffect(() => {
     if (!productData && key) {
@@ -42,7 +50,11 @@ const Product: React.FC = (): JSX.Element => {
     !masterData.masterVariant.prices ||
     !masterData.masterVariant.images
   ) {
-    return <></>;
+    return (
+      <div className={styles['container-skeleton']}>
+        {sizeWindows > 1000 ? <SkeletonProduct /> : <SkeletonProductMini />}
+      </div>
+    );
   }
 
   const productName = masterData.name[language];
