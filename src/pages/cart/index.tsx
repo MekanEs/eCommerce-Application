@@ -29,7 +29,9 @@ const Cart: React.FC = () => {
                   basketItems &&
                   basketItems.map((el, index) => {
                     return (
-                      <BasketProductCard el={el} key={index} basket={basket} />
+                      <div key={index}>
+                        <BasketProductCard el={el} basket={basket} />
+                      </div>
                     );
                   })}
               </div>

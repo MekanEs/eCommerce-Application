@@ -11,13 +11,11 @@ import Quantity from './quantity';
 type basketProductCardTypeProps = {
   el: LineItem;
   basket: Cart;
-  key: number;
 };
 
 const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
   el,
   basket,
-  key,
 }) => {
   const dispatch = useAppDispatch();
   const handleClick = (): void => {
@@ -30,7 +28,7 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
     );
   };
   return (
-    <div key={key} className={styles.productCard}>
+    <div className={styles.productCard}>
       <div className={styles.image}>
         {el.variant.images && (
           <img src={el.variant.images[0].url} alt="product image" />
@@ -41,7 +39,7 @@ const BasketProductCard: React.FC<basketProductCardTypeProps> = ({
         <ProductAttributes product={el} />
         <div className={styles.price_quantity}>
           <CartPrice lineItem={el} />
-          <Quantity key={key} cart={basket} lineItem={el} />
+          <Quantity cart={basket} lineItem={el} />
         </div>
       </div>
       <button className={styles.removeBtn} onClick={handleClick}>
