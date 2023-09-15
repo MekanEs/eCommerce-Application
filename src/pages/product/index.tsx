@@ -21,35 +21,13 @@ import {
   addProductUser,
   removeProduct,
 } from '../../store/basket/basketSlice';
-
-export const addProduct = (
-  basketId: string,
-  productId: string,
-  version: number,
-  isAuth: boolean | null,
-): void => {
-  const dispatch = useAppDispatch();
-  isAuth
-    ? dispatch(
-        addProductUser({
-          CartId: basketId,
-          productID: productId,
-          version: version,
-        }),
-      )
-    : dispatch(
-        addProductAnonym({
-          CartId: basketId,
-          productID: productId,
-          version: version,
-        }),
-      );
-};
+import classNames from 'classnames';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const products = useAppSelector((state) => state.catalog.products);
   const basket = useAppSelector((state) => state.basket.basket);
   const navigate: NavigateFunction = useNavigate();
@@ -92,7 +70,7 @@ const Product: React.FC = (): JSX.Element => {
   const productCategory = masterData.categories[0].obj?.name[language];
   const [frameMaterial, wheelSize, stock] = masterData.masterVariant.attributes;
   const productDescription = masterData.description[language];
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+
   const productImages = masterData.masterVariant.images.map(
     (image: { url: string }) => image.url,
   );
@@ -101,9 +79,11 @@ const Product: React.FC = (): JSX.Element => {
     masterData.masterVariant.prices[0].discounted?.value.centAmount;
   const formattedPrice = formatPrice(productPrice, language);
   let flagBasket = false;
+  let idProductItem = '';
   basket?.lineItems.map((elem) => {
     if (elem.productId === productData?.id) {
       flagBasket = true;
+      idProductItem = elem.id;
     }
   });
 
@@ -163,8 +143,8 @@ const Product: React.FC = (): JSX.Element => {
         />
       ) : flagBasket ? (
         <CartBtn
-          label={'add to cart'}
-          className={styles['button']}
+          label={'drop from cart'}
+          className={classNames(styles['button'], styles['removeToCart'])}
           onClick={(e): void => {
             e.stopPropagation();
 
@@ -172,7 +152,7 @@ const Product: React.FC = (): JSX.Element => {
               dispatch(
                 removeProduct({
                   CartId: basket.id,
-                  productID: productData.id,
+                  productID: idProductItem,
                   version: basket.version,
                 }),
               );
@@ -187,7 +167,21 @@ const Product: React.FC = (): JSX.Element => {
             e.stopPropagation();
 
             if (basket && productData) {
-              addProduct(basket.id, productData.id, basket.version, isAuth);
+              isAuth
+                ? dispatch(
+                    addProductUser({
+                      CartId: basket.id,
+                      productID: productData.id,
+                      version: basket.version,
+                    }),
+                  )
+                : dispatch(
+                    addProductAnonym({
+                      CartId: basket.id,
+                      productID: productData.id,
+                      version: basket.version,
+                    }),
+                  );
             }
           }}
         />
