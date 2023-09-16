@@ -16,18 +16,14 @@ import SkeletonProduct, {
   SkeletonProductMini,
 } from '../../components/skeleton/product';
 import CartBtn from '../../components/filterPanel/productsLayout/productCard/buttonCart';
-import {
-  addProductAnonym,
-  addProductUser,
-  removeProduct,
-} from '../../store/basket/basketSlice';
+import { addProduct, removeLineItem } from '../../store/basket/basketSlice';
 import classNames from 'classnames';
+import { LineItem } from '@commercetools/platform-sdk';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
   const products = useAppSelector((state) => state.catalog.products);
   const basket = useAppSelector((state) => state.basket.basket);
   const navigate: NavigateFunction = useNavigate();
@@ -79,11 +75,11 @@ const Product: React.FC = (): JSX.Element => {
     masterData.masterVariant.prices[0].discounted?.value.centAmount;
   const formattedPrice = formatPrice(productPrice, language);
   let flagBasket = false;
-  let idProductItem = '';
+  let ProductItem: undefined | LineItem;
   basket?.lineItems.map((elem) => {
     if (elem.productId === productData?.id) {
       flagBasket = true;
-      idProductItem = elem.id;
+      ProductItem = elem;
     }
   });
 
@@ -148,11 +144,11 @@ const Product: React.FC = (): JSX.Element => {
           onClick={(e): void => {
             e.stopPropagation();
 
-            if (basket && productData) {
+            if (basket && ProductItem) {
               dispatch(
-                removeProduct({
+                removeLineItem({
                   CartId: basket.id,
-                  productID: idProductItem,
+                  lineItemID: [ProductItem],
                   version: basket.version,
                 }),
               );
@@ -167,21 +163,13 @@ const Product: React.FC = (): JSX.Element => {
             e.stopPropagation();
 
             if (basket && productData) {
-              isAuth
-                ? dispatch(
-                    addProductUser({
-                      CartId: basket.id,
-                      productID: productData.id,
-                      version: basket.version,
-                    }),
-                  )
-                : dispatch(
-                    addProductAnonym({
-                      CartId: basket.id,
-                      productID: productData.id,
-                      version: basket.version,
-                    }),
-                  );
+              dispatch(
+                addProduct({
+                  CartId: basket.id,
+                  productID: productData.id,
+                  version: basket.version,
+                }),
+              );
             }
           }}
         />

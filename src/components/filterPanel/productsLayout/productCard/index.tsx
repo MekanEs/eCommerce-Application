@@ -11,6 +11,8 @@ import {
 } from '../../../../store/basket/basketSlice';
 import { isKey } from '../../../../utils/helpers/isKeyOfObj';
 import classNames from 'classnames';
+import { LineItem } from '@commercetools/platform-sdk';
+import CartBtn from './buttonCart';
 
 type productTypeProps = { product: productType };
 
@@ -87,7 +89,9 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
             label={'drop from cart'}
             disabled={false}
             className={classNames(styles['addToCart'], styles['removeToCart'])}
-            onClick={(e): void => {
+            onClick={(
+              e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+            ): void => {
               e.stopPropagation();
               if (basket) {
                 if (ProductItem)
@@ -102,14 +106,8 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
             }}
           />
         ) : (
-          <button
-            onClick={(e): void => {
-              e.stopPropagation();
-
-              if (basket) {
-                addProduct(basket.id, product.id, basket.version);
-              }
-            }}
+          <CartBtn
+            label={'add to cart'}
             disabled={
               product.atributes &&
               product.atributes[2].value === 0 &&
@@ -117,12 +115,12 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
                 ? true
                 : false
             }
-            className={styles.addToCart}
+            className={styles['addToCart']}
             onClick={(e): void => {
               e.stopPropagation();
 
               if (basket) {
-                addProduct(basket.id, product.id, basket.version);
+                addLineItem(basket.id, product.id, basket.version);
               }
             }}
           />
