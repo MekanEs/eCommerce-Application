@@ -29,7 +29,6 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const basket = useAppSelector((state) => state.basket.basket);
-  const basketStatus = useAppSelector((state) => state.basket.status);
   let ProductItem: undefined | LineItem;
   let flagBasket = false;
   basket?.lineItems.map((elem) => {
@@ -84,7 +83,13 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
           </ul>
         </div>
         <Price price={product.price} />
-        {flagBasket ? (
+        {product.atributes && product.atributes[2].value < 1 ? (
+          <CartBtn
+            label={'sold out'}
+            className={classNames(styles['addToCart'], styles['soldOut'])}
+            disabled={true}
+          />
+        ) : flagBasket ? (
           <CartBtn
             label={'drop from cart'}
             disabled={false}
@@ -108,13 +113,6 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
         ) : (
           <CartBtn
             label={'add to cart'}
-            disabled={
-              product.atributes &&
-              product.atributes[2].value === 0 &&
-              basketStatus === 'fullfilled'
-                ? true
-                : false
-            }
             className={styles['addToCart']}
             onClick={(e): void => {
               e.stopPropagation();

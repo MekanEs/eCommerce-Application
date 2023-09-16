@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from './product.module.scss';
-import { CreateButton } from '../../components/form/createButton/createButton';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -132,9 +131,9 @@ const Product: React.FC = (): JSX.Element => {
         <p>{productDescription}</p>
       </div>
       {stock.value < 1 ? (
-        <CreateButton
-          label={'add to cart'}
-          className={styles['button']}
+        <CartBtn
+          label={'sold out'}
+          className={classNames(styles['button'], styles['soldOut'])}
           disabled={true}
         />
       ) : flagBasket ? (

@@ -129,6 +129,14 @@
   @include button;
 }
 
+.soldOut {
+  &:disabled {
+    background-color: $footer;
+    color: $black;
+    cursor: none;
+  }
+}
+
 .removeToCart {
   background-color: $while;
   color: $black;
