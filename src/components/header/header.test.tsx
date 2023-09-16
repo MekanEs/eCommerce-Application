@@ -2,38 +2,69 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+import * as ReduxHooks from '../../hooks/redux-hooks';
+
 import Header from './';
 
 const mockStore = configureStore([]);
 
-jest.mock('../../hooks/user-auth', () => ({
-  userAuth: jest.fn(),
+jest.mock('../../store/basket/basketSlice', () => ({
+  getBasketUser: jest.fn(),
+  getBasket: jest.fn(),
 }));
 
+// eslint-disable-next-line max-lines-per-function
 describe('Header Component', () => {
+  let store: MockStoreEnhanced<unknown, unknown>;
+  beforeEach(() => {
+    store = mockStore({
+      basket: {
+        basket: {
+          lineItems: [1, 2],
+        },
+      },
+    });
+    jest.spyOn(ReduxHooks, 'useAppDispatch').mockReturnValue(jest.fn());
+    jest.spyOn(ReduxHooks, 'useAppSelector').mockReturnValue({});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   test('renders logo', () => {
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <MemoryRouter>
           <Header />
         </MemoryRouter>
       </Provider>,
     );
+
     const logoElement = screen.getByAltText('logo');
+
     expect(logoElement).toBeInTheDocument();
   });
-  test('renders registration and login links', () => {
+
+  test('render cart, registration, and login links when not authenticated', () => {
+    jest.mock('../../hooks/user-auth', () => ({
+      userAuth: jest.fn().mockReturnValue(false),
+    }));
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/']}>
           <Header />
         </MemoryRouter>
       </Provider>,
     );
-    const registrationLink = screen.getByText('registration');
-    const loginLink = screen.getByText('log in');
-    expect(registrationLink).toBeInTheDocument();
-    expect(loginLink).toBeInTheDocument();
+
+    const cartLinkElement = screen.getByText('Cart');
+    const registrationLinkElement = screen.getByText('registration');
+    const loginLinkElement = screen.getByText('log in');
+
+    expect(cartLinkElement).toBeInTheDocument();
+    expect(registrationLinkElement).toBeInTheDocument();
+    expect(loginLinkElement).toBeInTheDocument();
   });
 });

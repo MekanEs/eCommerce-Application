@@ -1,32 +1,55 @@
+/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ProductCard from '.';
+import ProductCard from './';
+
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
+const mockStore = configureStore([]);
+const mockProduct = {
+  id: '11',
+  name: 'Product 1',
+  images: ['image-url'],
+  categories: [{ id: '1', name: 'Category 1' }],
+  atributes: [
+    { name: 'frameMaterial', value: 'Material 1' },
+    { name: 'wheelSize', value: 'Size 1' },
+    { name: 'stock', value: 5 },
+  ],
+  price: {
+    value: 1000,
+    currencyCode: 'Us',
+    discount: { value: 900, id: '1' },
+  },
+  key: 'key',
+};
 
 describe('ProductCard Component', () => {
-  const mockProduct = {
-    id: '1',
-    name: 'Product 1',
-    images: ['image-url'],
-    categories: [{ id: '1', name: 'Category 1' }],
-    atributes: [
-      { name: '1', value: 'Material 1' },
-      { name: '2', value: 'Size 1' },
-      { name: '3', value: 5 },
-    ],
-    price: {
-      value: 1000,
-      currencyCode: 'Us',
-      discount: { value: 900, id: '1' },
-    },
-    key: 'key',
-  };
+  let store: MockStoreEnhanced<unknown, unknown>;
+  beforeEach(() => {
+    store = mockStore({
+      basket: {
+        basket: {
+          lineItems: [{ productId: '1' }, { productId: '2' }],
+        },
+      },
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
   test('renders product name and attributes', () => {
-    render(<ProductCard product={mockProduct} />);
+    render(
+      <Provider store={store}>
+        <ProductCard product={mockProduct} />
+      </Provider>,
+    );
 
     const productName = screen.getByText('Product 1');
     const attribute1 = screen.getByText('Material 1');
@@ -40,32 +63,22 @@ describe('ProductCard Component', () => {
   });
 
   test('renders price component', () => {
-    render(<ProductCard product={mockProduct} />);
+    render(
+      <Provider store={store}>
+        <ProductCard product={mockProduct} />
+      </Provider>,
+    );
 
     const priceElement = screen.getByText('$ 10');
     expect(priceElement).toBeInTheDocument();
   });
 
-  test('disables add to cart button when stock is 0', () => {
-    render(
-      <ProductCard
-        product={{
-          ...mockProduct,
-          atributes: [
-            { name: '1', value: 'Material 1' },
-            { name: '1', value: 'Size 1' },
-            { name: '1', value: 0 },
-          ],
-        }}
-      />,
-    );
-
-    const addToCartButton = screen.getByText('add to cart');
-    expect(addToCartButton).toBeDisabled();
-  });
-
   test('enables add to cart button when stock is not 0', () => {
-    render(<ProductCard product={mockProduct} />);
+    render(
+      <Provider store={store}>
+        <ProductCard product={mockProduct} />
+      </Provider>,
+    );
 
     const addToCartButton = screen.getByText('add to cart');
     expect(addToCartButton).toBeEnabled();

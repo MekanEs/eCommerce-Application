@@ -31,12 +31,13 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const basketStatus = useAppSelector((state) => state.basket.status);
   let ProductItem: undefined | LineItem;
   let flagBasket = false;
-  basket?.lineItems.map((elem) => {
-    if (elem.productId === product.id) {
-      flagBasket = true;
-      ProductItem = elem;
-    }
-  });
+  basket &&
+    basket.lineItems.map((elem) => {
+      if (elem.productId === product.id) {
+        flagBasket = true;
+        ProductItem = elem;
+      }
+    });
 
   const addLineItem = (
     basketId: string,
@@ -114,7 +115,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
             }}
             disabled={
               product.atributes &&
-              product.atributes[2].value === 0 &&
+              attributes['Stock:'] === 0 &&
               basketStatus === 'fullfilled'
                 ? true
                 : false
