@@ -89,7 +89,7 @@
   &:disabled {
     background-color: $footer;
     color: $black;
-    cursor: none;
+    cursor: url('../../../../assets/img/svg/closeIcon.svg'), auto;
   }
 }
 

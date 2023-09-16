@@ -83,7 +83,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
           </ul>
         </div>
         <Price price={product.price} />
-        {product.atributes && product.atributes[2].value < 1 ? (
+        {attributes['Stock:'] === 0 ? (
           <CartBtn
             label={'sold out'}
             className={classNames(styles['addToCart'], styles['soldOut'])}
