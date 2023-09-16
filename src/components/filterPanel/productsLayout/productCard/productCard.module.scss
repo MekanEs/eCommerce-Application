@@ -85,6 +85,14 @@
   }
 }
 
+.soldOut {
+  &:disabled {
+    background-color: $footer;
+    color: $black;
+    cursor: url('../../../../assets/img/svg/closeIcon.svg'), auto;
+  }
+}
+
 .removeToCart {
   background-color: $while;
   color: $black;

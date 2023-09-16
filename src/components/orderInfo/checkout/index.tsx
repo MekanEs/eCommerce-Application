@@ -23,7 +23,11 @@ const CheckoutCart: React.FC<checkoutCart> = ({ basket }) => {
   };
 
   return (
-    <button className={styles.checkoutBtn} onClick={handleClick}>
+    <button
+      className={styles.checkoutBtn}
+      onClick={handleClick}
+      disabled={basket.lineItems.length > 0 ? false : true}
+    >
       checkout
     </button>
   );

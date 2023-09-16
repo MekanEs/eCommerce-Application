@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from './product.module.scss';
-import { CreateButton } from '../../components/form/createButton/createButton';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -11,16 +10,20 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
-import { TagPrice, Slider } from '../../components';
+import { TagPrice, Slider, CartBtn } from '../../components';
 import SkeletonProduct, {
   SkeletonProductMini,
 } from '../../components/skeleton/product';
+import { addProduct, removeLineItem } from '../../store/basket/basketSlice';
+import classNames from 'classnames';
+import { LineItem } from '@commercetools/platform-sdk';
 
 // eslint-disable-next-line max-lines-per-function
 const Product: React.FC = (): JSX.Element => {
   const { key } = useParams();
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.catalog.products);
+  const basket = useAppSelector((state) => state.basket.basket);
   const navigate: NavigateFunction = useNavigate();
   const sizeWindows = window.innerWidth;
   const language = 'en-US';
@@ -61,6 +64,7 @@ const Product: React.FC = (): JSX.Element => {
   const productCategory = masterData.categories[0].obj?.name[language];
   const [frameMaterial, wheelSize, stock] = masterData.masterVariant.attributes;
   const productDescription = masterData.description[language];
+
   const productImages = masterData.masterVariant.images.map(
     (image: { url: string }) => image.url,
   );
@@ -68,6 +72,14 @@ const Product: React.FC = (): JSX.Element => {
   const productDiscountPrice =
     masterData.masterVariant.prices[0].discounted?.value.centAmount;
   const formattedPrice = formatPrice(productPrice, language);
+  let flagBasket = false;
+  let ProductItem: undefined | LineItem;
+  basket?.lineItems.map((elem) => {
+    if (elem.productId === productData?.id) {
+      flagBasket = true;
+      ProductItem = elem;
+    }
+  });
 
   const formattedDiscountPrice: string | undefined = productDiscountPrice
     ? formatPrice(productDiscountPrice, language)
@@ -118,13 +130,47 @@ const Product: React.FC = (): JSX.Element => {
         <p>{productDescription}</p>
       </div>
       {stock.value < 1 ? (
-        <CreateButton
-          label={'add to cart'}
-          className={styles['button']}
+        <CartBtn
+          label={'sold out'}
+          className={classNames(styles['button'], styles['soldOut'])}
           disabled={true}
         />
+      ) : flagBasket ? (
+        <CartBtn
+          label={'drop from cart'}
+          className={classNames(styles['button'], styles['removeToCart'])}
+          onClick={(e): void => {
+            e.stopPropagation();
+
+            if (basket && ProductItem) {
+              dispatch(
+                removeLineItem({
+                  CartId: basket.id,
+                  lineItemID: [ProductItem],
+                  version: basket.version,
+                }),
+              );
+            }
+          }}
+        />
       ) : (
-        <CreateButton label={'add to cart'} className={styles['button']} />
+        <CartBtn
+          label={'add to cart'}
+          className={styles['button']}
+          onClick={(e): void => {
+            e.stopPropagation();
+
+            if (basket && productData) {
+              dispatch(
+                addProduct({
+                  CartId: basket.id,
+                  productID: productData.id,
+                  version: basket.version,
+                }),
+              );
+            }
+          }}
+        />
       )}
     </div>
   );
