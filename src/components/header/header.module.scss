@@ -33,6 +33,11 @@ a {
     &:last-child {
       @include button_blue;
     }
+
+    &:first-child {
+      border: none;
+      padding: 0;
+    }
   }
 }
 
@@ -50,26 +55,26 @@ a {
     align-items: center;
     margin-top: 2px;
   }
+}
 
-  .cart-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 43px;
+.cart-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 43px;
 
-    .cart-count {
-      position: absolute;
-      width: 17px;
-      height: 18px;
-      border-radius: 3px;
-      background-color: $accent;
-      color: $while;
-      padding: 4px 5px;
-      @include font(12px, 10.2px, 400);
-      left: 33px;
-      top: 1px;
-    }
+  .cart-count {
+    position: absolute;
+    width: 17px;
+    height: 18px;
+    border-radius: 3px;
+    background-color: $accent;
+    color: $while;
+    padding: 4px 5px;
+    @include font(12px, 10.2px, 400);
+    left: 33px;
+    top: 1px;
   }
 }

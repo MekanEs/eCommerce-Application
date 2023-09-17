@@ -12,6 +12,7 @@ import {
 import { isKey } from '../../../../utils/helpers/isKeyOfObj';
 import classNames from 'classnames';
 import { LineItem } from '@commercetools/platform-sdk';
+import CartBtn from './buttonCart';
 
 type productTypeProps = { product: productType };
 
@@ -28,7 +29,6 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const basket = useAppSelector((state) => state.basket.basket);
-  const basketStatus = useAppSelector((state) => state.basket.status);
   let ProductItem: undefined | LineItem;
   let flagBasket = false;
   basket &&
@@ -84,11 +84,21 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
           </ul>
         </div>
         <Price price={product.price} />
-        {flagBasket ? (
-          <button
-            onClick={(e): void => {
+        {attributes['Stock:'] === 0 ? (
+          <CartBtn
+            label={'sold out'}
+            className={classNames(styles['addToCart'], styles['soldOut'])}
+            disabled={true}
+          />
+        ) : flagBasket ? (
+          <CartBtn
+            label={'drop from cart'}
+            disabled={false}
+            className={classNames(styles['addToCart'], styles['removeToCart'])}
+            onClick={(
+              e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+            ): void => {
               e.stopPropagation();
-
               if (basket) {
                 if (ProductItem)
                   dispatch(
@@ -100,12 +110,11 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
                   );
               }
             }}
-            className={classNames(styles['addToCart'], styles['removeToCart'])}
-          >
-            drop from cart
-          </button>
+          />
         ) : (
-          <button
+          <CartBtn
+            label={'add to cart'}
+            className={styles['addToCart']}
             onClick={(e): void => {
               e.stopPropagation();
 
@@ -113,17 +122,7 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
                 addLineItem(basket.id, product.id, basket.version);
               }
             }}
-            disabled={
-              product.atributes &&
-              attributes['Stock:'] === 0 &&
-              basketStatus === 'fullfilled'
-                ? true
-                : false
-            }
-            className={styles.addToCart}
-          >
-            add to cart
-          </button>
+          />
         )}
       </div>
     </div>

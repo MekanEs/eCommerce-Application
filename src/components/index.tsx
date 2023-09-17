@@ -10,6 +10,7 @@ import Pagination from './filterPanel/pagination';
 import DiscountBanner from './discountBanner';
 import TagPrice from './product/price/tagPrice';
 import Slider from './product/slider';
+import GoToCatalog from './goToCatalog';
 export {
   Header,
   Footer,
@@ -23,4 +24,5 @@ export {
   BasketProductCard,
   TagPrice,
   Slider,
+  GoToCatalog,
 };

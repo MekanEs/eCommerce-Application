@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './price.module.scss';
-
 import cx from 'classnames';
 import { LineItem } from '@commercetools/platform-sdk';
 import TagPrice from '../../product/price/tagPrice';

@@ -86,7 +86,7 @@ export const getBasketUser = createAsyncThunk(
         .activeCart()
         .get({
           queryArgs: {
-            expand: 'masterData.current.img[*]',
+            expand: 'masterData.current',
           },
         })
         .execute();

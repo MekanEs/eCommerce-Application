@@ -129,6 +129,23 @@
   @include button;
 }
 
+.soldOut {
+  &:disabled {
+    background-color: $footer;
+    color: $black;
+    cursor: none;
+  }
+}
+
+.removeToCart {
+  background-color: $while;
+  color: $black;
+  border: 1px solid $black;
+  &:hover {
+    background-color: $footer;
+  }
+}
+
 @media (max-width: 1000px) {
   .container {
     max-width: 74vw;
