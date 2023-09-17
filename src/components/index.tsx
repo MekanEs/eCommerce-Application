@@ -11,6 +11,7 @@ import DiscountBanner from './discountBanner';
 import TagPrice from './product/price/tagPrice';
 import Slider from './product/slider';
 import GoToCatalog from './goToCatalog';
+import CartBtn from './filterPanel/productsLayout/productCard/buttonCart';
 export {
   Header,
   Footer,
@@ -25,4 +26,5 @@ export {
   TagPrice,
   Slider,
   GoToCatalog,
+  CartBtn,
 };

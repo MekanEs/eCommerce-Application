@@ -10,11 +10,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import formatPrice from '../../utils/helpers/formatPrice/formatPrice';
 import { isKey } from '../../utils/helpers/isKeyOfObj';
-import { TagPrice, Slider } from '../../components';
+import { TagPrice, Slider, CartBtn } from '../../components';
 import SkeletonProduct, {
   SkeletonProductMini,
 } from '../../components/skeleton/product';
-import CartBtn from '../../components/filterPanel/productsLayout/productCard/buttonCart';
 import { addProduct, removeLineItem } from '../../store/basket/basketSlice';
 import classNames from 'classnames';
 import { LineItem } from '@commercetools/platform-sdk';
