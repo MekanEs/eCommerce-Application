@@ -14,7 +14,6 @@ const CartPrice: React.FC<CartPricePropsType> = ({ lineItem }) => {
   const afterPromo: number | undefined =
     lineItem.discountedPricePerQuantity[0]?.discountedPrice.value.centAmount;
   const discount = afterPromo ? afterPromo : initDiscount;
-
   return (
     <div>
       <div className={cx(styles.productPrice, styles.totalPrice)}>

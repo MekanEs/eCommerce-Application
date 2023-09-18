@@ -31,12 +31,13 @@ const ProductCard: React.FC<productTypeProps> = ({ product }) => {
   const basket = useAppSelector((state) => state.basket.basket);
   let ProductItem: undefined | LineItem;
   let flagBasket = false;
-  basket?.lineItems.map((elem) => {
-    if (elem.productId === product.id) {
-      flagBasket = true;
-      ProductItem = elem;
-    }
-  });
+  basket &&
+    basket.lineItems.map((elem) => {
+      if (elem.productId === product.id) {
+        flagBasket = true;
+        ProductItem = elem;
+      }
+    });
 
   const addLineItem = (
     basketId: string,
