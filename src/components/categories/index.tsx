@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import styles from './categories.module.scss';
-import { useDispatch } from 'react-redux';
 import { categoryType } from '../../types/catalogTypes';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { setActiveCategory } from '../../store/productFilter/productFilter.slice';
 import { hasChildren } from '../../utils/helpers/catalogPage/hasChildrenCategory';
 import SubCategories from './subCategories';
 import CategoryButton from './categoryButton';
 import BreadCrumbs from './breadCrumbs';
+import { SkeletonHeader } from '../skeleton/catalog';
 
 const Categories: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.catalog.categories);
   const childCategory = useAppSelector((state) => state.catalog.childCategory);
   const activeCategory = useAppSelector((state) => state.filter.category);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeAncestor, setActiveAncestor] = useState<categoryType | null>(
     null,
   );
+
   useEffect(() => {
     if (
       hasChildren(activeCategory, childCategory).length > 0 ||
@@ -24,7 +26,11 @@ const Categories: React.FC = () => {
     ) {
       setActiveAncestor(activeCategory);
     }
+    if (categories && categories.length > 0) {
+      setIsLoading(false);
+    }
   });
+
   const handleClick = (el: categoryType): void => {
     dispatch(setActiveCategory(el));
   };
@@ -32,7 +38,10 @@ const Categories: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.categories}>
-        {categories &&
+        {isLoading ? (
+          <SkeletonHeader />
+        ) : (
+          categories &&
           categories.map((el, index) => (
             <div key={index}>
               <CategoryButton
@@ -43,7 +52,8 @@ const Categories: React.FC = () => {
                 callback={handleClick}
               />
             </div>
-          ))}
+          ))
+        )}
       </div>
       <div className={styles.categories}>
         {activeAncestor

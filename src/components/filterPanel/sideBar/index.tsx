@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './sideBar.module.scss';
-import PriceSlider from '../../range-slider/price';
-import StockSlider from '../../range-slider/stock';
-import { Materials } from '../..';
+import PriceSlider from '../range-slider/price';
+import StockSlider from '../range-slider/stock';
+import Materials from '../materialCheckbox';
 import WheelSize from '../../wheelSizeCheckbox';
 import { resetState } from '../../../store/productFilter/productFilter.slice';
-import { useDispatch } from 'react-redux';
+
+import { useAppDispatch } from '../../../hooks/redux-hooks';
 
 type sideBarPropsType = {
   modal: boolean;
@@ -13,7 +14,7 @@ type sideBarPropsType = {
   child?: JSX.Element;
 };
 const SideBar: React.FC<sideBarPropsType> = ({ modal, close, child }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleClick = (): void => {
     dispatch(resetState());
   };

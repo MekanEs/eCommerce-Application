@@ -8,7 +8,7 @@ import CreateGeneralPassword from '../../components/profile/userInfo/password/Ge
 import CreateUserAddress from '../../components/profile/userAddress/UserAddress';
 
 const Account: React.FC = (): React.JSX.Element => {
-  const [activeType, setActiveType] = useState(0);
+  const [activeType, setActiveType] = useState<number>(0);
   const dispatch = useAppDispatch();
   const array = ['General', 'My Address'];
 

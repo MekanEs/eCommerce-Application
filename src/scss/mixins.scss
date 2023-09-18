@@ -30,19 +30,23 @@
 // buttons
 
 @mixin button_white {
+  font-size: 13px;
   padding: 9px 19px;
   border-radius: 3px;
   border: 1px solid #706c68;
   color: #706c68;
   background-color: inherit;
+
   &:hover {
     border: 1px solid $accent;
     color: $accent;
   }
+
   &:active {
     border: 1px solid $active;
     color: $active;
   }
+
   &:disabled {
     border: 1px solid $disabled;
     background-color: $disabled;
@@ -51,17 +55,21 @@
 }
 
 @mixin button_blue {
+  font-size: 13px;
   padding: 9px 19px;
   border-radius: 3px;
   border: none;
   color: #fff;
   background-color: $accent;
+
   &:hover {
     background-color: $hover;
   }
+
   &:active {
     background-color: $active;
   }
+
   &:disabled {
     background-color: $disabled;
     color: $disabled;
@@ -96,7 +104,7 @@
 }
 
 @mixin button {
-  font-size: 17px;
+  font-size: 16px;
   text-transform: lowercase;
   width: 320px;
   height: 40px;
@@ -125,11 +133,13 @@
 
 @mixin section_header {
   h2 {
-    @include header(46px);
+    @include header(calc(10px + 4vmin));
     text-align: center;
   }
+
   p {
     margin-top: 20px;
+    padding: 0 10px;
     @include text_transparent(16px);
     max-width: 732px;
     text-align: center;
@@ -142,6 +152,12 @@
   text-transform: uppercase;
   padding: 0 30px;
   text-align: center;
+}
+
+@mixin page_subtitle {
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
 // swiper
@@ -253,4 +269,71 @@
   font-style: $style;
   font-weight: $weight;
   line-height: $height;
+}
+
+@mixin link_hover {
+  transition: all 0.1s ease;
+
+  &:hover {
+    color: $accent;
+  }
+
+  &:active {
+    color: $active;
+  }
+}
+
+@mixin input_range {
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+
+      &::-moz-range-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-moz-range-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+
+    &::-moz-range-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+  }
 }

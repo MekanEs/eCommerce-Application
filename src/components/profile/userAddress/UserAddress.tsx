@@ -21,13 +21,13 @@ const CreateUserAddress: React.FC = (): React.JSX.Element => {
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const user: ISliceUser = useAppSelector((state) => state.user);
-  const [selectBilling, setSelectBilling] = useState(
+  const [selectBilling, setSelectBilling] = useState<number>(
     getDefaultAddress(user, user.defaultBillingAddressId),
   );
-  const [selectShipping, setSelectShipping] = useState(
+  const [selectShipping, setSelectShipping] = useState<number>(
     getDefaultAddress(user, user.defaultShippingAddressId),
   );
   const onSubmit: SubmitHandler<FormAddress[]> = (
@@ -111,7 +111,7 @@ const AddressComponent: React.FC<AddressType> = ({
   setSelectBilling,
   setSelectShipping,
 }): React.JSX.Element => {
-  const [isShow, setisShow] = useState(true);
+  const [isShow, setisShow] = useState<boolean>(true);
   return (
     <>
       {isShow ? (

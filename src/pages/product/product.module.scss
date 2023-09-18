@@ -12,6 +12,11 @@
   }
 }
 
+.container-skeleton {
+  max-width: 90vw;
+  margin: 30px auto 160px auto;
+}
+
 .general-info {
   display: flex;
   flex-direction: column;
@@ -124,8 +129,30 @@
   @include button;
 }
 
+.soldOut {
+  &:disabled {
+    background-color: $footer;
+    color: $black;
+    cursor: url('../../assets/img/svg/closeIcon.svg'), auto;
+  }
+}
+
+.removeToCart {
+  background-color: $while;
+  color: $black;
+  border: 1px solid $black;
+  &:hover {
+    background-color: $footer;
+  }
+}
+
 @media (max-width: 1000px) {
   .container {
+    max-width: 74vw;
+    margin: 30px auto 60px auto;
+  }
+
+  .container-skeleton {
     max-width: 74vw;
     margin: 30px auto 60px auto;
   }

@@ -18,4 +18,22 @@ const tokenCache: TokenCache = {
   },
 };
 
+export const AnonymTokenCache: TokenCache = {
+  get: (): TokenStore => {
+    const cacheTokenData = localStorage.getItem('Anonymtoken');
+    if (cacheTokenData) {
+      return {
+        token: `Bearer: ${JSON.parse(cacheTokenData).token}`,
+        expirationTime: 0,
+        refreshToken: '',
+      };
+    }
+    return { token: '', expirationTime: 0, refreshToken: '' };
+  },
+  set: (cache): void => {
+    const cacheToken = localStorage.getItem('Anonymtoken');
+    if (!cacheToken) localStorage.setItem('Anonymtoken', JSON.stringify(cache));
+  },
+};
+
 export default tokenCache;

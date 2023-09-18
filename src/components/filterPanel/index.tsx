@@ -1,11 +1,11 @@
 import React from 'react';
 
 import styles from './filterPanel.module.scss';
-import Search from '../search';
+import Search from './search';
 import Categories from '../categories';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { Pagination } from '../';
-import Sort from '../sort';
+import Sort from './sort';
 import SideBar from './sideBar';
 import FilterModal from './filterTablet';
 

@@ -2,7 +2,7 @@
 @import '../../components/button/button.module.scss';
 
 .registration-form {
-  padding: 0 50px 0;
+  padding: 0 10px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
   justify-content: space-evenly;
   align-items: start;
   border-radius: 5px;
-  outline: 1px solid #cfcfcf;
+  outline: 1px solid $defaultOutline;
   width: 100%;
   overflow: hidden;
 }
@@ -41,7 +41,7 @@
 }
 
 .form-title {
-  color: #7f7f7f;
+  color: $title;
   font-size: 18px;
   font-family: 'Ubuntu', sans-serif;
   font-style: normal;
@@ -61,18 +61,19 @@
   width: 95%;
 }
 
-.billing-column {
-  padding: 0 25px 25px;
-  height: 100%;
-  border-left: 1px solid #cfcfcf;
-  border-right: 1px solid #cfcfcf;
-}
-
 .general-column,
 .billing-column,
 .shipping-column {
   width: 29%;
   padding: 0 20px 20px;
+}
+
+.billing-column {
+  padding: 0 35px 25px;
+  height: 100%;
+  border-left: 1px solid $defaultOutline;
+  border-right: 1px solid $defaultOutline;
+  box-sizing: content-box;
 }
 
 .disabled-shipping {
@@ -90,19 +91,19 @@
   bottom: -40px;
   width: 80%;
   padding: 5px;
-
   border-radius: 3px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .error {
-  background: red;
+  background: $error;
 }
 
 .success {
-  background: green;
+  background: $success;
 }
+
 .additional-text {
   display: flex;
   justify-content: center;
@@ -118,17 +119,26 @@
 
   a {
     margin-left: 10px;
-    color: #2a76f7;
+    color: $accent;
     font-weight: 500;
     text-decoration: underline;
 
     &:hover {
-      color: #2f4dbc;
+      color: $hover;
     }
 
     &:active {
-      color: #1f337e;
+      color: $active;
     }
+  }
+}
+
+@media (max-width: 1000px) {
+  .general-column,
+  .billing-column,
+  .shipping-column {
+    width: 30%;
+    padding: 0 20px 20px;
   }
 }
 
@@ -168,7 +178,7 @@
 
   .general-column,
   .billing-column {
-    border-bottom: 1px solid #cfcfcf;
+    border-bottom: 1px solid $defaultOutline;
   }
 
   .billing-column {

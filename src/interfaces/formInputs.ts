@@ -27,6 +27,13 @@ export interface ButtonProps {
   onClick: () => void;
 }
 
+export interface ButtonCart {
+  label: string;
+  className: string;
+  disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
 export interface FormFields {
   email: string;
   password: string;

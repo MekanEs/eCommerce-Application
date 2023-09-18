@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const GoToCatalog: React.FC = () => {
   return (
     <div className={styles.container}>
-      <NavLink className={styles.catalogBtn} to="catalog">
+      <NavLink className={styles.catalogBtn} to="/catalog">
         go to catalog
       </NavLink>
     </div>
