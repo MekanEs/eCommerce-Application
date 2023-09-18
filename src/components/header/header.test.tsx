@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import * as ReduxHooks from '../../hooks/redux-hooks';
-
 import Header from './';
 
 const mockStore = configureStore([]);
@@ -36,7 +35,7 @@ describe('Header Component', () => {
   test('renders logo', () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={['/']}>
           <Header />
         </MemoryRouter>
       </Provider>,
@@ -59,7 +58,7 @@ describe('Header Component', () => {
       </Provider>,
     );
 
-    const cartLinkElement = screen.getByText('Cart');
+    const cartLinkElement = screen.getByAltText('cart');
     const registrationLinkElement = screen.getByText('registration');
     const loginLinkElement = screen.getByText('log in');
 

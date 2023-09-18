@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     isAuth ? dispatch(getBasketUser()) : dispatch(getBasket());
   }, [isAuth]);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -35,7 +36,9 @@ const Header: React.FC = () => {
             <NavLink to="/cart">
               <div className={styles['cart-container']}>
                 <img src={cart} alt="cart" />
-                <span className={styles['cart-count']}>{count}</span>
+                {!!count && (
+                  <span className={styles['cart-count']}>{`${count}`}</span>
+                )}
               </div>
             </NavLink>
             <NavLink to="/account">
@@ -49,15 +52,17 @@ const Header: React.FC = () => {
             <NavLink to="/cart">
               <div className={styles['cart-container']}>
                 <img src={cart} alt="cart" />
-                <span className={styles['cart-count']}>{count}</span>
+                {!!count && (
+                  <span className={styles['cart-count']}>{`${count}`}</span>
+                )}
               </div>
             </NavLink>
-            <NavLink className={isActive} to="registration">
+            <NavLink className={isActive} to="/registration">
               registration
             </NavLink>
-            <NavLink className={isActive} to="login">
+            <NavLink className={isActive} to="/login">
               log&nbsp;in
-            </NavLink>{' '}
+            </NavLink>
           </div>
         )}
       </header>
