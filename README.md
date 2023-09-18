@@ -10,6 +10,9 @@ This online shop is built using the following technologies:
 - [React](https://react.dev/): A popular JavaScript library for building user interfaces.
 - [TypeScript](https://www.typescriptlang.org/docs/): A typed superset of JavaScript that enhances reliability and scalability.
 - [Redux Toolkit](https://redux-toolkit.js.org/): Set of tools that helps simplify Redux development. Includes utilities for creating and managing stores.
+- [Swiper](https://swiperjs.com/): Swiper is free and open source mobile touch slider with hardware accelerated transitions and amazing native behavior.
+- [React Hook Form](https://react-hook-form.com/): Library for form state management and validation.
+- [eCommercetools SDK](https://docs.commercetools.com/sdk/): SDKs allow easy integration of your e-commerce application with the commercetools Composable Commerce API.
 
 ### Maintainers are :
 
