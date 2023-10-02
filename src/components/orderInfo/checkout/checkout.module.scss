@@ -2,14 +2,14 @@
 
 .checkoutBtn {
   @include button_blue;
-  padding: 9px 0;
-  width: 90%;
+  padding: 9px 30px;
+
   font-size: 17px;
   font-weight: 400;
   line-height: 140%;
   letter-spacing: 1px;
   cursor: pointer;
-  margin: auto;
+  margin: 20px auto 0;
   &:disabled {
     color: #fff;
   }

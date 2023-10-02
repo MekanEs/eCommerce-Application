@@ -58,6 +58,11 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  margin: 10px 0;
+  @media (max-width: 650px) {
+    flex-direction: column;
+    row-gap: 15px;
+  }
 }
 
 .productName {
