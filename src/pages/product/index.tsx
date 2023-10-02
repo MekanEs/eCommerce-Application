@@ -61,7 +61,8 @@ const Product: React.FC = (): JSX.Element => {
   }
 
   const productName = masterData.name[language];
-  const productCategory = masterData.categories[0].obj?.name[language];
+  const productCategory =
+    masterData.categories[0]?.obj?.name[language] || 'all';
   const [frameMaterial, wheelSize, stock] = masterData.masterVariant.attributes;
   const productDescription = masterData.description[language];
 

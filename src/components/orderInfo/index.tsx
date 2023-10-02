@@ -19,9 +19,8 @@ const OrderInfo: React.FC<OrderInfoPropsType> = ({ cart }) => {
         <OrderDetails cart={cart} />
 
         <CartDiscount cart={cart} />
-        <CheckoutCart basket={cart} />
       </div>
-
+      <CheckoutCart basket={cart} />
       <ClearCart basket={cart} />
     </div>
   );
