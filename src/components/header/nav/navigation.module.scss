@@ -1,0 +1,34 @@
+@import '../../../scss/allVariables.scss';
+
+.nav {
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  margin: 28px 0;
+  column-gap: 46px;
+  color: #323232;
+
+  li {
+    @include link_hover;
+  }
+}
+
+.center {
+  justify-content: center;
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  margin: 28px 0 20px 0;
+  column-gap: 46px;
+  color: #323232;
+
+  li {
+    @include link_hover;
+  }
+}
+
+@media (max-width: 1220px) {
+  .nav {
+    justify-content: center;
+  }
+}

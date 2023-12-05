@@ -1,0 +1,10 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.logout {
+  @include button_white;
+}

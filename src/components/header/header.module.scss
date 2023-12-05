@@ -1,0 +1,85 @@
+@import '../../index.scss';
+
+.container {
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1216px;
+  padding: 0 25px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: $border;
+  padding: 25px 20px;
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.auth {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  color: #706c68;
+
+  a {
+    @include button_white;
+
+    &:last-child {
+      @include button_blue;
+    }
+
+    &:first-child {
+      border: none;
+      padding: 0;
+    }
+  }
+}
+
+.activeLink {
+  color: $accent;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+
+  a {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+}
+
+.cart-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 43px;
+
+  .cart-count {
+    position: absolute;
+    width: 17px;
+    height: 18px;
+    border-radius: 3px;
+    background-color: $accent;
+    color: $while;
+    padding: 4px 5px;
+    @include font(12px, 10.2px, 400);
+    left: 33px;
+    top: 1px;
+  }
+}

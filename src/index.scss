@@ -1,0 +1,40 @@
+@import './scss/allVariables.scss';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Ubuntu,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$border: 1px solid #cfcfcf;
+
+input,
+select {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 15px;
+}
+
+a,
+button {
+  transition: all 0.3s ease;
+}

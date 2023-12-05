@@ -1,0 +1,32 @@
+@import '../../../../scss/allVariables.scss';
+
+.card {
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.5;
+  }
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.range {
+  width: 100%;
+  position: relative;
+  margin: 15px 0 30px 0;
+  display: flex;
+  @include input_range;
+}
+
+.dNone {
+  display: block;
+}

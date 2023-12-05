@@ -1,0 +1,339 @@
+// typography
+
+@mixin header($size) {
+  font-size: $size;
+  font-weight: 700;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #323032;
+}
+
+@mixin text {
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%;
+}
+
+@mixin text_transparent($size) {
+  @include text;
+  color: #000;
+  opacity: 0.5;
+  font-size: $size;
+}
+
+@mixin text_def($size) {
+  @include text;
+  color: #323032;
+  font-size: $size;
+}
+
+// buttons
+
+@mixin button_white {
+  font-size: 13px;
+  padding: 9px 19px;
+  border-radius: 3px;
+  border: 1px solid #706c68;
+  color: #706c68;
+  background-color: inherit;
+
+  &:hover {
+    border: 1px solid $accent;
+    color: $accent;
+  }
+
+  &:active {
+    border: 1px solid $active;
+    color: $active;
+  }
+
+  &:disabled {
+    border: 1px solid $disabled;
+    background-color: $disabled;
+    color: $disabled;
+  }
+}
+
+@mixin button_blue {
+  font-size: 13px;
+  padding: 9px 19px;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  background-color: $accent;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+  &:active {
+    background-color: $active;
+  }
+
+  &:disabled {
+    background-color: $disabled;
+    color: $disabled;
+  }
+}
+
+@mixin button_active {
+  border: 1px solid $active;
+  color: $active;
+}
+
+@mixin form_link {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 40px;
+  font-size: 17px;
+
+  a {
+    margin-left: 10px;
+    color: $accent;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &:hover {
+      color: $hover;
+    }
+
+    &:active {
+      color: $active;
+    }
+  }
+}
+
+@mixin button {
+  font-size: 16px;
+  text-transform: lowercase;
+  width: 320px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: $accent;
+  margin: 25px 0;
+
+  &:hover {
+    cursor: pointer;
+    background: $hover;
+  }
+
+  &:active {
+    background: $active;
+  }
+
+  &:disabled {
+    cursor: default;
+    background: $disabled;
+  }
+}
+
+// text content
+
+@mixin section_header {
+  h2 {
+    @include header(calc(10px + 4vmin));
+    text-align: center;
+  }
+
+  p {
+    margin-top: 20px;
+    padding: 0 10px;
+    @include text_transparent(16px);
+    max-width: 732px;
+    text-align: center;
+  }
+}
+
+@mixin forms_page_title {
+  margin: 30px 0 0;
+  font-size: 46px;
+  text-transform: uppercase;
+  padding: 0 30px;
+  text-align: center;
+}
+
+@mixin page_subtitle {
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+// swiper
+
+@mixin swiper_button($direction, $symbol) {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background: $footer;
+  outline: 1px solid $defaultOutline;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: $accent;
+
+    &::after {
+      color: white;
+    }
+  }
+
+  &:active {
+    background: $active;
+  }
+
+  &::after {
+    content: $symbol;
+    position: absolute;
+    top: 12%;
+
+    @if $direction == 'next' {
+      left: 22%;
+    } @else {
+      left: 24%;
+    }
+
+    font-size: 28px;
+    color: $accent;
+    font-weight: 300;
+  }
+}
+
+@mixin swiper-button-next {
+  @include swiper_button('next', '→');
+}
+
+@mixin swiper-button-prev {
+  @include swiper_button('prev', '←');
+}
+
+@mixin swiper_navigation($left: 30px, $width: 94.5%) {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  top: 40%;
+  left: $left;
+  width: $width;
+  z-index: 10;
+}
+
+@mixin swiper_pagination($paddingTop: 15px) {
+  display: flex;
+  justify-content: center;
+  z-index: 12;
+  max-height: 16px;
+  padding-top: $paddingTop;
+
+  span {
+    width: 16px;
+    height: 16px;
+    background: $accent;
+  }
+}
+
+// other
+
+@mixin form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 100px;
+}
+
+@mixin label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  background: white;
+  padding: 0 5px;
+  z-index: 1;
+}
+
+@mixin profile-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 384px;
+  height: 36px;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+}
+
+@mixin font($size, $height, $weight, $style: normal) {
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+}
+
+@mixin link_hover {
+  transition: all 0.1s ease;
+
+  &:hover {
+    color: $accent;
+  }
+
+  &:active {
+    color: $active;
+  }
+}
+
+@mixin input_range {
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+
+      &::-moz-range-thumb {
+        border: 1px solid $accent;
+        outline: 1px solid $accent;
+        outline-offset: 3px;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-moz-range-track {
+      background: rgba(62, 102, 251, 0.56);
+      border-radius: 0.5rem;
+      height: 2px;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+
+    &::-moz-range-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -8px;
+      background-color: $accent;
+      height: 16px;
+      width: 16px;
+    }
+  }
+}

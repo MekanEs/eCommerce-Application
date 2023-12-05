@@ -1,0 +1,227 @@
+@import '../../scss/allVariables.scss';
+@import '../../components/button/button.module.scss';
+
+.registration-form {
+  padding: 0 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  @include form_container;
+  max-width: 1215px;
+}
+
+.page-title {
+  @include forms_page_title;
+}
+
+.login-link {
+  @include form_link;
+}
+
+.columns-container {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  border-radius: 5px;
+  outline: 1px solid $defaultOutline;
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form-title {
+  color: $title;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  text-align: left;
+  margin: 20px 0 25px;
+}
+
+.house-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.house-number,
+.apartment {
+  width: 95%;
+}
+
+.general-column,
+.billing-column,
+.shipping-column {
+  width: 29%;
+  padding: 0 20px 20px;
+}
+
+.billing-column {
+  padding: 0 35px 25px;
+  height: 100%;
+  border-left: 1px solid $defaultOutline;
+  border-right: 1px solid $defaultOutline;
+  box-sizing: content-box;
+}
+
+.disabled-shipping {
+  opacity: 0.5;
+  z-index: -10;
+  position: relative;
+  user-select: none;
+}
+
+.form-message {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: -40px;
+  width: 80%;
+  padding: 5px;
+  border-radius: 3px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error {
+  background: $error;
+}
+
+.success {
+  background: $success;
+}
+
+.additional-text {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+  color: black;
+  position: absolute;
+  bottom: -70px;
+  width: 80%;
+  padding: 5px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  a {
+    margin-left: 10px;
+    color: $accent;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &:hover {
+      color: $hover;
+    }
+
+    &:active {
+      color: $active;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .general-column,
+  .billing-column,
+  .shipping-column {
+    width: 30%;
+    padding: 0 20px 20px;
+  }
+}
+
+@media (max-width: 820px) {
+  .columns-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .registration-form {
+    padding: 0 20px 0;
+
+    input {
+      width: 100%;
+    }
+
+    input[type='checkbox'] {
+      width: 18px;
+    }
+
+    .house-info {
+      display: flex;
+      justify-content: flex-start;
+
+      .house-number {
+        margin-right: 25px;
+        width: 90%;
+      }
+    }
+  }
+
+  .general-column,
+  .billing-column,
+  .shipping-column {
+    width: 100%;
+  }
+
+  .general-column,
+  .billing-column {
+    border-bottom: 1px solid $defaultOutline;
+  }
+
+  .billing-column {
+    height: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (max-width: 750px) {
+  .page-title {
+    margin: 35px 0 0;
+    font-size: calc(10px + 4vmin);
+  }
+
+  .login-link {
+    font-size: calc(10px + 1.5vmin);
+    margin-bottom: 20px;
+  }
+
+  .form-container {
+    margin-top: 20px;
+  }
+
+  .form-message {
+    font-size: 11px;
+  }
+
+  .additional-text {
+    font-size: 11px;
+    bottom: -86px;
+    flex-direction: column;
+    align-items: center;
+
+    a {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .additional-text {
+    font-size: 11px;
+    bottom: -100px;
+  }
+}

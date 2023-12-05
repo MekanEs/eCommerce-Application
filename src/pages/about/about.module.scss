@@ -1,0 +1,10 @@
+@import '../../scss/allVariables.scss';
+
+.container {
+  max-width: 1216px;
+  padding: 0 10px;
+}
+
+.page-title {
+  @include forms_page_title;
+}

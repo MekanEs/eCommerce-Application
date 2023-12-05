@@ -1,0 +1,33 @@
+@import '../../../../../scss/allVariables.scss';
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 8px 0;
+  width: 90%;
+  border-radius: 3px;
+  justify-content: center;
+  border: none;
+  color: $black;
+  column-gap: 20px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 1px;
+}
+
+.discount {
+  background-color: $success;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.default {
+  background-color: #e7e7e7;
+  margin-bottom: 10px;
+}
+
+.line {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
